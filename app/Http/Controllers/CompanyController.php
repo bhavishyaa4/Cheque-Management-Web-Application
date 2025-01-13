@@ -4,55 +4,41 @@ namespace App\Http\Controllers;
 
 use App\Models\Company;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 
 class CompanyController extends Controller
 {
-    //
-
-    public function index(Request $req){
-        $compaines = Company::all();
-        if($req->wantsJson()){
-            return response()->json([
-                'data' => $compaines,
-                'message' => 'List of all companies.',
-                'status' => 'success',
-                'code' => 200,
-            ]);
-        }
-
-        return Inertia::render('Company/Index',[
-            'companies' => $compaines,
-            'message' => 'List of all companies.',
-            'status' => 'success',
-            'code' => 200,
-        ]);
-    }
-    public function create(Request $req){
-        if($req->wantsJson()){
+    public function create(Request $req)
+    {
+        if ($req->wantsJson()) {
             return response()->json([
                 'message' => 'Fill the company details.',
                 'status' => 'success',
                 'code' => 200,
             ]);
         }
-        return Inertia::render('Company/Create',[
+        return Inertia::render('Company/Register', [ 
             'message' => 'Fill the company details.',
             'status' => 'success',
             'code' => 200,
         ]);
     }
-    public function store(Request $req){
-        $validator = Validator::make($req->all(),[
+
+    public function store(Request $req)
+    {
+        $validator = Validator::make($req->all(), [
             'name' => 'required|string|max:50',
             'email' => 'email|required|unique:companies,email',
-            'password' => 'required|confirmed|min:6',
+            'password' => 'required|confirmed|min:6', 
             'address' => 'required|string|max:50',
             'phone' => 'required|numeric|digits:10',
         ]);
-        if($validator->fails()){
-            if($req->wantsJson()){
+
+        if ($validator->fails()) {
+            if ($req->wantsJson()) {
                 return response()->json([
                     'message' => 'Validation failed.',
                     'status' => 'error',
@@ -62,14 +48,159 @@ class CompanyController extends Controller
             }
             return back()->withErrors($validator)->withInput();
         }
-        $company = Company::create($req->all());
+
+        $company = Company::create([
+            'name' => $req->name,
+            'email' => $req->email,
+            'password' => Hash::make($req->password),
+            'address' => $req->address,
+            'phone' => $req->phone,
+        ]);
+
+        // auth()->login($company);
+
         if ($req->wantsJson()) {
             return response()->json([
-                'data' => $company,
                 'message' => 'Company created successfully.',
                 'status' => 'success',
             ]);
         }
-        return redirect()->route('company.index')->with('message', 'Company created successfully.');
+
+        return redirect()->route('company.login.form')->with('message', 'Company created successfully.');
+    }
+
+    public function loginForm(Request $req)
+    {
+        if ($req->wantsJson()) {
+            return response()->json([
+                'message' => 'Login to your company account.',
+                'status' => 'success',
+                'code' => 200,
+            ]);
+        }
+        return Inertia::render('Company/Login', [  
+            'message' => 'Login to your company account.',
+            'status' => 'success',
+            'code' => 200,
+        ]);
+    }
+
+
+    public function login(Request $req)
+    {
+        $validator = Validator::make($req->all(), [
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+    
+        if ($validator->fails()) {
+            if ($req->wantsJson()) {
+                return response()->json([
+                    'message' => 'Validation failed.',
+                    'status' => 'error',
+                    'code' => 422,
+                    'errors' => $validator->errors()->toArray(),
+                ]);
+            }
+            return Inertia::render('Company/Login', [
+                'errors' => $validator->errors()->toArray(),
+                'data' => $req->only('email'),
+            ]);
+        }
+    
+        $company = Company::where('email', $req->email)->first();
+    
+        if (!$company) {
+            if ($req->wantsJson()) {
+                return response()->json([
+                    'message' => 'No company records found in the database.',
+                    'status' => 'error',
+                    'code' => 401,
+                    'errors' => [
+                        'email' => 'No company records found in the database.'
+                    ],
+                ]);
+            }
+            return Inertia::render('Company/Login', [
+                'message' => 'No company records found in the database.',
+                'status' => 'error',
+                'code' => 401,
+                'errors' => [
+                    'email' => 'No company records found in the database.'
+                ],
+                'data' => $req->only('email'),
+            ]);
+        }
+    
+        if (!Hash::check($req->password, $company->password)) {
+            if ($req->wantsJson()) {
+                return response()->json([
+                    'message' => 'Incorrect password, Try again.',
+                    'status' => 'error',
+                    'code' => 401,
+                    'errors' => [
+                        'password' => 'Incorrect password, Try again.'
+                    ],
+                ]);
+            }
+            return Inertia::render('Company/Login', [
+                'message' => 'Incorrect password, Try again.',
+                'status' => 'error',
+                'code' => 401,
+                'errors' => [
+                    'password' => 'Incorrect password, Try again.'
+                ],
+            ]);
+        }
+    
+        auth()->login($company);
+        $req->session()->regenerate();
+    
+        if ($req->wantsJson()) {
+            return response()->json([
+                'message' => 'Login Successful.',
+                'status' => 'success',
+                'code' => 200,
+            ]);
+        }
+    
+        return redirect()->route('company.dashboard');
+    }
+    
+    public function dashboard(Request $req)
+    {
+        if (!Auth::check()) {
+            return redirect()->route('company.login.form');
+        }
+    
+        if ($req->wantsJson()) {
+            return response()->json([
+                'message' => 'Welcome to the company dashboard.',
+                'status' => 'success',
+                'code' => 200,
+            ]);
+        }
+    
+        return Inertia::render('Company/Dashboard', [
+            'message' => 'Welcome to your company dashboard.',
+            'status' => 'success',
+            'code' => 200,
+        ]);
+    }
+
+    public function logout(Request $req)
+    {
+        Auth::logout();
+        $req->session()->invalidate();
+        $req->session()->regenerateToken();
+
+        if ($req->wantsJson()) {
+            return response()->json([
+                'message' => 'You have logged-out successfully',
+                'status' => 200,
+                'success' => true,
+            ]);
+        }
+        return redirect()->route('company.login.form');
     }
 }

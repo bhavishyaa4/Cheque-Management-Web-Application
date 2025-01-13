@@ -14,6 +14,7 @@ class Applicant extends Model
         'name',
         'email',
         'company_id',
+        'password',
     ];
 
     protected $hidden = [

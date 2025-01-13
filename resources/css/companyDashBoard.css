@@ -1,0 +1,51 @@
+.dashboard-container {
+    background-color: #f9fafb;
+    min-height: 100vh;
+}
+
+.dashboard-header {
+    background-color: #4CAF50;
+    padding: 20px;
+}
+
+.dashboard-body {
+    background-color: #ffffff;
+    margin-top: 20px;
+}
+
+.company-info {
+    background-color: #f4f5f7;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.submit-button {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.submit-buttons {
+    background-color: #FF6347;
+    color: white;
+}
+
+.submit-button:hover {
+    background-color: #45a049;
+}
+
+.submit-buttons:hover {
+    background-color: #e53e3e;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-2xl {
+    font-size: 1.5rem;
+}
+
+.text-4xl {
+    font-size: 2.25rem;
+}

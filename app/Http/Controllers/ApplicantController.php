@@ -39,7 +39,7 @@ class ApplicantController extends Controller
             ]);
         }
 
-        return Inertia::render('Applicants/Create',[
+        return Inertia::render('Applicants/Re',[
             'message' => 'Please fill the applicant details.',
             'status' => 'success',
             'code' => 200,

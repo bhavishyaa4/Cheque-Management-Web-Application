@@ -20,7 +20,7 @@ class CompanyController extends Controller
                 'code' => 200,
             ]);
         }
-        return Inertia::render('Company/Register', [ 
+        return Inertia::render('Company/Register', [
             'message' => 'Fill the company details.',
             'status' => 'success',
             'code' => 200,
@@ -32,7 +32,7 @@ class CompanyController extends Controller
         $validator = Validator::make($req->all(), [
             'name' => 'required|string|max:50',
             'email' => 'email|required|unique:companies,email',
-            'password' => 'required|confirmed|min:6', 
+            'password' => 'required|confirmed|min:6',
             'address' => 'required|string|max:50',
             'phone' => 'required|numeric|digits:10',
         ]);
@@ -49,7 +49,7 @@ class CompanyController extends Controller
             return back()->withErrors($validator)->withInput();
         }
 
-        $company = Company::create([
+        $user = Company::create([
             'name' => $req->name,
             'email' => $req->email,
             'password' => Hash::make($req->password),
@@ -57,7 +57,8 @@ class CompanyController extends Controller
             'phone' => $req->phone,
         ]);
 
-        // auth()->login($company);
+        auth('company')->login($user);
+        $req->session()->regenerate();
 
         if ($req->wantsJson()) {
             return response()->json([
@@ -66,25 +67,8 @@ class CompanyController extends Controller
             ]);
         }
 
-        return redirect()->route('company.login.form')->with('message', 'Company created successfully.');
+        return redirect()->route('login')->with('message', 'Company created successfully.');
     }
-
-    public function loginForm(Request $req)
-    {
-        if ($req->wantsJson()) {
-            return response()->json([
-                'message' => 'Login to your company account.',
-                'status' => 'success',
-                'code' => 200,
-            ]);
-        }
-        return Inertia::render('Company/Login', [  
-            'message' => 'Login to your company account.',
-            'status' => 'success',
-            'code' => 200,
-        ]);
-    }
-
 
     public function login(Request $req)
     {
@@ -92,14 +76,14 @@ class CompanyController extends Controller
             'email' => 'required|email',
             'password' => 'required',
         ]);
-    
+
         if ($validator->fails()) {
             if ($req->wantsJson()) {
                 return response()->json([
+                    'errors' => $validator->errors()->toArray(),
                     'message' => 'Validation failed.',
                     'status' => 'error',
                     'code' => 422,
-                    'errors' => $validator->errors()->toArray(),
                 ]);
             }
             return Inertia::render('Company/Login', [
@@ -107,10 +91,10 @@ class CompanyController extends Controller
                 'data' => $req->only('email'),
             ]);
         }
-    
-        $company = Company::where('email', $req->email)->first();
-    
-        if (!$company) {
+
+        $user = Company::where('email', $req->email)->first();
+
+        if (!$user) {
             if ($req->wantsJson()) {
                 return response()->json([
                     'message' => 'No company records found in the database.',
@@ -131,8 +115,8 @@ class CompanyController extends Controller
                 'data' => $req->only('email'),
             ]);
         }
-    
-        if (!Hash::check($req->password, $company->password)) {
+
+        if (!Hash::check($req->password, $user->password)) {
             if ($req->wantsJson()) {
                 return response()->json([
                     'message' => 'Incorrect password, Try again.',
@@ -150,12 +134,13 @@ class CompanyController extends Controller
                 'errors' => [
                     'password' => 'Incorrect password, Try again.'
                 ],
+                'data' => $req->only('email'),
             ]);
         }
-    
-        auth()->login($company);
+
+        auth('company')->login($user);
         $req->session()->regenerate();
-    
+
         if ($req->wantsJson()) {
             return response()->json([
                 'message' => 'Login Successful.',
@@ -163,34 +148,54 @@ class CompanyController extends Controller
                 'code' => 200,
             ]);
         }
-    
-        return redirect()->route('company.dashboard');
+
+        return redirect()->route('home');
     }
-    
-    public function dashboard(Request $req)
+
+    public function loginForm(Request $req)
     {
-        if (!Auth::check()) {
-            return redirect()->route('company.login.form');
-        }
-    
         if ($req->wantsJson()) {
             return response()->json([
-                'message' => 'Welcome to the company dashboard.',
+                'message' => 'Login to your company account.',
                 'status' => 'success',
                 'code' => 200,
             ]);
         }
-    
-        return Inertia::render('Company/Dashboard', [
+        return Inertia::render('Company/Login', [
+            'message' => 'Login to your company account.',
+            'status' => 'success',
+            'code' => 200,
+        ]);
+    }
+
+    public function home(Request $req)
+    {
+        $user = auth('company')->user();
+
+        if (!$user) {
+            return redirect()->route('login');
+        }
+
+        if ($req->wantsJson()) {
+            return response()->json([
+                'message' => 'Welcome to the company dashboard.',
+                'status' => 'success',
+                'company_name' => $user->name,
+                'code' => 200,
+            ]);
+        }
+
+        return Inertia::render('Company/Home', [
             'message' => 'Welcome to your company dashboard.',
             'status' => 'success',
+            'company_name' => $user->name,
             'code' => 200,
         ]);
     }
 
     public function logout(Request $req)
     {
-        Auth::logout();
+        auth('company')->logout();
         $req->session()->invalidate();
         $req->session()->regenerateToken();
 
@@ -201,6 +206,6 @@ class CompanyController extends Controller
                 'success' => true,
             ]);
         }
-        return redirect()->route('company.login.form');
+        return redirect()->route('login');
     }
 }

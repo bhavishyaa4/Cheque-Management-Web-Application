@@ -13,15 +13,15 @@ export default function Login() {
     });
 
     const [errorMessage, setErrorMessage] = useState('');
-    console.log('Data:', data);
+    console.log('Data:',data);
     console.log('Errors:', errors);
 
-    const submitHandler = (e) => {
+    const submit = (e) => {
         e.preventDefault();
         
         post(route('login'), {
             onError: (err) => {
-                if(err.message){
+                if (err.message) {
                     setErrorMessage(err.message);
                 }
             },
@@ -39,20 +39,20 @@ export default function Login() {
             <div className="container mx-auto animate-fadeIn">
                 <h2 className="text-3xl font-bold mb-6 text-center mt-6">Company Login</h2>
 
-                <form onSubmit={submitHandler} className="space-y-6 form-container">
+                <form onSubmit={submit} className="space-y-6 form-container">
                     <div>
                         <InputLabel htmlFor="email" value="Email" />
                         <TextInput
-                            id="email"
                             type="email"
+                            id="email"
                             name="email"
-                            isFocused={true}
                             autoComplete="email"
+                            isFocused={true}
                             value={data.email}
-                            className="input-field"
                             onChange={(e) => setData('email', e.target.value)}
+                            className="input-field"
                         />
-                        <InputError message={errors.email} />
+                        <InputError message={errors.email} className="text-red-500 text-sm mt-2" />
                     </div>
                     <div>
                         <InputLabel htmlFor="password" value="Password" />
@@ -60,20 +60,18 @@ export default function Login() {
                             id="password"
                             type="password"
                             name="password"
-                            autoComplete="password"
+                            autoComplete="current_password"
                             value={data.password}
                             className="input-field"
                             onChange={(e) => setData('password', e.target.value)}
                         />
-                        <InputError message={errors.password} />
+                        <InputError message={errors.password} className="text-red-500 text-sm mt-3" />
                     </div>
-                    {
-                                errorMessage && (
-                                    <p className="text-blue-500 text-center text-sm">{errorMessage}</p>
-                                )
-                            }
+                    {errorMessage && (
+                        <p className="text-red-500 text-center text-sm">{errorMessage}</p>
+                    )}
                     <div className="text-center">
-                        <PrimaryButton className="submit-button" disabled={processing}>
+                        <PrimaryButton type="submit" className="submit-button" disabled={processing}>
                             {processing ? 'Logging in...' : 'Login'}
                         </PrimaryButton>
                     </div>

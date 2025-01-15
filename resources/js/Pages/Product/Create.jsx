@@ -4,17 +4,40 @@ import PrimaryButton from "@/Components/PrimaryButton";
 
 export default function Create() {
     // Initialize Inertia form
-    const { data, setData, post, errors } = useForm({
+    const { data, setData, post, errors, processing } = useForm({
         name: "",
         description: "",
         price: "",
         image: null,
     });
 
+    console.log("Form Data:", data);
+
+    // Handle input changes
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setData(name, value);
+    };
+
+    // Handle file input changes
+    const handleFileChange = (e) => {
+        const { files } = e.target;
+        if (files && files.length > 0) {
+            setData("image", files[0]); // Set the first selected file
+        }
+    };
+
     // Handle form submission
     const handleSubmit = (e) => {
         e.preventDefault();
-        post(route("company.products.store"));
+        post(route("company.products.store"), {
+            onSuccess: () => {
+                alert("Product created successfully!");
+            },
+            onError: () => {
+                alert("Failed to create the product.");
+            },
+        });
     };
 
     return (
@@ -30,8 +53,9 @@ export default function Create() {
                     <input
                         type="text"
                         id="name"
+                        name="name"
                         value={data.name}
-                        onChange={(e) => setData("name", e.target.value)}
+                        onChange={handleInputChange}
                         className={`form-control ${errors.name ? "is-invalid" : ""}`}
                         placeholder="Enter product name"
                     />
@@ -43,8 +67,9 @@ export default function Create() {
                     <label htmlFor="description">Product Description</label>
                     <textarea
                         id="description"
+                        name="description"
                         value={data.description}
-                        onChange={(e) => setData("description", e.target.value)}
+                        onChange={handleInputChange}
                         className={`form-control ${errors.description ? "is-invalid" : ""}`}
                         placeholder="Enter product description"
                     />
@@ -57,8 +82,9 @@ export default function Create() {
                     <input
                         type="number"
                         id="price"
+                        name="price"
                         value={data.price}
-                        onChange={(e) => setData("price", e.target.value)}
+                        onChange={handleInputChange}
                         className={`form-control ${errors.price ? "is-invalid" : ""}`}
                         placeholder="Enter product price"
                     />
@@ -71,15 +97,17 @@ export default function Create() {
                     <input
                         type="file"
                         id="image"
-                        onChange={(e) => setData("image", e.target.files[0])}
+                        name="image"
+                        onChange={handleFileChange}
                         className={`form-control ${errors.image ? "is-invalid" : ""}`}
+                        accept="image/*"
                     />
                     {errors.image && <div className="invalid-feedback">{errors.image}</div>}
                 </div>
 
                 {/* Submit Button */}
-                <PrimaryButton type="submit" className="submit-button">
-                    Create Product
+                <PrimaryButton type="submit" className="submit-button" disabled={processing}>
+                    {processing ? "Creating..." : "Create Product"}
                 </PrimaryButton>
             </form>
         </div>

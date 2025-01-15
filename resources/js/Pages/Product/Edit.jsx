@@ -8,7 +8,7 @@ export default function Edit({ product }) {
         name: product.name,
         description: product.description,
         price: product.price,
-        image: null, // Added image for file input handling
+        image: null,
     });
 
     const handleInputChange = (e) => {
@@ -18,8 +18,14 @@ export default function Edit({ product }) {
 
     const handleImageChange = (e) => {
         const { files } = e.target;
-        if (files.length > 0) {
-            setData("image", files[0]);
+        if (files && files.length > 0) {
+            const file = files[0];
+            const allowedTypes = ["image/jpeg", "image/png", "image/gif"];
+            if (!allowedTypes.includes(file.type)) {
+                alert("Invalid file type. Only JPEG, PNG, and GIF are allowed.");
+                return;
+            }
+            setData("image", file);
         }
     };
 
@@ -44,7 +50,7 @@ export default function Edit({ product }) {
                 <div className="form-group">
                     <label htmlFor="name">Product Name</label>
                     <input
-                        type="text"
+                        type="text" 
                         id="name"
                         name="name"
                         value={data.name}
@@ -89,11 +95,12 @@ export default function Edit({ product }) {
                         name="image"
                         onChange={handleImageChange}
                         className="form-control"
+                        accept="image/*"
                     />
                     {data.image && (
                         <div className="image-preview">
                             <img
-                                src={URL.createObjectURL(data.image)} // Local image preview
+                                src={URL.createObjectURL(data.image)}
                                 alt="Product Image Preview"
                                 className="preview-image"
                             />
@@ -102,7 +109,7 @@ export default function Edit({ product }) {
                     {product.image && !data.image && (
                         <div className="image-preview">
                             <img
-                                src={`/products/${product.image}`} // URL to existing image
+                                src={`/products/${product.image}`} 
                                 alt="Product Image"
                                 className="preview-image"
                             />

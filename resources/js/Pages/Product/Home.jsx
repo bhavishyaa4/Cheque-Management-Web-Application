@@ -6,7 +6,7 @@ import { FaBox, FaPen, FaTrash } from "react-icons/fa";
 export default function Home({ products = [] }) {
     const { delete: deleteProduct, processing } = useForm();
     const [productsList, setProductsList] = useState(products);
-
+    console.log('Data:',products);
     const handleDelete = (id) => {
         const isConfirmed = window.confirm("Are you sure you want to delete this product?");
         if (isConfirmed) {
@@ -23,7 +23,7 @@ export default function Home({ products = [] }) {
     };
 
     return (
-        <div className="dashboard-container">
+        <div className="Dashboard-container">
             <Head title="Product Dashboard" />
             <h1>Product Dashboard</h1>
 
@@ -34,13 +34,13 @@ export default function Home({ products = [] }) {
                             <h2>{product.name}</h2>
                             {product.image && (
                                 <img
-                                    src={`/products/${product.image}`} // Ensure path is correct
+                                    src={`/products/${product.image}`}
                                     alt={product.name}
                                     className="product-image"
                                 />
                             )}
                             <p>{product.description}</p>
-                            <p>Price: ${product.price}</p>
+                            <p>Price: Rs.{product.price}</p>
 
                             <div className="actions">
                                 <div className="action-buttons">

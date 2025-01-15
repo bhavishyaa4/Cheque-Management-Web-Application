@@ -72,12 +72,12 @@ class ProductController extends Controller
             $product->price = $req->price;
             $product->company_id = $user->id;
 
-            if($req->hasFile('image')){
-                $image = $req->file('image');
-                $imagePath = 'products/' . time() . '-' . $image->getClientOriginalName();
-                $image->move(public_path('products'), $imagePath); 
-                $product->image = $imagePath;  
+            if ($req->hasFile('image')) {
+                $imageName = time() . '-' . $req->file('image')->getClientOriginalName();
+                $req->file('image')->move(public_path('products'), $imageName);
+                $product->image = $imageName;
             }
+        
 
             $product->save();
 
@@ -118,62 +118,66 @@ class ProductController extends Controller
                 'code' => 200,
             ]);
         }
-    public function update (Request $req, $id){
-        $product = Product::find($id);
-        if(!$product){
-            if($req->wantsJson()){
+        public function update(Request $req, $id)
+        {
+            $product = Product::find($id);
+            if (!$product) {
+                if ($req->wantsJson()) {
+                    return response()->json([
+                        'message' => 'Product not found.',
+                        'status' => 'error',
+                        'code' => 404,
+                    ]);
+                }
+                return redirect()->route('company.products')->with('message', 'Product not found.');
+            }
+        
+            $validator = Validator::make($req->all(), [
+                'name' => 'nullable|string|max:50',
+                'description' => 'nullable|string|max:500',
+                'price' => 'nullable|numeric',
+                'image' => 'nullable|image|mimes:jpg,png,jpeg',
+            ]);
+        
+            if ($validator->fails()) {
+                if ($req->wantsJson()) {
+                    return response()->json([
+                        'message' => 'Validation Error.',
+                        'errors' => $validator->errors(),
+                        'status' => 'error',
+                        'code' => 422,
+                    ]);
+                }
+                return back()->withErrors($validator)->withInput();
+            }
+        
+            $product->name = $req->name ?? $product->name;
+            $product->description = $req->description ?? $product->description;
+            $product->price = $req->price ?? $product->price;
+        
+            if ($req->hasFile('image')) {
+                if ($product->image && file_exists(public_path('products/' . $product->image))) {
+                    unlink(public_path('products/' . $product->image));
+                }
+        
+                $imageName = time() . '-' . $req->file('image')->getClientOriginalName();
+                $req->file('image')->move(public_path('products'), $imageName);
+                $product->image = $imageName;
+            }
+        
+            $product->save();
+        
+            if ($req->wantsJson()) {
                 return response()->json([
-                    'message' => 'Product not found.',
-                    'status' => 'error',
-                    'code' => 404,
+                    'message' => 'Product Updated Successfully.',
+                    'status' => 'success',
+                    'code' => 200,
+                    'product' => $product,
                 ]);
             }
-            return redirect()->route('company.products')->with('message', 'Product not found.');
+        
+            return redirect()->route('company.products')->with('message', 'Product Updated Successfully.');
         }
-        $validator = Validator::make($req->all(),[
-            'name' => 'nullable|string|max:50',
-            'description' => 'nullable|string|max:500',
-            'price' => 'nullable|numeric',
-            'image' => 'nullable|image|mimes:jpg,png,jpeg',
-        ]);
-        if($validator->fails()){
-            if($req->wantsJson()){
-                return response()->json([
-                    'message' => 'Validation Error.',
-                    'errors' => $validator->errors(),
-                    'status' => 'error',
-                    'code' => 422,
-                ]);
-            }
-            return back()->withErrors($validator)->withInput();
-        }
-        $product->name = $req->name ?? $product->name;
-        $product->description = $req->description ?? $product->description;
-        $product->price = $req->price ?? $product->price;
-
-        if($req->hasFile('image')){
-            // Delete the old image from the public/products folder
-            if ($product->image && file_exists(public_path('products/' . $product->image))) {
-                unlink(public_path('products/' . $product->image));
-            }
-    
-            // Move the new image to public/products
-            $image = $req->file('image');
-            $imagePath = 'products/' . time() . '-' . $image->getClientOriginalName();
-            $image->move(public_path('products'), $imagePath);  // Move the image to public/products
-            $product->image = $imagePath;  // Update the image path in the database
-        }
-        $product->save();
-
-        if($req->wantsJson()){
-            return response()->json([
-                'message' => 'Product Updated Successfully.',
-                'status' => 'success',
-                'code' => 201,
-            ]); 
-        }
-        return redirect()->route('company.products')->with('message', 'Product Updated Successfully.');
-    }
     public function destroy($id, Request $req){
         $product = Product::find($id);
         if(!$product){

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Head, useForm } from "@inertiajs/react";
+import { Head, Link, useForm } from "@inertiajs/react";
 import PrimaryButton from '@/Components/PrimaryButton';
 import '../../../css/companyDashboard.css';
 import { FaBox, FaUserTie, FaInfoCircle, FaPhoneAlt, FaSignOutAlt } from "react-icons/fa";
@@ -33,9 +33,9 @@ export default function Dashboard({ company_name }) {
                 <div className="sidebar-header">Dashboard</div>
                 <ul className="sidebar-menu">
                     <li>
-                        <a href="#" className="sidebar-link">
+                        <Link href="/company/products" className="sidebar-link">
                             <FaBox className="icon" /> Products
-                        </a>
+                        </Link>
                     </li>
                     <li>
                         <a href="#" className="sidebar-link">

@@ -11,70 +11,207 @@ class ProductController extends Controller
 {
    
     public function index(Request $req){
-        $products = Product::all();
-        if($req->wantsJson()){
-            return response()->json([
-                'data' => $products,
-                'message' => 'This is Product Page.',
-                'status' => 'success',
-                'code' => 200
+        $user = auth('company')->user();
+        if(!$user){
+            return redirect()->route('login');
+        }  
+        $products = Product::where('company_id', $user->id)->get();
+       if($req->wantsJson()){
+        return response()->json([
+            'products' => $products,
+            'message' => 'Products fetched successfully.',
+            'status' => 'success',
+            'code' => 200,
             ]);
         }
-        return Inertia::render('Product/Index',[
+        return Inertia::render('Company/ProductsPage',[
             'products' => $products,
-            'message' => 'This is Product Page.',
+            'message' => 'Products fetched successfully.',
             'status' => 'success',
-            'code' => 200
+            'code' => 200,
         ]);
     }
-
-
-    public function create(Request $req)
-    {
+    public function create(Request $req){
         if($req->wantsJson()){
             return response()->json([
-                'message' => 'This is Product Page.',
+                'message' => 'Create a Product.',
                 'status' => 'success',
-                'code' => 200
-            ]);
+                'code' => 201,
+            ]); 
         }
         return Inertia::render('Product/Create',[
-            'message' => 'This is Product Page.',
+            'message' => 'Create a New Product.',
             'status' => 'success',
-            'code' => 200
+            'code' => 201,
         ]);
     }
-
-    
-    public function store(Request $req)
-    {
-        //
+    public function store(Request $req){
         $validator = Validator::make($req->all(),[
             'name' => 'required|string|max:50',
             'description' => 'required|string|max:500',
-            'image' => 'required|mimes:png,jpg,jpeg',
-            'price' => 'required|numeric'
+            'price' => 'required|numeric',
+            'image' => 'nullable|image|mimes:jpg,png,jpeg'
         ]);
-            if($validator->fails()){
-                if($req->wantsJson()){
+        if($validator->fails()){
+            if($req->wantsJson()){
                 return response()->json([
-                    'message' => 'Validation Error',
+                    'message' => 'Validation Error.',
                     'errors' => $validator->errors(),
                     'status' => 'error',
-                    'code' => 422
+                    'code' => 422,
+                ]);
+            }
+
+            return back()->withErrors($validator)->withInput();
+        }
+            $user = auth('company')->user();
+
+            $product = new Product();
+            $product->name = $req->name;
+            $product->description = $req->description;
+            $product->price = $req->price;
+            $product->company_id = $user->id;
+
+            if($req->hasFile('image')){
+                $image = $req->file('image');
+                $imagePath = 'products/' . time() . '-' . $image->getClientOriginalName();
+                $image->move(public_path('products'), $imagePath); 
+                $product->image = $imagePath;  
+            }
+
+            $product->save();
+
+            if($req->wantsJson()){
+                return response()->json([
+                    'message' => 'Product created successfully.',
+                    'status' => 'success',
+                    'product' => $product,
+                    'code' => 201,
+                ]);
+            }
+        return redirect()->route('company.products')->with('message', 'Product created successfully.');
+    }
+    public function edit($id, Request $req){
+        $product = Product::find($id);
+            if(!$product){
+                if($req->wantsJson()){
+                    return response()->json([
+                        'message' => 'Product not found.',
+                        'status' => 'error',
+                        'code' => 404,
+                    ]); 
+                }
+                return redirect()->route('company.products')->with('message', 'Product not found.');
+            }
+            if($req->wantsJson()){
+                return response()->json([
+                    'products' => $product,
+                    'message' => 'Product found.',
+                    'status' => 'success',
+                    'code' => 200,
+                ]);
+            }
+            return Inertia::render('Product/Edit',[
+                'product' => $product,
+                'message' => 'Product found.',
+                'status' => 'success',
+                'code' => 200,
+            ]);
+        }
+    public function update (Request $req, $id){
+        $product = Product::find($id);
+        if(!$product){
+            if($req->wantsJson()){
+                return response()->json([
+                    'message' => 'Product not found.',
+                    'status' => 'error',
+                    'code' => 404,
+                ]);
+            }
+            return redirect()->route('company.products')->with('message', 'Product not found.');
+        }
+        $validator = Validator::make($req->all(),[
+            'name' => 'nullable|string|max:50',
+            'description' => 'nullable|string|max:500',
+            'price' => 'nullable|numeric',
+            'image' => 'nullable|image|mimes:jpg,png,jpeg',
+        ]);
+        if($validator->fails()){
+            if($req->wantsJson()){
+                return response()->json([
+                    'message' => 'Validation Error.',
+                    'errors' => $validator->errors(),
+                    'status' => 'error',
+                    'code' => 422,
                 ]);
             }
             return back()->withErrors($validator)->withInput();
-         }
-         $product = Product::create($req->all());
-         if($req->wantsJson()){
+        }
+        $product->name = $req->name ?? $product->name;
+        $product->description = $req->description ?? $product->description;
+        $product->price = $req->price ?? $product->price;
+
+        if($req->hasFile('image')){
+            // Delete the old image from the public/products folder
+            if ($product->image && file_exists(public_path('products/' . $product->image))) {
+                unlink(public_path('products/' . $product->image));
+            }
+    
+            // Move the new image to public/products
+            $image = $req->file('image');
+            $imagePath = 'products/' . time() . '-' . $image->getClientOriginalName();
+            $image->move(public_path('products'), $imagePath);  // Move the image to public/products
+            $product->image = $imagePath;  // Update the image path in the database
+        }
+        $product->save();
+
+        if($req->wantsJson()){
             return response()->json([
-                'data' => $product,
-                'message' => 'Product Created Successfully',
+                'message' => 'Product Updated Successfully.',
                 'status' => 'success',
-                'code' => 201
+                'code' => 201,
+            ]); 
+        }
+        return redirect()->route('company.products')->with('message', 'Product Updated Successfully.');
+    }
+    public function destroy($id, Request $req){
+        $product = Product::find($id);
+        if(!$product){
+            if($req->wantsJson()){
+                return response()->json([
+                    'message' => 'Product not Found.',
+                    'status' => 'error',
+                    'code' => 404,
+                ]);
+            }
+            return redirect()->route('company.products')->with('message', 'Product not Found.');
+        }
+        $product->delete();
+        if($req->wantsJson()){
+            return response()->json([
+                'message' => 'Product Deleted Successfully.',
+                'status' => 'success',
+                'code' => 200,
             ]);
-         }
-         return redirect()->route('product.index')->with('message','Product Created Successfully');
+        }
+        return redirect()->route('company.products')->with('message', 'Product Delete Successfully.');
+    }
+    public function home(Request $req)
+    {
+        $user = auth('company')->user();
+        $products = Product::where('company_id', $user->id)->get();
+
+        return Inertia::render('Product/Home', [
+            'products' => $products,
+            'message' => 'Product Dashboard',
+            'status' => 'success',
+        ]);
+    }
+    public function control(Request $req)
+    {
+        return Inertia::render('Product/Control', [
+            'message' => 'Product Control',
+            'status' => 'success',
+        ]);
     }
 }

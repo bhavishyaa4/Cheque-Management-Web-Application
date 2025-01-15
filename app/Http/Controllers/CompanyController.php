@@ -184,7 +184,6 @@ class CompanyController extends Controller
                 'code' => 200,
             ]);
         }
-
         return Inertia::render('Company/Home', [
             'message' => 'Welcome to your company dashboard.',
             'status' => 'success',

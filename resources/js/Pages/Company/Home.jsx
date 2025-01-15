@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Head, useForm } from "@inertiajs/react";
 import PrimaryButton from '@/Components/PrimaryButton';
-import '../../../css/companyLogReg.css';
+import '../../../css/companyDashboard.css';
+import { FaBox, FaUserTie, FaInfoCircle, FaPhoneAlt, FaSignOutAlt } from "react-icons/fa";
 
 export default function Dashboard({ company_name }) {
     const { post } = useForm();
@@ -27,43 +28,68 @@ export default function Dashboard({ company_name }) {
     };
 
     return (
-        <div className="flex min-h-screen bg-gradient-to-r from-green-400 to-blue-500 text-white">
-            <div className="w-64 bg-gray-800 p-6 flex flex-col justify-between">
-                <div>
-                    <h2 className="text-2xl font-semibold text-white mb-8">Dashboard</h2>
-                    <ul className="space-y-4">
-                        <li>
-                            <a href="#" className="text-gray-300 hover:text-white">Home</a>
-                        </li>
-                        <li>
-                            <a href="#" className="text-gray-300 hover:text-white">Profile</a>
-                        </li>
-                        <li>
-                            <a href="#" className="text-gray-300 hover:text-white">Settings</a>
-                        </li>
-                        <li>
-                            <a href="#" className="text-gray-300 hover:text-white">Reports</a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div className="mt-auto">
-                    <PrimaryButton onClick={handleLogout} className="w-full mb-4">
-                        Logout
+        <div className="dashboard-container">
+            <div className="sidebar">
+                <div className="sidebar-header">Dashboard</div>
+                <ul className="sidebar-menu">
+                    <li>
+                        <a href="#" className="sidebar-link">
+                            <FaBox className="icon" /> Products
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" className="sidebar-link">
+                            <FaUserTie className="icon" /> Employee
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" className="sidebar-link">
+                            <FaInfoCircle className="icon" /> About
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" className="sidebar-link">
+                            <FaPhoneAlt className="icon" /> Contact
+                        </a>
+                    </li>
+                </ul>
+                <div className="logout-container">
+                    <PrimaryButton onClick={handleLogout} className="logout-button">
+                        <FaSignOutAlt className="icon" /> Logout
                     </PrimaryButton>
                 </div>
             </div>
 
-            <div className="flex-1 p-6">
+            <div className="main-content">
                 <Head title="Company Dashboard" />
-                <h1 className="text-4xl font-bold text-center text-gray-800 mb-5">
-                    {company_name}
-                </h1>
+                <h1 className="company-name">{company_name}</h1>
                 {logoutMessage && (
-                    <div className="text-lg font-semibold text-green-500 mb-4">
-                        {logoutMessage}
-                    </div>
+                    <div className="logout-message">{logoutMessage}</div>
                 )}
+
+                <div className="banner-section">
+                    <div className="banner">
+                        <img src="/company/photo-1549637642-90187f64f420.jpg" alt="Banner 1" />
+                        {/* <h2 className="banner-caption">Welcome to {company_name}</h2> */}
+                    </div>
+                    <div className="banner">
+                        <img src="/company/photo-1504805572947-34fad45aed93.jpg" alt="Banner 2" />
+                    </div>
+                </div>   
+                <div className="features-section">
+                    <div className="feature-card">
+                        <h2>Feature One</h2>
+                        <p>Boost your productivity with our top-notch tools.</p>
+                    </div>
+                    <div className="feature-card">
+                        <h2>Feature Two</h2>
+                        <p>Seamless collaboration for your entire team.</p>
+                    </div>
+                    <div className="feature-card">
+                        <h2>Feature Three</h2>
+                        <p>Secure and reliable solutions you can trust.</p>
+                    </div>
+                </div>
             </div>
         </div>
     );

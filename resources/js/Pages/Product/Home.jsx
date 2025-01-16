@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Head, useForm } from "@inertiajs/react";
 import PrimaryButton from '@/Components/PrimaryButton';
-import { FaBox, FaPen, FaTrash } from "react-icons/fa";
+import { FaPen, FaTrash } from "react-icons/fa";
 
 export default function Home({ products = [] }) {
     const { delete: deleteProduct, processing } = useForm();
@@ -34,7 +34,7 @@ export default function Home({ products = [] }) {
                             <h2>{product.name}</h2>
                             {product.image && (
                                 <img
-                                    src={`/products/${product.image}`}
+                                    src={`/uploads/products/${product.image}`}
                                     alt={product.name}
                                     className="product-image"
                                 />

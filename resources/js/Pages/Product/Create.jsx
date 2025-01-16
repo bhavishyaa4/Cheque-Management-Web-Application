@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { Head, useForm } from "@inertiajs/react";
 import PrimaryButton from "@/Components/PrimaryButton";
 
 export default function Create() {
-    // Initialize Inertia form
     const { data, setData, post, errors, processing } = useForm({
         name: "",
         description: "",
@@ -11,23 +10,21 @@ export default function Create() {
         image: null,
     });
 
-    console.log("Form Data:", data);
-
-    // Handle input changes
+    console.log('Form Data:', data);
+    console.log('Errors:', errors);
+  
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setData(name, value);
     };
 
-    // Handle file input changes
     const handleFileChange = (e) => {
         const { files } = e.target;
         if (files && files.length > 0) {
-            setData("image", files[0]); // Set the first selected file
+            setData("image", files[0]); 
         }
     };
 
-    // Handle form submission
     const handleSubmit = (e) => {
         e.preventDefault();
         post(route("company.products.store"), {
@@ -47,7 +44,6 @@ export default function Create() {
             <h1>Create New Product</h1>
 
             <form onSubmit={handleSubmit} encType="multipart/form-data" className="create-product-form">
-                {/* Product Name */}
                 <div className="form-group">
                     <label htmlFor="name">Product Name</label>
                     <input
@@ -62,7 +58,6 @@ export default function Create() {
                     {errors.name && <div className="invalid-feedback">{errors.name}</div>}
                 </div>
 
-                {/* Product Description */}
                 <div className="form-group">
                     <label htmlFor="description">Product Description</label>
                     <textarea
@@ -76,7 +71,6 @@ export default function Create() {
                     {errors.description && <div className="invalid-feedback">{errors.description}</div>}
                 </div>
 
-                {/* Product Price */}
                 <div className="form-group">
                     <label htmlFor="price">Product Price</label>
                     <input
@@ -91,7 +85,6 @@ export default function Create() {
                     {errors.price && <div className="invalid-feedback">{errors.price}</div>}
                 </div>
 
-                {/* Product Image */}
                 <div className="form-group">
                     <label htmlFor="image">Product Image</label>
                     <input
@@ -105,7 +98,6 @@ export default function Create() {
                     {errors.image && <div className="invalid-feedback">{errors.image}</div>}
                 </div>
 
-                {/* Submit Button */}
                 <PrimaryButton type="submit" className="submit-button" disabled={processing}>
                     {processing ? "Creating..." : "Create Product"}
                 </PrimaryButton>

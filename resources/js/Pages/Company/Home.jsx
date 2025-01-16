@@ -28,6 +28,7 @@ export default function Dashboard({ company_name }) {
     };
 
     return (
+        <>
         <div className="dashboard-container">
             <div className="sidebar">
                 <div className="sidebar-header">Dashboard</div>
@@ -92,5 +93,6 @@ export default function Dashboard({ company_name }) {
                 </div>
             </div>
         </div>
+        </>
     );
 }

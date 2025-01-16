@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
 
@@ -144,10 +145,11 @@ class ProductController extends Controller
         $product->price = $req->input('price', $product->price);
     
         if ($req->hasFile('image')) {
-            // Delete the old image if it exists
+
             if ($product->image && file_exists(public_path('uploads/products/' . $product->image))) {
                 unlink(public_path('uploads/products/' . $product->image));
             }
+            Log::info('Image deleted successfully.');
     
             $imageExtension = $req->file('image')->getClientOriginalExtension();
             $imageName = time() . '.' . $imageExtension;

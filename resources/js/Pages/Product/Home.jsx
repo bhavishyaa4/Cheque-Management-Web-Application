@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Head, useForm, Link } from "@inertiajs/react";
-import '../../../css/productSideBar.css'
+import '../../../css/productSideBar.css';
+import '../../../css/Product/productDashBoardPage.css';
 import PrimaryButton from '@/Components/PrimaryButton';
 import {FaBox, FaUserTie, FaInfoCircle, FaPhoneAlt, FaSignOutAlt, FaPen, FaTrash } from "react-icons/fa";
 
@@ -82,7 +83,7 @@ export default function Home({ products = [] }) {
                 {productsList.length > 0 ? (
                     productsList.map((product) => (
                         <div key={product.id} className="product-card">
-                            <h2>{product.name}</h2>
+                            <h2 className=""><b>Name: </b>{product.name}</h2>
                             {product.image && (
                                 <img
                                     src={`/uploads/products/${product.image}`}
@@ -90,16 +91,16 @@ export default function Home({ products = [] }) {
                                     className="product-image"
                                 />
                             )}
-                            <p>{product.description}</p>
-                            <p>Price: Rs.{product.price}</p>
+                            <p className="description"><b>Description:</b> {product.description}</p>
+                            <p className="price">Price Rs:<em>{product.price}</em></p>
 
                             <div className="actions">
                                 <div className="action-buttons">
-                                    <PrimaryButton>
+                                    <button>
                                         <a href={route('company.products.edit', product.id)} className="edit-button">
                                             <FaPen /> Edit
                                         </a>
-                                    </PrimaryButton>
+                                    </button>
 
                                     <PrimaryButton
                                         onClick={() => handleDelete(product.id)}

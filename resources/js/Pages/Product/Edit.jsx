@@ -1,5 +1,6 @@
 import React  from "react";
 import '../../../css/productSideBar.css';
+import '../../../css/Product/productEdit.css';
 import { Head, useForm, Link } from "@inertiajs/react";
 import PrimaryButton from '@/Components/PrimaryButton';
 import { FaUserTie, FaBox, FaPhoneAlt, FaSignOutAlt, FaInfoCircle, FaSave, FaArrowLeft } from "react-icons/fa";
@@ -93,90 +94,87 @@ export default function Edit({ product }) {
                     </PrimaryButton>
                 </div>
             </div>
-          <div className="edit-container">
+          <div className="container mx-auto">
           <Head title="Edit Product" />
-          <h1>Edit Product</h1>
 
-          <form onSubmit={handleSubmit} encType="multipart/form-data">
-            <div className="form-group">
-              <label htmlFor="name">Product Name</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={data.name}
-                onChange={handleInputChange}
-                className="form-control"
-              />
-              {errors.name && <span className="text-red-500 text-sm mt-3">{errors.name}</span>}
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="description">Description</label>
-              <textarea
-                id="description"
-                name="description"
-                value={data.description}
-                onChange={handleInputChange}
-                className="form-control"
-              />
-              {errors.description && (
-                <span className="error">{errors.description}</span>
-              )}
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="price">Price</label>
-              <input
-                type="number"
-                id="price"
-                name="price"
-                value={data.price}
-                onChange={handleInputChange}
-                className="form-control"
-              />
-              {errors.price && <span className="error">{errors.price}</span>}
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="image">Product Image</label>
-              <input
-                type="file"
-                name="image"
-                id="image"
-                
-                onChange={handleImageChange}
-                className="form-control"
-              />
-              {data.image && (
-                <div className="image-preview">
-                  <img
-                    src={URL.createObjectURL(data.image)}
-                    alt="Product Image Preview"
-                    className="preview-image"
+          <form onSubmit={handleSubmit} encType="multipart/form-data" className="form-container">
+              <h2 className="form-title">Edit Product</h2>
+              <div className="form-content">
+                <div className="form-group">
+                  <label htmlFor="name">Product Name</label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={data.name}
+                    onChange={handleInputChange}
+                    className="form-control"
                   />
+                  {errors.name && <span className="error">{errors.name}</span>}
                 </div>
-              )}
-              {product.image && !data.image && (
-                <div className="image-preview">
-                  <img
-                    src={`/uploads/products/${product.image}`}
-                    alt="Product Image"
-                    className="preview-image"
-                  />
-                </div>
-              )}
-              {errors.image && <span className="error">{errors.image}</span>}
-            </div>
 
-            <div className="form-actions">
-              <PrimaryButton type="submit" className="save-button" disabled={processing}>
-                <FaSave /> Save Changes
-              </PrimaryButton>
-              <a href={route("company.products.home")} className="back-button">
-                <FaArrowLeft /> Back to Dashboard
-              </a>
-               </div>
+                <div className="form-group">
+                  <label htmlFor="description">Description</label>
+                  <textarea
+                    id="description"
+                    name="description"
+                    value={data.description}
+                    onChange={handleInputChange}
+                    className="form-control"
+                  />
+                  {errors.description && <span className="error">{errors.description}</span>}
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="price">Price</label>
+                  <input
+                    type="number"
+                    id="price"
+                    name="price"
+                    value={data.price}
+                    onChange={handleInputChange}
+                    className="form-control"
+                  />
+                  {errors.price && <span className="error">{errors.price}</span>}
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="image">Product Image</label>
+                  <input
+                    type="file"
+                    name="image"
+                    id="image"
+                    onChange={handleImageChange}
+                    className="form-control"
+                  />
+                  <div className="image-preview-container">
+                    {data.image && (
+                      <img
+                        src={URL.createObjectURL(data.image)}
+                        alt="Product Image Preview"
+                        className="preview-image"
+                      />
+                    )}
+                    {product.image && !data.image && (
+                      <img
+                        src={`/uploads/products/${product.image}`}
+                        alt="Product Image"
+                        className="preview-image"
+                      />
+                    )}
+                  </div>
+                  {errors.image && <span className="error">{errors.image}</span>}
+                </div>
+              </div>
+
+              <div className="form-actions">
+                <PrimaryButton type="submit" className="save-button" disabled={processing}>
+                  <FaSave /> Save Changes
+                </PrimaryButton>
+                <a href={route("company.products.home")} className="back-button">
+                  <FaArrowLeft /> Back to Dashboard
+                </a>
+              </div>
             </form>
           </div>
         </div>

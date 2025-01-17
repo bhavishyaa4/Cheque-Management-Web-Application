@@ -1,7 +1,7 @@
-/* Default Styles */
+
 .dashboard-container {
     display: flex;
-    min-height: 100vh;
+    height: 100vh;
     /* background: linear-gradient(to right, #38a169, #4299e1); */
     background: linear-gradient(to right, #68d391, #63b3ed);
     color: white;

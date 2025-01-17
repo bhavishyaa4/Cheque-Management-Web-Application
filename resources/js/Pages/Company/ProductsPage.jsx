@@ -1,5 +1,6 @@
 import React from 'react';
 import '../../../css/productSideBar.css';
+import '../../../css/Product/productHomePage.css'
 import { Link, Head, useForm } from '@inertiajs/react';
 import PrimaryButton from '@/Components/PrimaryButton';
 import { FaCog, FaBox, FaUserTie, FaInfoCircle, FaPhoneAlt, FaSignOutAlt } from 'react-icons/fa';

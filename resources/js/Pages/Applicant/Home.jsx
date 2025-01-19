@@ -1,5 +1,6 @@
 import { Head, Link } from '@inertiajs/react';
 export default function Home({ companies, message, applicant_name, company_name }) {
+    console.log('Companies:', companies);
     return (
         <>
             <Head title="Welcome to the Applicant Dashboard" />
@@ -23,7 +24,7 @@ export default function Home({ companies, message, applicant_name, company_name 
                                     <div key={product.id} className="border-b py-2">
                                         <h4 className="font-semibold">{product.name}</h4>
                                         <p>{product.description}</p>
-                                        <p className="font-bold text-blue-500">${product.price}</p>
+                                        <p className="font-bold text-blue-500">Rs.{product.price}</p>
                                         {!applicant_name ? (
                                             <Link
                                                 href={`/applicant/login?company_id=${company.id}`}
@@ -32,7 +33,7 @@ export default function Home({ companies, message, applicant_name, company_name 
                                                 Register to Buy
                                             </Link>
                                         ) : (
-                                            <button className="bg-blue-500 text-white p-2 rounded">
+                                            <button type='submit' className="bg-blue-500 text-white p-2 rounded">
                                                 Add to Cart
                                             </button>
                                         )}

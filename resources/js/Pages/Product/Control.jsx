@@ -3,6 +3,7 @@ import { Head, Link } from "@inertiajs/react";
 import PrimaryButton from '@/Components/PrimaryButton';
 import { FaUserTie, FaInfoCircle, FaPhoneAlt, FaSignOutAlt, FaPlus, FaBox } from "react-icons/fa";
 import '../../../css/productSideBar.css';
+import '../../../css/Product/productHomePage.css';
 
 export default function Control() {
     const handleLogout = (e) => {
@@ -58,21 +59,20 @@ return (
                     </PrimaryButton>
                 </div>
             </div>
-        <div className="control-container">
+        <div className="product-control">
             <h1>Product Control</h1>
-
-            <div className="control-actions">
-                <a href={route('company.products.create')} className="create-product-button">
+            <div className="product-actions">
+                <Link href="/company/products/create" className="option-button">
                     <PrimaryButton>
-                        <FaPlus /> Create New Product
+                        <FaPlus className="icon" /> Create New Product
                     </PrimaryButton>
-                </a>
+                </Link>
 
-                <a href={route('company.products')} className="view-products-button">
+                <Link href="/company/products/home" className="option-button">
                     <PrimaryButton>
-                        <FaBox /> View All Products
+                        <FaBox className="icon" /> View All Products
                     </PrimaryButton>
-                </a>
+                </Link>
             </div>
         </div>
         </div>

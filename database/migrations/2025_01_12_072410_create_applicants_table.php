@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
-            $table->foreignId('company_id')->constrained();
+            $table->foreignId('company_id')->nullable()->constrained()->onDelete('set null');
             $table->timestamps();
         });
     }

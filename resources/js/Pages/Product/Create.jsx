@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Head, useForm, Link } from "@inertiajs/react";
 import PrimaryButton from "@/Components/PrimaryButton";
 import '../../../css/productSideBar.css';
+import '../../../css/Product/productEdit.css'
 import { FaBox, FaUserTie, FaInfoCircle, FaPhoneAlt, FaSignOutAlt } from "react-icons/fa";
 
 export default function Create() {
@@ -100,9 +101,10 @@ export default function Create() {
                                   </PrimaryButton>
                               </div>
                           </div>  
-            <div className="create-product-page">
-                <h1>Create New Product</h1>
-                <form onSubmit={handleSubmit} encType="multipart/form-data" className="create-product-form">
+            <div className="container mx-auto">
+                <form onSubmit={handleSubmit} encType="multipart/form-data" className="form-container">
+                <h2 className="create-title"> Create Product</h2>
+                <div className="form-content">
                     <div className="form-group">
                         <label htmlFor="name">Product Name</label>
                         <input
@@ -114,7 +116,7 @@ export default function Create() {
                             className={`form-control ${errors.name ? "is-invalid" : ""}`}
                             placeholder="Enter product name"
                         />
-                        {errors.name && <div className="invalid-feedback">{errors.name}</div>}
+                        {errors.name && <div className="error">{errors.name}</div>}
                     </div>
 
                     <div className="form-group">
@@ -127,7 +129,7 @@ export default function Create() {
                             className={`form-control ${errors.description ? "is-invalid" : ""}`}
                             placeholder="Enter product description"
                         />
-                        {errors.description && <div className="invalid-feedback">{errors.description}</div>}
+                        {errors.description && <div className="error">{errors.description}</div>}
                     </div>
 
                     <div className="form-group">
@@ -141,7 +143,7 @@ export default function Create() {
                             className={`form-control ${errors.price ? "is-invalid" : ""}`}
                             placeholder="Enter product price"
                         />
-                        {errors.price && <div className="invalid-feedback">{errors.price}</div>}
+                        {errors.price && <div className="error">{errors.price}</div>}
                     </div>
 
                     <div className="form-group">
@@ -154,14 +156,16 @@ export default function Create() {
                             className={`form-control ${errors.image ? "is-invalid" : ""}`}
                             accept="image/*"
                         />
-                        {errors.image && <div className="invalid-feedback">{errors.image}</div>}
+                        {errors.image && <div className="error">{errors.image}</div>}
                     </div>
+                </div>
 
                     {errorMessage && <p className="text-red-500">{errorMessage}</p>}
-
-                    <PrimaryButton type="submit" className="submit-button" disabled={processing}>
+                    <div className="create-actions">
+                    <PrimaryButton type="submit" className="create-button" disabled={processing}>
                         {processing ? "Creating..." : "Create Product"}
                     </PrimaryButton>
+                    </div>
                 </form>
             </div>
         </div>

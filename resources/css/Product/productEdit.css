@@ -23,7 +23,15 @@
     color: #2c7a7b;
     font-weight: bold;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+  }
+
+  .create-title {
+    font-size: 2rem;
+    color: #1286a9;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
   }
   
   .form-content {
@@ -60,8 +68,8 @@
   }
   
   .form-control:focus {
-    border-color: #2c7a7b;
-    outline: none;
+    border-color: #0150fd;
+    outline:none;
   }
   
   .error {
@@ -87,6 +95,26 @@
     justify-content: space-between;
     gap: 15px;
   }
+
+  .create-actions{
+    display:flex;
+    justify-content: center;
+    gap:15px;
+  }
+
+  .create-button{
+    background: #1286a9;
+    color: white;
+    font-size: 1rem;
+    padding:12px 20px;
+    border: none;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
   
   .save-button {
     background: #2c7a7b;
@@ -106,6 +134,10 @@
     background: #1c5981;
   }
   
+  .create-button:hover {
+    background: #3644de;
+  }
+
   .back-button {
     text-decoration: none;
     color: #2c7a7b;

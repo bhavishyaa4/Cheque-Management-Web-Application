@@ -71,3 +71,33 @@
 .submit-button:hover {
     background: linear-gradient(90deg, #00bfff, #1e90ff);
 }
+
+.info-text {
+    font-size: 1.1rem; 
+    color: #4a5568;
+    margin: 15px 0;
+}
+
+.login-link {
+    font-weight: bold;
+    color: #1d28a0; 
+    text-decoration: none;
+    transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+
+.login-link:hover {
+    color: #0150fd;
+    text-decoration: underline;
+}
+.register-link {
+    font-weight: bold;
+    color: #1d28a0; 
+    text-decoration: none;
+    transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+
+.register-link:hover {
+    color: #0150fd;
+    text-decoration: underline;
+}
+

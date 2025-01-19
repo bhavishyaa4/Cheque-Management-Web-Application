@@ -1,36 +1,33 @@
+import { Head, useForm, Link } from '@inertiajs/react';
+import { useState } from 'react';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
-import { Head, useForm, Link } from '@inertiajs/react';
-import { useState } from 'react';
-import '../../../css/companyLogReg.css'
 
-export default function Register() {
+export default function Register({ company_id }) {
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
         email: '',
         password: '',
         password_confirmation: '',
-        address: '',
-        phone: '', 
+        company_id: company_id || '', 
     });
 
     const [errorMessage, setErrorMessage] = useState('');
     console.log('Data:', data);
     console.log('Errors:', errors);
 
-
     const submitHandler = (e) => {
-        e.preventDefault();  
-        post(route('company.create'), {
+        e.preventDefault();
+        post(route('applicant.register'), {
             onError: (err) => {
-                if(err.message){
+                if (err.message) {
                     setErrorMessage(err.message);
                 }
             },
             onFinish: () => {
-                reset('password');
+                reset('');
                 setErrorMessage('');
             }
         });
@@ -38,14 +35,14 @@ export default function Register() {
 
     return (
         <>
-            <Head title="Register Company" />
+            <Head title="Register Applicant" />
 
             <div className="container mx-auto animate-fadeIn">
-                <h2 className="text-3xl text-blue-600 font-bold mb-6 text-center mt-6">Company Register</h2>
+                <h2 className="text-3xl text-blue-600 font-bold mb-6 text-center mt-6">Applicant Register</h2>
 
                 <form onSubmit={submitHandler} className="space-y-6 form-container">
                     <div>
-                        <InputLabel htmlFor="name" value="Company Name" />
+                        <InputLabel htmlFor="name" value="Full Name" />
                         <TextInput
                             id="name"
                             type="text"
@@ -58,6 +55,7 @@ export default function Register() {
                         />
                         <InputError message={errors.name} />
                     </div>
+
                     <div>
                         <InputLabel htmlFor="email" value="Email" />
                         <TextInput
@@ -71,32 +69,7 @@ export default function Register() {
                         />
                         <InputError message={errors.email} />
                     </div>
-                    <div>
-                        <InputLabel htmlFor="address" value="Address" />
-                        <TextInput
-                            id="address"
-                            name="address"
-                            type="text"
-                            autoComplete="address"
-                            value={data.address}
-                            className="input-field"
-                            onChange={(e) => setData('address', e.target.value)}
-                        />
-                        <InputError message={errors.address} />
-                    </div>
-                    <div>
-                        <InputLabel htmlFor="phone" value="Phone Number" />
-                        <TextInput
-                            id="phone"
-                            name="phone"
-                            type="tel"
-                            autoComplete="phone"
-                            value={data.phone}
-                            className="input-field"
-                            onChange={(e) => setData('phone', e.target.value)}
-                        />
-                        <InputError message={errors.phone} />
-                    </div>
+
                     <div>
                         <InputLabel htmlFor="password" value="Password" />
                         <TextInput
@@ -110,37 +83,39 @@ export default function Register() {
                         />
                         <InputError message={errors.password} />
                     </div>
+
                     <div>
                         <InputLabel htmlFor="password_confirmation" value="Confirm Password" />
                         <TextInput
                             id="password_confirmation"
                             type="password"
-                            autoComplete="password_confirmation"
                             name="password_confirmation"
+                            autoComplete="password_confirmation"
                             value={data.password_confirmation}
                             className="input-field"
                             onChange={(e) => setData('password_confirmation', e.target.value)}
                         />
                         <InputError message={errors.password_confirmation} />
                     </div>
-                    {
-                                errorMessage && (
-                                    <p className="text-blue-500 text-center text-sm">{errorMessage}</p>
-                                )
-                            }
+
+                    {errorMessage && (
+                        <p className="text-blue-500 text-center text-sm">{errorMessage}</p>
+                    )}
+
                     <div className="text-center">
                         <PrimaryButton className="submit-button" disabled={processing}>
                             {processing ? 'Processing...' : 'Register'}
                         </PrimaryButton>
                     </div>
+
                     <div className="text-center mt-4">
                         <p className="info-text">
-                        Already have an account?{' '}
-                        <Link href="/company/login" className="login-link">
-                            Click to login!!
-                        </Link>
+                            Already have an account?{' '}
+                            <Link href={`/applicant/login?company_id=${company_id}`} className="login-link">
+                                Click to login!!
+                            </Link>
                         </p>
-                    </div> 
+                    </div>
                 </form>
             </div>
         </>

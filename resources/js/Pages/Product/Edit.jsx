@@ -96,7 +96,6 @@ export default function Edit({ product }) {
             </div>
           <div className="container mx-auto">
           <Head title="Edit Product" />
-
           <form onSubmit={handleSubmit} encType="multipart/form-data" className="form-container">
               <h2 className="form-title">Edit Product</h2>
               <div className="form-content">
@@ -147,7 +146,7 @@ export default function Edit({ product }) {
                     onChange={handleImageChange}
                     className="form-control"
                   />
-                  <div className="image-preview-container">
+                  <div className="form-group">
                     {data.image && (
                       <img
                         src={URL.createObjectURL(data.image)}

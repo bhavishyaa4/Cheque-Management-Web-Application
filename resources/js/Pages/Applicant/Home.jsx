@@ -27,7 +27,7 @@ export default function Home({ companies, message, applicant_name, company_name 
                                         <p className="font-bold text-blue-500">Rs.{product.price}</p>
                                         {!applicant_name ? (
                                             <Link
-                                                href={`/applicant/login?company_id=${company.id}`}
+                                                href={`/applicant/register?company_id=${company.id}`}
                                                 className="text-blue-500"
                                             >
                                                 Register to Buy

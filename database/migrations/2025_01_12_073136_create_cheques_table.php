@@ -16,7 +16,9 @@ return new class extends Migration
             $table->foreignId('applicant_id')->constrained();
             $table->foreignId('product_id')->constrained();
             $table->decimal('amount', 10, 2);
-            $table->string('bank_details');
+            $table->string('bank_name'); 
+            $table->string('bearer_name');
+            $table->string('account_number');
             $table->date('collected_date');
             $table->enum('status', ['pending', 'hold', 'cancelled', 'ok'])->default('pending');
             $table->timestamps();

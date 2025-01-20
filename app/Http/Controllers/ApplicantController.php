@@ -17,18 +17,30 @@ class ApplicantController extends Controller
     //
     public function create (Request $req){
         $company_id = $req->query('company_id');
+        $company = Company::find($company_id);
+
+        if (!$company) {
+            return response()->json([
+                'message' => 'Company name found.',
+                'status' => 'error',
+                'code' => 404
+            ]);
+        }
         if($req->wantsJson()){
             return response()->json([
                 'message' => 'Fill the applicant details.',
                 'status' => 'success',
                 'code' => 200,
+                'company_id' => $company_id,
+                'company_name' =>$company->name,
             ]);
         }
         return Inertia::render('Applicant/Register',[
             'message' => 'Fill the applicant details.',
             'status' => 'success',
             'code' => 200,
-            'company_id' => $company_id, 
+            'company_id' => $company_id,
+            'company_name' => $company->name,
         ]);
     }
     public function store(Request $req){
@@ -49,12 +61,13 @@ class ApplicantController extends Controller
             }
             return back()->withErrors($validator)->withInput();
         }
-        
+        $company = Company::find($req->company_id);
         $applicant = Applicant::create([
             'name' => $req->name,
             'email' => $req->email,
             'password' => Hash::make($req->password),
             'company_id' => $req->company_id,
+            'company_name' => $req->company_name,
         ]);
     Auth::guard('applicant')->login($applicant);
     $req->session()->regenerate();
@@ -65,17 +78,27 @@ class ApplicantController extends Controller
             'code' => 200,
             ]);
         }
-        return redirect()->route('applicant.login')->with('message','Applicant Registered Successfully');
+        // return redirect()->route('applicant.login')->with('message','Applicant Registered Successfully');
+        return redirect()->route('applicant.loginForm', ['company_id' => $req->company_id, 'company_name' => $company->name]);
     }
 
     public function loginForm(Request $req){
         $company_id = $req->query('company_id');
+        $company = Company::find($company_id);
+        if (!$company) {
+            return response()->json([
+                'message' => 'Company names not found.',
+                'status' => 'error',
+                'code' => 404
+            ]);
+        }
         if($req->wantsJson()){
             return response()->json([
                 'message' => 'Fill the Login details.',
                 'status' => 'success',
                 'code' => 200,
                 'company_id' => $company_id,
+                'company_name' => $company->name,
             ]);
         }
         return Inertia::render('Applicant/Login',[
@@ -83,11 +106,13 @@ class ApplicantController extends Controller
             'status' => 'success',
             'code' => 200,
             'company_id' => $company_id,
+            'company_name' => $company->name,
         ]);
     }
 
     public function login(Request $req){
         $company_id = $req->input('company_id');
+        $company = Company::find($company_id);
         $validator = Validator::make($req->all(),[
             'email' => 'required|email',
             'password' => 'required',
@@ -159,12 +184,14 @@ class ApplicantController extends Controller
                 'message' => 'Applicant Logged In Successfully.',
                 'status' => 'success',
                 'code' => 200,
+                'company_id' => $company_id,
+                'company_name' => $company->name,
             ]);
         }
-        return redirect()->route('applicant.dashboard');
+        return redirect()->route('applicant.authdash');
     }
 
-    public function home(Request $req)
+    public function publicHome(Request $req)
     {
         $companies = Company::with('products')->get();
     
@@ -185,6 +212,88 @@ class ApplicantController extends Controller
         ]);
     }
 
+    public function specificHome(Request $req){
+        $applicant = Auth::guard('applicant')->user();
+        $company = Company::with('products')->find($applicant->company_id); 
+
+        if(!$company){
+            if($req->wantsJson()){
+                return response()->json([
+                    'message' => 'Company and Its Product not found.',
+                    'status' => 'error',
+                    'code' => 404,
+                ]);
+            }
+            return redirect()->route('applicant.authdash');
+        }
+        if($req->wantsJson()){
+            return response()->json([
+                'message' => 'Welcome to your Company Product Page.',
+                'status' => 'success',
+                'code' => 200,
+            ]);
+        }
+        return Inertia::render('Applicant/SpecificHome',[
+            'company' => $company,
+            'message' => 'Welcome to your Company Product Page.',
+            'status' => 'success',
+            'code' => 200,
+        ]);
+    }
+
+    public function products($company_id)
+    {
+        $products = Product::where('company_id', $company_id)->get();
+
+        return Inertia::render('Applicant/Products', [
+            'products' => $products,
+        ]);
+    }
+
+    public function buyProduct(Request $req, $product_id)
+    {
+        $product = Product::findOrFail($product_id);
+
+        return Inertia::render('Applicant/BuyProduct', [
+            'product' => $product,
+        ]);
+    }
+
+    public function submitCheque(Request $req, $product_id)
+    {
+        $validator = Validator::make($req->all(), [
+            'amount' => 'required|numeric',
+            'bank_details' => 'required|string',
+            'collected_date' => 'required|date',
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
+        Cheque::create([
+            'applicant_id' => Auth::id(),
+            'product_id' => $product_id,
+            'amount' => $req->amount,
+            'bank_details' => $req->bank_details,
+            'collected_date' => $req->collected_date,
+            'status' => 'pending',
+        ]);
+
+        return redirect()->route('applicant.cheques')->with('message', 'Cheque submitted successfully.');
+    }
+
+    public function cheques()
+    {
+        $cheques = Cheque::where('applicant_id', Auth::id())
+            ->with(['product'])
+            ->get();
+
+        return Inertia::render('Applicant/Cheques', [
+            'cheques' => $cheques,
+        ]);
+    }
+
     public function logout(Request $req)
     {
         Auth::guard('applicant')->logout();
@@ -198,6 +307,6 @@ class ApplicantController extends Controller
                 'code' => 200,
             ]);
         }
-        return redirect()->route('applicant.login');
+        return redirect()->route('applicant.publicdash');
     }
 }

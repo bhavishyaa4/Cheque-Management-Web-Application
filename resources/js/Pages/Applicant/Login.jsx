@@ -5,11 +5,12 @@ import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 
-export default function Login({ company_id }) {
+export default function Login({ company_id, company_name  }) {
     const { data, setData, post, processing, errors, reset } = useForm({
         email: '',
         password: '',
         company_id: company_id || '', 
+        company_name: company_name || '', 
     });
 
     const [errorMessage, setErrorMessage] = useState('');
@@ -36,7 +37,7 @@ export default function Login({ company_id }) {
             <Head title="Login Applicant" />
 
             <div className="container mx-auto animate-fadeIn">
-                <h2 className="text-3xl text-blue-600 font-bold mb-6 text-center mt-6">Applicant Login</h2>
+                <h2 className="text-3xl text-blue-600 font-bold mb-6 text-center mt-6">{company_name || 'Unknown Company'} Login</h2>
 
                 <form onSubmit={submitHandler} className="space-y-6 form-container">
                     <div>

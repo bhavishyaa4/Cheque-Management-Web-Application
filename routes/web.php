@@ -26,11 +26,16 @@ Route::middleware(['auth:company'])->group(function () {
 //Route for Applicant:
     Route::get('/applicant/register', [ApplicantController::class, 'create'])->name('applicant.register');
     Route::post('/applicant/register', [ApplicantController::class, 'store']);
-    Route::get('/applicant/login', [ApplicantController::class, 'loginForm'])->name('applicant.login');
-    Route::post('/applicant/login', [ApplicantController::class, 'login']);
-    Route::get('/applicant/dashboard', [ApplicantController::class, 'home'])
-    ->name('applicant.dashboard')
-    ->middleware('auth:applicant');
-    Route::post('/applicant/logout', [ApplicantController::class, 'logout'])->name('applicant.logout');
+    Route::get('/applicant/login', [ApplicantController::class, 'loginForm'])->name('applicant.loginForm');
+    Route::post('/applicant/login', [ApplicantController::class, 'login'])->name('applicant.login');
+    Route::get('/applicant/publicdash', [ApplicantController::class,'publicHome'])->name('applicant.publicdash');
+    Route::post('/applicant/logout', [ApplicantController::class, 'logout'])->name('applicant.logout');   
+    Route::middleware(['auth:applicant'])->group(function () {
+        Route::get('/applicant/authdash', [ApplicantController::class, 'specificHome'])->name('applicant.authdash');
+        Route::get('/applicant/products/{company_id}', [ApplicantController::class, 'products'])->name('applicant.products');
+        Route::get('/applicant/buy/{product_id}', [ApplicantController::class, 'buyProduct'])->name('applicant.buyProduct');
+        Route::post('/applicant/buy/{product_id}', [ApplicantController::class, 'submitCheque'])->name('applicant.submitCheque');
+        Route::get('/applicant/cheques', [ApplicantController::class, 'cheques'])->name('applicant.cheques');
+    });
     
 Route::post('/logout', [CompanyController::class, 'logout'])->name('logout');

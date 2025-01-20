@@ -5,13 +5,14 @@ import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 
-export default function Register({ company_id }) {
+export default function Register({ company_id, company_name }) {
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
         email: '',
         password: '',
         password_confirmation: '',
-        company_id: company_id || '', 
+        company_id: company_id || '',
+        company_name: company_name || '', 
     });
 
     const [errorMessage, setErrorMessage] = useState('');
@@ -21,6 +22,10 @@ export default function Register({ company_id }) {
     const submitHandler = (e) => {
         e.preventDefault();
         post(route('applicant.register'), {
+            data: {
+                ...data, // Spread other form data
+                company_id: data.company_id, // Explicitly ensure company_id is passed
+            },
             onError: (err) => {
                 if (err.message) {
                     setErrorMessage(err.message);
@@ -38,7 +43,7 @@ export default function Register({ company_id }) {
             <Head title="Register Applicant" />
 
             <div className="container mx-auto animate-fadeIn">
-                <h2 className="text-3xl text-blue-600 font-bold mb-6 text-center mt-6">Applicant Register</h2>
+                <h2 className="text-3xl text-blue-600 font-bold mb-6 text-center mt-6">{company_name || 'Unknown Company'} Registration</h2>
 
                 <form onSubmit={submitHandler} className="space-y-6 form-container">
                     <div>

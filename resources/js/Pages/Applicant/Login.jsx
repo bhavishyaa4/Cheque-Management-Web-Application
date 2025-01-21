@@ -4,6 +4,7 @@ import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
+import '../../../css/Applicant/applicantLogReg.css'
 
 export default function Login({ company_id, company_name  }) {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -37,7 +38,7 @@ export default function Login({ company_id, company_name  }) {
             <Head title="Login Applicant" />
 
             <div className="container mx-auto animate-fadeIn">
-                <h2 className="text-3xl text-blue-600 font-bold mb-6 text-center mt-6">{company_name || 'Unknown Company'} Login</h2>
+                <h2 className="text-3xl text-green-500 font-bold mb-6 text-center mt-6">{company_name || 'Unknown Company'} Login</h2>
 
                 <form onSubmit={submitHandler} className="space-y-6 form-container">
                     <div>
@@ -49,7 +50,7 @@ export default function Login({ company_id, company_name  }) {
                             autoComplete="email"
                             value={data.email}
                             isFocused={true}
-                            className="input-field"
+                            className="rounded-md border-green-300 shadow-sm focus:border-green-500 focus:ring-green-500 input-field"
                             onChange={(e) => setData('email', e.target.value)}
                         />
                         <InputError message={errors.email} />
@@ -63,7 +64,7 @@ export default function Login({ company_id, company_name  }) {
                             name="password"
                             autoComplete="password"
                             value={data.password}
-                            className="input-field"
+                            className="rounded-md border-green-300 shadow-sm focus:border-green-500 focus:ring-green-500 input-field"
                             onChange={(e) => setData('password', e.target.value)}
                         />
                         <InputError message={errors.password} />
@@ -82,7 +83,7 @@ export default function Login({ company_id, company_name  }) {
                     <div className="text-center mt-4">
                         <p className="info-text">
                             Don't have an account?{' '}
-                            <Link href={`/applicant/register?company_id=${company_id}`} className="login-link">
+                            <Link href={`/applicant/register?company_id=${company_id}`} className="register-link">
                                 Click to register!!
                             </Link>
                         </p>

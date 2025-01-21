@@ -37,7 +37,7 @@ export default function Login() {
             <Head title="Login to Company" />
 
             <div className="container mx-auto animate-fadeIn">
-                <h2 className="text-3xl text-blue-600 font-bold mb-6 text-center mt-6">Company Login</h2>
+                <h2 className="text-3xl text-red-500 font-bold mb-6 text-center mt-6">Company Login</h2>
 
                 <form onSubmit={submit} className="space-y-6 form-container">
                     <div>
@@ -50,7 +50,7 @@ export default function Login() {
                             isFocused={true}
                             value={data.email}
                             onChange={(e) => setData('email', e.target.value)}
-                            className="input-field"
+                            className="rounded-md border-red-300 shadow-sm focus:border-red-500 focus:ring-red-500 input-field"
                         />
                         <InputError message={errors.email} className="text-red-500 text-sm mt-2" />
                     </div>
@@ -62,7 +62,7 @@ export default function Login() {
                             name="password"
                             autoComplete="current_password"
                             value={data.password}
-                            className="input-field"
+                            className="rounded-md border-red-300 shadow-sm focus:border-red-500 focus:ring-red-500 input-field"
                             onChange={(e) => setData('password', e.target.value)}
                         />
                         <InputError message={errors.password} className="text-red-500 text-sm mt-3" />

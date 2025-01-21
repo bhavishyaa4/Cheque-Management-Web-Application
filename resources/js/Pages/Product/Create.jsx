@@ -10,6 +10,7 @@ export default function Create() {
         name: "",
         description: "",
         price: "",
+        stock: "",
         image: null,
     });
 
@@ -130,6 +131,20 @@ export default function Create() {
                             placeholder="Enter product description"
                         />
                         {errors.description && <div className="error">{errors.description}</div>}
+                    </div>
+
+                    <div className="form-group">
+                        <label htmlFor="stock">Product Stock</label>
+                        <input
+                            type="number"
+                            id="stock"
+                            name = "stock"
+                            value = {data.stock}
+                            onChange={handleInputChange}
+                            className={`form-control ${errors.stock ? "is-invalid" : ""}`}
+                            placeholder="Enter product stock"
+                        />
+                        {errors.stock && <div className="error">{errors.stock}</div>}
                     </div>
 
                     <div className="form-group">

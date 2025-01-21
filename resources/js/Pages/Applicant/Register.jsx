@@ -4,6 +4,7 @@ import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
+import '../../../css/Applicant/applicantLogReg.css';
 
 export default function Register({ company_id, company_name }) {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -23,8 +24,8 @@ export default function Register({ company_id, company_name }) {
         e.preventDefault();
         post(route('applicant.register'), {
             data: {
-                ...data, // Spread other form data
-                company_id: data.company_id, // Explicitly ensure company_id is passed
+                ...data, 
+                company_id: data.company_id,
             },
             onError: (err) => {
                 if (err.message) {
@@ -43,7 +44,7 @@ export default function Register({ company_id, company_name }) {
             <Head title="Register Applicant" />
 
             <div className="container mx-auto animate-fadeIn">
-                <h2 className="text-3xl text-blue-600 font-bold mb-6 text-center mt-6">{company_name || 'Unknown Company'} Registration</h2>
+                <h2 className="text-3xl text-green-500 font-bold mb-6 text-center mt-6 boobs">{company_name || 'Unknown Company'} Registration</h2>
 
                 <form onSubmit={submitHandler} className="space-y-6 form-container">
                     <div>
@@ -55,7 +56,7 @@ export default function Register({ company_id, company_name }) {
                             autoComplete="name"
                             value={data.name}
                             isFocused={true}
-                            className="input-field"
+                            className="rounded-md border-green-300 shadow-sm focus:border-green-500 focus:ring-green-500 input-field"
                             onChange={(e) => setData('name', e.target.value)}
                         />
                         <InputError message={errors.name} />
@@ -69,7 +70,7 @@ export default function Register({ company_id, company_name }) {
                             name="email"
                             autoComplete="email"
                             value={data.email}
-                            className="input-field"
+                            className="rounded-md border-green-300 shadow-sm focus:border-green-500 focus:ring-green-500 input-field"
                             onChange={(e) => setData('email', e.target.value)}
                         />
                         <InputError message={errors.email} />
@@ -83,7 +84,7 @@ export default function Register({ company_id, company_name }) {
                             name="password"
                             autoComplete="password"
                             value={data.password}
-                            className="input-field"
+                            className="rounded-md border-green-300 shadow-sm focus:border-green-500 focus:ring-green-500 input-field"
                             onChange={(e) => setData('password', e.target.value)}
                         />
                         <InputError message={errors.password} />
@@ -97,7 +98,7 @@ export default function Register({ company_id, company_name }) {
                             name="password_confirmation"
                             autoComplete="password_confirmation"
                             value={data.password_confirmation}
-                            className="input-field"
+                            className="rounded-md border-green-300 shadow-sm focus:border-green-500 focus:ring-green-500 input-field"
                             onChange={(e) => setData('password_confirmation', e.target.value)}
                         />
                         <InputError message={errors.password_confirmation} />

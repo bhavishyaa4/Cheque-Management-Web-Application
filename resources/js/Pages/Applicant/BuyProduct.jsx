@@ -4,14 +4,18 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import '../../../css/productSideBar.css';
 import '../../../css/Product/productEdit.css';
 
-export default function BuyProduct({ product }) {
+export default function BuyProduct({ product, amount }) {
     const { data, setData, post, errors, processing } = useForm({
-        amount: '',
-        bank_details: '',
+        amount: amount || "",
+        bank_name: '',
+        bearer_name: '',
+        account_number: '',
         collected_date: '',
     });
 
     const [errorMessage, setErrorMessage] = useState('');
+    console.log('Data:', data);
+    console.log('Errors:', errors);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -20,7 +24,7 @@ export default function BuyProduct({ product }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setErrorMessage(''); // Clear any previous error message
+        setErrorMessage('');
 
         post(route('applicant.submitCheque', product.id), {
             onError: (err) => {
@@ -46,7 +50,6 @@ export default function BuyProduct({ product }) {
 
             <form onSubmit={handleSubmit} className="form-container">
                 <div className="form-content">
-                    {/* Amount Field */}
                     <div className="form-group">
                         <label htmlFor="amount">Amount</label>
                         <input
@@ -57,28 +60,53 @@ export default function BuyProduct({ product }) {
                             onChange={handleInputChange}
                             className={`form-control ${errors.amount ? "is-invalid" : ""}`}
                             placeholder="Enter amount"
-                            required
+                            readOnly 
                         />
                         {errors.amount && <div className="error">{errors.amount}</div>}
                     </div>
 
-                    {/* Bank Details Field */}
                     <div className="form-group">
-                        <label htmlFor="bank_details">Bank Details</label>
+                        <label htmlFor="bank_name">Bank Name</label>
                         <input
                             type="text"
-                            id="bank_details"
-                            name="bank_details"
-                            value={data.bank_details}
+                            id="bank_name"
+                            name="bank_name"
+                            value={data.bank_name}
                             onChange={handleInputChange}
-                            className={`form-control ${errors.bank_details ? "is-invalid" : ""}`}
-                            placeholder="Enter bank details"
-                            required
+                            className={`form-control ${errors.bank_name ? "is-invalid" : ""}`}
+                            placeholder="Enter Bank Name"
                         />
-                        {errors.bank_details && <div className="error">{errors.bank_details}</div>}
+                        {errors.bank_name && <div className="error">{errors.bank_name}</div>}
                     </div>
 
-                    {/* Collected Date Field */}
+                    <div className="form-group">
+                        <label htmlFor="bearer_name">Account Holder Name</label>
+                        <input
+                            type="text"
+                            id="bearer_name"
+                            name="bearer_name"
+                            value={data.bearer_name}
+                            onChange={handleInputChange}
+                            className={`form-control ${errors.bearer_name ? "is-invalid" : ""}`}
+                            placeholder="Enter Account Holder Name"
+                        />
+                        {errors.bearer_name && <div className="error">{errors.bearer_name}</div>}
+                    </div>
+
+                    <div className="form-group">
+                        <label htmlFor="account_number">Account Number</label>
+                        <input
+                            type="text"
+                            id="account_number"
+                            name="account_number"
+                            value={data.account_number}
+                            onChange={handleInputChange}
+                            className={`form-control ${errors.account_number ? "is-invalid" : ""}`}
+                            placeholder="Enter Bank Name"
+                        />
+                        {errors.account_number && <div className="error">{errors.account_number}</div>}
+                    </div>
+
                     <div className="form-group">
                         <label htmlFor="collected_date">Date of Collection</label>
                         <input
@@ -88,16 +116,12 @@ export default function BuyProduct({ product }) {
                             value={data.collected_date}
                             onChange={handleInputChange}
                             className={`form-control ${errors.collected_date ? "is-invalid" : ""}`}
-                            required
                         />
                         {errors.collected_date && <div className="error">{errors.collected_date}</div>}
                     </div>
                 </div>
-
-                {/* Display error message */}
                 {errorMessage && <p className="text-red-500">{errorMessage}</p>}
 
-                {/* Submit Button */}
                 <div className="create-actions">
                     <PrimaryButton type="submit" className="create-button" disabled={processing}>
                         {processing ? 'Submitting...' : 'Submit Cheque'}

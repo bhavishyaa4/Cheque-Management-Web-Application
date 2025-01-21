@@ -92,6 +92,7 @@ export default function Home({ products = [] }) {
                                 />
                             )}
                             <p className="description"><b>Description:</b> {product.description}</p>
+                            <p className="stock"><b>Stock: </b>{product.stock}</p>
                             <p className="price">Price Rs:<em>{product.price}</em></p>
 
                             <div className="actions">

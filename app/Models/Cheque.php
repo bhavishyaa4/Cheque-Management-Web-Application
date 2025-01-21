@@ -14,7 +14,9 @@ class Cheque extends Model
         'applicant_id',
         'product_id',
         'amount',
-        'bank_details',
+        'bank_name',
+        'bearer_name',
+        'account_number',
         'collected_date',
         'status',
     ];

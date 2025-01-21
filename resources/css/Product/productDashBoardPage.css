@@ -59,6 +59,13 @@
     margin-bottom: 0.5rem;
 }
 
+.stock{
+    font-weight: bold;
+    color: black;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
 
 .product-image {
     width: 100%;

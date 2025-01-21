@@ -197,7 +197,7 @@ class ApplicantController extends Controller
     
         if ($req->wantsJson()) {
             return response()->json([
-                'message' => 'Welcome to the applicant dashboard or company product listing.',
+                'message' => 'Browse your favourite product in your desired company.',
                 'status' => 'success',
                 'companies' => $companies,
                 'code' => 200,
@@ -205,7 +205,7 @@ class ApplicantController extends Controller
         }
     
         return Inertia::render('Applicant/Home', [
-            'message' => 'Welcome to the applicant dashboard or company product listing.',
+            'message' => 'Browse your favourite product in your Desired Company.',
             'status' => 'success',
             'companies' => $companies,
             'code' => 200,
@@ -250,20 +250,28 @@ class ApplicantController extends Controller
         ]);
     }
 
-    public function buyProduct(Request $req, $product_id)
+    public function buyProduct(Request $req,$product_id)
     {
         $product = Product::findOrFail($product_id);
+        $amount = $req->query('amount', 0);
 
         return Inertia::render('Applicant/BuyProduct', [
             'product' => $product,
+            'amount' => $amount,
+            'message' => 'Fill the Cheque details.',
+            'status' => 'success',
+            'code' => 200,
         ]);
+
     }
 
     public function submitCheque(Request $req, $product_id)
     {
         $validator = Validator::make($req->all(), [
             'amount' => 'required|numeric',
-            'bank_details' => 'required|string',
+            'bank_name' => 'required|string|max:100',
+            'bearer_name' =>'required|string|max:50',
+            'account_number' => 'required|numeric|max:12',
             'collected_date' => 'required|date',
         ]);
 
@@ -275,7 +283,9 @@ class ApplicantController extends Controller
             'applicant_id' => Auth::id(),
             'product_id' => $product_id,
             'amount' => $req->amount,
-            'bank_details' => $req->bank_details,
+            'bank_name' => $req->bank_name,
+            'bearer_name' => $req->bearer_name,
+            'account_number' => $req->account_number,
             'collected_date' => $req->collected_date,
             'status' => 'pending',
         ]);

@@ -10,6 +10,7 @@ export default function Edit({ product }) {
     name: product.name,
     description: product.description,
     price: product.price,
+    stock: product.stock,
     image: null,
   });
 
@@ -122,6 +123,19 @@ export default function Edit({ product }) {
                     className="form-control"
                   />
                   {errors.description && <span className="error">{errors.description}</span>}
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="stock">Stock</label>
+                  <input 
+                  type="number"
+                  id="stock"
+                  name="stock"
+                  value={data.stock}
+                  onChange={handleInputChange}
+                  className="form-control"
+                   />
+                   {errors.stock && <span className="error">{errors.stock}</span>}
                 </div>
 
                 <div className="form-group">

@@ -41,7 +41,7 @@ export default function Register() {
             <Head title="Register Company" />
 
             <div className="container mx-auto animate-fadeIn">
-                <h2 className="text-3xl text-blue-600 font-bold mb-6 text-center mt-6">Company Register</h2>
+                <h2 className="text-3xl text-red-500 font-bold mb-6 text-center mt-6">Company Register</h2>
 
                 <form onSubmit={submitHandler} className="space-y-6 form-container">
                     <div>
@@ -53,7 +53,7 @@ export default function Register() {
                             autoComplete="name"
                             value={data.name}
                             isFocused={true}
-                            className="input-field"
+                            className="rounded-md border-red-300 shadow-sm focus:border-red-500 focus:ring-red-500 input-field"
                             onChange={(e) => setData('name', e.target.value)}
                         />
                         <InputError message={errors.name} />
@@ -66,7 +66,7 @@ export default function Register() {
                             name="email"
                             autoComplete="email"
                             value={data.email}
-                            className="input-field"
+                            className="rounded-md border-red-300 shadow-sm focus:border-red-500 focus:ring-red-500 input-field"
                             onChange={(e) => setData('email', e.target.value)}
                         />
                         <InputError message={errors.email} />
@@ -79,7 +79,7 @@ export default function Register() {
                             type="text"
                             autoComplete="address"
                             value={data.address}
-                            className="input-field"
+                            className="rounded-md border-red-300 shadow-sm focus:border-red-500 focus:ring-red-500 input-field"
                             onChange={(e) => setData('address', e.target.value)}
                         />
                         <InputError message={errors.address} />
@@ -92,7 +92,7 @@ export default function Register() {
                             type="tel"
                             autoComplete="phone"
                             value={data.phone}
-                            className="input-field"
+                            className="rounded-md border-red-300 shadow-sm focus:border-red-500 focus:ring-red-500 input-field"
                             onChange={(e) => setData('phone', e.target.value)}
                         />
                         <InputError message={errors.phone} />
@@ -105,7 +105,7 @@ export default function Register() {
                             name="password"
                             autoComplete="password"
                             value={data.password}
-                            className="input-field"
+                            className="rounded-md border-red-300 shadow-sm focus:border-red-500 focus:ring-red-500 input-field"
                             onChange={(e) => setData('password', e.target.value)}
                         />
                         <InputError message={errors.password} />
@@ -118,7 +118,7 @@ export default function Register() {
                             autoComplete="password_confirmation"
                             name="password_confirmation"
                             value={data.password_confirmation}
-                            className="input-field"
+                            className="rounded-md border-red-300 shadow-sm focus:border-red-500 focus:ring-red-500 input-field"
                             onChange={(e) => setData('password_confirmation', e.target.value)}
                         />
                         <InputError message={errors.password_confirmation} />

@@ -36,6 +36,7 @@ Route::middleware(['auth:company'])->group(function () {
         Route::get('/applicant/buy/{product_id}', [ApplicantController::class, 'buyProduct'])->name('applicant.buyProduct');
         Route::post('/applicant/buy/{product_id}', [ApplicantController::class, 'submitCheque'])->name('applicant.submitCheque');
         Route::get('/applicant/cheques', [ApplicantController::class, 'cheques'])->name('applicant.cheques');
+        Route::get('/applicant/checkout', [ApplicantController::class, 'checkout'])->name('applicant.checkout');
     });
     
 Route::post('/logout', [CompanyController::class, 'logout'])->name('logout');

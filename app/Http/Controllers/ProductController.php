@@ -60,6 +60,7 @@ class ProductController extends Controller
             'description' => 'required|string|max:500',
             'price' => 'required|numeric',
             'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'stock' => 'required|numeric',
         ]);
 
         if ($validator->fails()) {
@@ -81,6 +82,7 @@ class ProductController extends Controller
         $product->name = $req->name;
         $product->description = $req->description;
         $product->price = $req->price;
+        $product->stock = $req->stock;
         $product->company_id = $user->id;
 
         if ($req->hasFile('image')) {
@@ -134,6 +136,7 @@ class ProductController extends Controller
             'description' => 'nullable|string|max:500',
             'price' => 'nullable|numeric',
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048', 
+            'stock' => 'nullable|numeric',
         ]);
     
         if ($validator->fails()) {
@@ -143,6 +146,7 @@ class ProductController extends Controller
         $product->name = $req->input('name', $product->name); 
         $product->description = $req->input('description', $product->description);
         $product->price = $req->input('price', $product->price);
+        $product->stock = $req->input('stock', $product->stock);
     
         if ($req->hasFile('image')) {
 

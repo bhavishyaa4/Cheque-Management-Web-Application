@@ -12,7 +12,9 @@ export default function Cheques({ cheques = [] }) {
                         <div key={cheque.id} className="cheque-card">
                             <h3>Cheque for {cheque.product.name}</h3>
                             <p>Amount: Rs. {cheque.amount}</p>
-                            <p>Bank: {cheque.bank_details}</p>
+                            <p>Bank Name: {cheque.bank_name}</p>
+                            <p>Account Holder Name: {cheque.bearer_name}</p>
+                            <p>Account Number: {cheque.account_number}</p>
                             <p>Collected Date: {cheque.collected_date}</p>
                             <p>Status: {cheque.status}</p>
                         </div>

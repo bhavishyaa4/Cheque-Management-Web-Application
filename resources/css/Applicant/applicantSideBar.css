@@ -1,7 +1,6 @@
 .dashboard-container {
     display: flex;
     min-height: 100vh;
-    background: linear-gradient(to right, #68d391, #63b3ed);
     color: white;
     cursor: pointer;
 }
@@ -79,40 +78,4 @@
     background-color: #c53030;
     transform: translateY(-2px);
     box-shadow: 0 6px 15px rgba(197, 48, 48, 0.5); 
-}
-
-@media only screen and (max-width: 320px) {
-    .sidebar {
-        width: 12rem;
-    }
-}
-
-@media only screen and (max-width: 414px) {
-    .sidebar {
-        width: 14rem;
-    }
-}
-
-@media only screen and (max-width: 480px) {
-    .sidebar {
-        width: 15rem;
-    }
-}
-
-@media only screen and (max-width: 768px) {
-    .sidebar {
-        width: 18rem;
-    }
-}
-
-@media only screen and (max-width: 1024px) {
-    .sidebar {
-        width: 20rem;
-    }
-}
-
-@media only screen and (min-width: 1280px) {
-    .sidebar {
-        width: 15rem;
-    }
 }

@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Head, useForm } from '@inertiajs/react';
+import React, { useState } from 'react';
+import { Head, useForm, Link } from '@inertiajs/react';
 import PrimaryButton from '@/Components/PrimaryButton';
-import '../../../css/productSideBar.css';
-import '../../../css/Product/productEdit.css';
+import { FaBox, FaInfoCircle, FaPhoneAlt,FaSignOutAlt } from 'react-icons/fa';
+import "../../../css/Applicant/applicantSideBar.css";
+import "../../../css/Applicant/buyProduct.css";
 
 export default function BuyProduct({ products, amount }) {
     const { data, setData, post, errors, processing } = useForm({
@@ -19,7 +20,12 @@ export default function BuyProduct({ products, amount }) {
         const { name, value } = e.target;
         setData(name, value);
     };
-
+    const handleLogout = (e) => {
+        e.preventDefault();
+        if (window.confirm("Are you sure you want to log out?")) {
+            post(route("applicant.logout"));
+        }
+    };
     const handleSubmit = (e) => {
         e.preventDefault();
         setErrorMessage('');
@@ -44,9 +50,36 @@ export default function BuyProduct({ products, amount }) {
     return (
         <div className="buy-product-container">
             <Head title="Buy Product" />
-            <h1>Buy Product</h1>
-
-            <form onSubmit={handleSubmit} className="form-container">
+            {/* <h1>Buy Product</h1> */}
+            <div className="sidebar">
+                <div className="sidebar-header">
+                    Dashboard
+                </div>
+                <ul className="sidebar-menu">
+                    <li>
+                        <Link href="/applicant/authdash" className="sidebar-link">
+                            <FaBox className="icon" /> Products
+                        </Link>
+                    </li>
+                    <li>
+                        <a href="#" className="sidebar-link">
+                            <FaInfoCircle className="icon" /> About
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" className="sidebar-link">
+                            <FaPhoneAlt className="icon" /> Contact
+                        </a>
+                    </li>
+                </ul>
+                <div className="logout-container">
+                    <button onClick={handleLogout} className="logout-button">
+                        <FaSignOutAlt /> Logout
+                    </button>
+                </div>
+            </div>
+            <div className="container mx-auto">
+            <form onSubmit={handleSubmit} className="space-y-6 form-container">
                 <div className="form-content">
                     <div className="form-group">
                         <label htmlFor="amount">Amount</label>
@@ -126,6 +159,7 @@ export default function BuyProduct({ products, amount }) {
                     </PrimaryButton>
                 </div>
             </form>
+            </div>
         </div>
     );
 }

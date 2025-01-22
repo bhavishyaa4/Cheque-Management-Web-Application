@@ -33,7 +33,7 @@ Route::middleware(['auth:company'])->group(function () {
     Route::middleware(['auth:applicant'])->group(function () {
         Route::get('/applicant/authdash', [ApplicantController::class, 'specificHome'])->name('applicant.authdash');
         Route::get('/applicant/products/{company_id}', [ApplicantController::class, 'products'])->name('applicant.products');
-        Route::get('/applicant/buy/{product_id}', [ApplicantController::class, 'buyProduct'])->name('applicant.buyProduct');
+        Route::get('/applicant/buy/{product_ids}', [ApplicantController::class, 'buyProduct'])->name('applicant.buyProduct');
         Route::post('/applicant/buy/{product_id}', [ApplicantController::class, 'submitCheque'])->name('applicant.submitCheque');
         Route::get('/applicant/cheques', [ApplicantController::class, 'cheques'])->name('applicant.cheques');
         Route::get('/applicant/checkout', [ApplicantController::class, 'checkout'])->name('applicant.checkout');

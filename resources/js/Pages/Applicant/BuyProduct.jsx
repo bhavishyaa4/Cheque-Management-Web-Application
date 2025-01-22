@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Head, useForm } from '@inertiajs/react';
 import PrimaryButton from '@/Components/PrimaryButton';
 import '../../../css/productSideBar.css';
 import '../../../css/Product/productEdit.css';
 
-export default function BuyProduct({ product, amount }) {
+export default function BuyProduct({ products, amount }) {
     const { data, setData, post, errors, processing } = useForm({
-        amount: amount || "",
+        amount: amount   || "",
         bank_name: '',
         bearer_name: '',
         account_number: '',
@@ -14,8 +14,6 @@ export default function BuyProduct({ product, amount }) {
     });
 
     const [errorMessage, setErrorMessage] = useState('');
-    console.log('Data:', data);
-    console.log('Errors:', errors);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -26,7 +24,7 @@ export default function BuyProduct({ product, amount }) {
         e.preventDefault();
         setErrorMessage('');
 
-        post(route('applicant.submitCheque', product.id), {
+        post(route('applicant.submitCheque', products[0].id), {
             onError: (err) => {
                 if (err.message) {
                     setErrorMessage(err.message);
@@ -45,8 +43,8 @@ export default function BuyProduct({ product, amount }) {
 
     return (
         <div className="buy-product-container">
-            <Head title={`Buy ${product.name}`} />
-            <h1>Buy {product.name}</h1>
+            <Head title="Buy Product" />
+            <h1>Buy Product</h1>
 
             <form onSubmit={handleSubmit} className="form-container">
                 <div className="form-content">
@@ -60,7 +58,7 @@ export default function BuyProduct({ product, amount }) {
                             onChange={handleInputChange}
                             className={`form-control ${errors.amount ? "is-invalid" : ""}`}
                             placeholder="Enter amount"
-                            readOnly 
+                            readOnly
                         />
                         {errors.amount && <div className="error">{errors.amount}</div>}
                     </div>
@@ -102,7 +100,7 @@ export default function BuyProduct({ product, amount }) {
                             value={data.account_number}
                             onChange={handleInputChange}
                             className={`form-control ${errors.account_number ? "is-invalid" : ""}`}
-                            placeholder="Enter Bank Name"
+                            placeholder="Enter Account Number"
                         />
                         {errors.account_number && <div className="error">{errors.account_number}</div>}
                     </div>

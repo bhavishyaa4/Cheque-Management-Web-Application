@@ -250,19 +250,18 @@ class ApplicantController extends Controller
         ]);
     }
 
-    public function buyProduct(Request $req,$product_id)
+    public function buyProduct(Request $req,$product_ids)
     {
-        $product = Product::findOrFail($product_id);
-        $amount = $req->query('amount', 0);
-
-        return Inertia::render('Applicant/BuyProduct', [
-            'product' => $product,
-            'amount' => $amount,
-            'message' => 'Fill the Cheque details.',
-            'status' => 'success',
-            'code' => 200,
-        ]);
-
+    $product_ids = explode(',', $product_ids);
+    $products = Product::whereIn('id', $product_ids)->get();
+    $amount = $req->query('amount', 0);
+    return Inertia::render('Applicant/BuyProduct', [
+        'products' => $products,
+        'amount' => $amount,
+        'message' => 'Fill the Cheque details.',
+        'status' => 'success',
+        'code' => 200,
+    ]);
     }
 
     public function submitCheque(Request $req, $product_id)

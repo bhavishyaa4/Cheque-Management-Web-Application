@@ -1,5 +1,5 @@
 import { Head, useForm, Link } from '@inertiajs/react';
-import { useState } from 'react';
+import { useState,useEffect, useRef } from 'react';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
@@ -17,8 +17,13 @@ export default function Register({ company_id, company_name }) {
     });
 
     const [errorMessage, setErrorMessage] = useState('');
+    const nameInputRef = useRef(null);
     console.log('Data:', data);
     console.log('Errors:', errors);
+
+    useEffect(() => {
+        nameInputRef.current.focus();
+    }, []);
 
     const submitHandler = (e) => {
         e.preventDefault();
@@ -49,13 +54,13 @@ export default function Register({ company_id, company_name }) {
                 <form onSubmit={submitHandler} className="space-y-6 form-container">
                     <div>
                         <InputLabel htmlFor="name" value="Full Name" />
-                        <TextInput
+                        <input
+                            ref={nameInputRef}
                             id="name"
                             type="text"
                             name="name"
                             autoComplete="name"
                             value={data.name}
-                            isFocused={true}
                             className="rounded-md border-green-300 shadow-sm focus:border-green-500 focus:ring-green-500 input-field"
                             onChange={(e) => setData('name', e.target.value)}
                         />
@@ -64,7 +69,7 @@ export default function Register({ company_id, company_name }) {
 
                     <div>
                         <InputLabel htmlFor="email" value="Email" />
-                        <TextInput
+                        <input
                             id="email"
                             type="email"
                             name="email"
@@ -78,7 +83,7 @@ export default function Register({ company_id, company_name }) {
 
                     <div>
                         <InputLabel htmlFor="password" value="Password" />
-                        <TextInput
+                        <input
                             id="password"
                             type="password"
                             name="password"
@@ -92,7 +97,7 @@ export default function Register({ company_id, company_name }) {
 
                     <div>
                         <InputLabel htmlFor="password_confirmation" value="Confirm Password" />
-                        <TextInput
+                        <input
                             id="password_confirmation"
                             type="password"
                             name="password_confirmation"

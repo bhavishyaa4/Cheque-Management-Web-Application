@@ -1,5 +1,5 @@
 import { Head, useForm, Link } from '@inertiajs/react';
-import { useState } from 'react';
+import { useState,useEffect, useRef } from 'react';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
@@ -15,8 +15,13 @@ export default function Login({ company_id, company_name  }) {
     });
 
     const [errorMessage, setErrorMessage] = useState('');
+    const emailInputRef = useRef(null);
     console.log('Data:', data);
     console.log('Errors:', errors);
+
+    useEffect(() => {
+        emailInputRef.current.focus();
+    }, []);
 
     const submitHandler = (e) => {
         e.preventDefault();
@@ -43,13 +48,13 @@ export default function Login({ company_id, company_name  }) {
                 <form onSubmit={submitHandler} className="space-y-6 form-container">
                     <div>
                         <InputLabel htmlFor="email" value="Email" />
-                        <TextInput
+                        <input
+                            ref={emailInputRef}
                             id="email"
                             type="email"
                             name="email"
                             autoComplete="email"
                             value={data.email}
-                            isFocused={true}
                             className="rounded-md border-green-300 shadow-sm focus:border-green-500 focus:ring-green-500 input-field"
                             onChange={(e) => setData('email', e.target.value)}
                         />
@@ -58,7 +63,7 @@ export default function Login({ company_id, company_name  }) {
 
                     <div>
                         <InputLabel htmlFor="password" value="Password" />
-                        <TextInput
+                        <input
                             id="password"
                             type="password"
                             name="password"

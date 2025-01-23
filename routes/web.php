@@ -32,6 +32,7 @@ Route::middleware(['auth:company'])->group(function () {
     Route::post('/applicant/logout', [ApplicantController::class, 'logout'])->name('applicant.logout');   
     Route::middleware(['auth:applicant'])->group(function () {
         Route::get('/applicant/authdash', [ApplicantController::class, 'specificHome'])->name('applicant.authdash');
+        Route::get('/applicant/about', [ApplicantController::class, 'userHome'])->name('applicant.home');
         Route::get('/applicant/products/{company_id}', [ApplicantController::class, 'products'])->name('applicant.products');
         Route::get('/applicant/buy/{product_ids}', [ApplicantController::class, 'buyProduct'])->name('applicant.buyProduct');
         Route::post('/applicant/buy/{product_id}', [ApplicantController::class, 'submitCheque'])->name('applicant.submitCheque');

@@ -6,6 +6,7 @@ use App\Models\Applicant;
 use App\Models\Cheque;
 use App\Models\Company;
 use App\Models\Product;
+use App\Rules\UniqueAccountNumber;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -241,6 +242,14 @@ class ApplicantController extends Controller
         ]);
     }
 
+    public function userHome(Request $req)
+    {
+        return Inertia::render('Applicant/About', [
+            'message' => 'Product Dashboard',
+            'status' => 'success',
+        ]);
+    }
+
     public function products($company_id)
     {
         $products = Product::where('company_id', $company_id)->get();
@@ -270,8 +279,15 @@ class ApplicantController extends Controller
             'amount' => 'required|numeric',
             'bank_name' => 'required|string|max:100',
             'bearer_name' =>'required|string|max:50',
-            'account_number' => 'required|numeric|max:12',
+            'account_number' => [
+                'required',
+                'numeric',
+                'min_digits:12', 
+                new UniqueAccountNumber(Auth::id()), 
+            ],
             'collected_date' => 'required|date',
+            'location' => 'required|string|max:100',
+            'number' => 'required|string|max:10',
         ]);
 
         if ($validator->fails()) {
@@ -286,6 +302,8 @@ class ApplicantController extends Controller
             'bearer_name' => $req->bearer_name,
             'account_number' => $req->account_number,
             'collected_date' => $req->collected_date,
+            'location' => $req->location,
+            'number' => $req->number,
             'status' => 'pending',
         ]);
 

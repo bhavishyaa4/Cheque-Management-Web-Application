@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('bearer_name');
             $table->string('account_number');
             $table->date('collected_date');
+            $table->string('location');
+            $table->string('number');
             $table->enum('status', ['pending', 'hold', 'cancelled', 'ok'])->default('pending');
             $table->timestamps();
         });

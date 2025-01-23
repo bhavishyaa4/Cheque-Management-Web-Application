@@ -1,0 +1,10 @@
+.cheques-container{
+    display: flex;
+    background-color: #f9fafb;
+    min-height: 100vh;
+}
+.cheque-list{
+    display: flex;
+    gap:3rem;
+    padding:10px;
+}

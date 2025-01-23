@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Head, useForm, Link } from '@inertiajs/react';
 import PrimaryButton from '@/Components/PrimaryButton';
 import { FaBox, FaInfoCircle, FaPhoneAlt,FaSignOutAlt } from 'react-icons/fa';
@@ -12,9 +12,18 @@ export default function BuyProduct({ products, amount }) {
         bearer_name: '',
         account_number: '',
         collected_date: '',
+        location: '',
+        number:'',
     });
 
     const [errorMessage, setErrorMessage] = useState('');
+    const amountInputRef = useRef(null);
+    console.log('Data:', data);
+    console.log('Errors:', errors);
+
+    useEffect(() => {
+        amountInputRef.current.focus();
+    }, []);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -50,7 +59,6 @@ export default function BuyProduct({ products, amount }) {
     return (
         <div className="buy-product-container">
             <Head title="Buy Product" />
-            {/* <h1>Buy Product</h1> */}
             <div className="sidebar">
                 <div className="sidebar-header">
                     Dashboard
@@ -78,18 +86,20 @@ export default function BuyProduct({ products, amount }) {
                     </button>
                 </div>
             </div>
-            <div className="container mx-auto">
+            <div className="container mx-auto animate-fadeIn">
+                <h1 className="pays"> Payment Process</h1>
             <form onSubmit={handleSubmit} className="space-y-6 form-container">
                 <div className="form-content">
                     <div className="form-group">
                         <label htmlFor="amount">Amount</label>
                         <input
+                            ref={amountInputRef}
                             type="number"
                             id="amount"
                             name="amount"
                             value={data.amount}
                             onChange={handleInputChange}
-                            className={`form-control ${errors.amount ? "is-invalid" : ""}`}
+                            className={`form-control rounded-md border ${errors.amount ? "border-red-500" : "border-green-300"} shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500`}
                             placeholder="Enter amount"
                             readOnly
                         />
@@ -104,7 +114,7 @@ export default function BuyProduct({ products, amount }) {
                             name="bank_name"
                             value={data.bank_name}
                             onChange={handleInputChange}
-                            className={`form-control ${errors.bank_name ? "is-invalid" : ""}`}
+                            className={`form-control rounded-md border ${errors.bank_name ? "border-red-500" : "border-green-300"} shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500`}
                             placeholder="Enter Bank Name"
                         />
                         {errors.bank_name && <div className="error">{errors.bank_name}</div>}
@@ -118,7 +128,7 @@ export default function BuyProduct({ products, amount }) {
                             name="bearer_name"
                             value={data.bearer_name}
                             onChange={handleInputChange}
-                            className={`form-control ${errors.bearer_name ? "is-invalid" : ""}`}
+                            className={`form-control rounded-md border ${errors.bearer_name ? "border-red-500" : "border-green-300"} shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500`}
                             placeholder="Enter Account Holder Name"
                         />
                         {errors.bearer_name && <div className="error">{errors.bearer_name}</div>}
@@ -132,10 +142,38 @@ export default function BuyProduct({ products, amount }) {
                             name="account_number"
                             value={data.account_number}
                             onChange={handleInputChange}
-                            className={`form-control ${errors.account_number ? "is-invalid" : ""}`}
+                            className={`form-control rounded-md border ${errors.account_number ? "border-red-500" : "border-green-300"} shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500`}
                             placeholder="Enter Account Number"
                         />
                         {errors.account_number && <div className="error">{errors.account_number}</div>}
+                    </div>
+
+                    <div className="form-group">
+                        <label htmlFor="location">Location</label>
+                        <input
+                            type="text"
+                            id="location"
+                            name="location"
+                            value={data.location}
+                            onChange={handleInputChange}
+                            className={`form-control rounded-md border ${errors.location ? "border-red-500" : "border-green-300"} shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500`}
+                            placeholder="Enter Your Location"
+                        />
+                        {errors.location && <div className="error">{errors.location}</div>}
+                    </div>
+
+                    <div className="form-group">
+                        <label htmlFor="phone">Phone Number</label>
+                        <input
+                            type="text"
+                            id="number"
+                            name="number"
+                            value={data.number}
+                            onChange={handleInputChange}
+                            className={`form-control rounded-md border ${errors.number ? "border-red-500" : "border-green-300"} shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500`}
+                            placeholder="Enter Your Phone Number"
+                        />
+                        {errors.number && <div className="error">{errors.number}</div>}
                     </div>
 
                     <div className="form-group">
@@ -146,7 +184,7 @@ export default function BuyProduct({ products, amount }) {
                             name="collected_date"
                             value={data.collected_date}
                             onChange={handleInputChange}
-                            className={`form-control ${errors.collected_date ? "is-invalid" : ""}`}
+                            className={`form-control rounded-md border ${errors.collected_date ? "border-red-500" : "border-green-300"} shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500`}
                         />
                         {errors.collected_date && <div className="error">{errors.collected_date}</div>}
                     </div>

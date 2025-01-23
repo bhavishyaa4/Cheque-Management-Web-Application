@@ -23,17 +23,29 @@
 
 .buy-product-container {
     display: flex;
-    height: 100vh;
     background-color: #f9fafb;
 }
+
+.pays{
+    display: flex;
+    margin-top: 1rem;
+    font-weight: bold;
+    font-size: 2rem;
+    justify-content: center;
+}
+
 .form-container {
-    max-width: 800px;
+    max-width: 650px;
     margin: 30px auto 0;
     padding: 20px;
     background-color: #f9f9f9;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+.animate-fadeIn{
+    animation:fadeIn 0.8s ease-in-out;
+}
+
 .form-content {
     margin-bottom: 20px;
 }
@@ -52,7 +64,35 @@ label{
     padding: 12px;
     border: 1px solid #ddd;
     border-radius: 5px;
+    border: none;
     color: black;
     font-size: 1rem;
     transition: border-color 0.3s;
 }
+.form-control:focus{
+    animation:shake 0.5s ease-in-out;
+}
+.error{
+    color:red;
+    font-size: 0.875rem;
+    margin-top: 5px;
+}
+
+.create-actions{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.create-button{
+    background: #22c55e;
+    color: white;
+    font-size: 1rem;
+    padding:12px 20px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  .form-control:focus{
+    animation: shake 0.5s ease-in-out
+  }
+  

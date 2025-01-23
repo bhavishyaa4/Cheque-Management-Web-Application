@@ -103,7 +103,7 @@ export default function SpecificHome({ company }) {
                         </Link>
                     </li>
                     <li>
-                        <a href="#" className="sidebar-link">
+                        <a href="/applicant/about" className="sidebar-link">
                             <FaInfoCircle className="icon" /> About
                         </a>
                     </li>

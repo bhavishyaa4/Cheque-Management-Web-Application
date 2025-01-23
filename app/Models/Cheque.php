@@ -18,6 +18,8 @@ class Cheque extends Model
         'bearer_name',
         'account_number',
         'collected_date',
+        'location',
+        'number',
         'status',
     ];
 

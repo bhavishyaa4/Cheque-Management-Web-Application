@@ -21,6 +21,7 @@ class Cheque extends Model
         'location',
         'number',
         'status',
+        'company_id',
     ];
 
     //This one is for applicants
@@ -29,7 +30,11 @@ class Cheque extends Model
     }
 
     //This one is for products
-    public function product(){
-        return $this->belongsTo(Product::class);
+    public function products(){
+        return $this->belongsToMany(Product::class, 'cheque_product');
     }
+    public function company()
+{
+    return $this->belongsTo(Company::class);
+}
 }

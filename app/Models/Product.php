@@ -27,6 +27,6 @@ class Product extends Model
     //This one is for cheque
     public function cheque()
     {
-        return $this->hasMany(Cheque::class);
+        return $this->belongsToMany(Cheque::class, 'cheque_product');
     }
 }

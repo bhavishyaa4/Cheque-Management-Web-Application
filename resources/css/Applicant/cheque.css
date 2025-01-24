@@ -1,10 +1,80 @@
-.cheques-container{
+.cheques-container {
     display: flex;
     background-color: #f9fafb;
     min-height: 100vh;
 }
-.cheque-list{
-    display: flex;
-    gap:3rem;
-    padding:10px;
+
+.cheque-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 2rem; 
+    max-width: 1200px; 
+    margin: 20px 100px 350px 100px ;
+    padding: 10px;
+}
+
+.cheque-card {
+    background: #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 20px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    text-align: left;
+}
+
+.cheque-card h3 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.cheque-card p {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 8px;
+}
+
+.cheque-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.cheque-list .cheque-card .heads {
+    font-weight: bold;
+    font-size: 1.7rem;
+    color: black;
+}
+
+.cheque-list .cheque-card .bodys {
+    font-size: 1.1rem;
+    color: #333;
+    margin-top: 1rem;
+    font-style: italic; 
+    font-weight: 600; 
+    line-height: 1.6; 
+    letter-spacing: 0.5px; 
+    background-color: #f4f4f4; 
+    padding: 10px; 
+    border-radius: 8px; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+    transition: transform 0.3s, box-shadow 0.3s; 
+}
+
+/* .cheque-list .cheque-card .bodys:hover {
+    transform: translateY(-3px); 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); 
+} */
+
+p.no-cheques {
+    font-size: 16px;
+    color: #777;
+    margin-top: 20px;
+}
+
+@media screen and (max-width: 768px) {
+    .cheque-list {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
 }

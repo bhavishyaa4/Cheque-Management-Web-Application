@@ -1,22 +1,22 @@
 import React from 'react';
 import { Head, Link, useForm } from '@inertiajs/react';
-import {FaBox, FaInfoCircle, FaPhoneAlt, FaSignOutAlt} from 'react-icons/fa';
+import { FaBox, FaInfoCircle, FaPhoneAlt, FaSignOutAlt } from 'react-icons/fa';
 import '../../../css/Applicant/applicantSideBar.css';
 import '../../../css/Applicant/cheque.css';
 
-export default function Cheques({ cheques = [] }) {
-    const {post} = useForm({});
+export default function Cheques({ cheques = [], company_id  }) {
+    const { post } = useForm({});
 
     const handleLogout = (e) => {
         e.preventDefault();
-        if(window.confirm("Are you sure you want to logout?")){
-            post(route("applicant.logout"));
+        if (window.confirm('Are you sure you want to logout?')) {
+            post(route('applicant.logout'));
         }
     };
+
     return (
         <div className="cheques-container">
             <Head title="Cheques Dashboard" />
-            {/* <h1>Your Cheques</h1> */}
             <div className="sidebar">
                 <div className="sidebar-header">
                     Dashboard
@@ -28,7 +28,7 @@ export default function Cheques({ cheques = [] }) {
                         </Link>
                     </li>
                     <li>
-                        <a href="#" className="sidebar-link">
+                        <a href="/applicant/about" className="sidebar-link">
                             <FaInfoCircle className="icon" /> About
                         </a>
                     </li>
@@ -48,13 +48,18 @@ export default function Cheques({ cheques = [] }) {
                 {cheques.length > 0 ? (
                     cheques.map((cheque) => (
                         <div key={cheque.id} className="cheque-card">
-                            <h3>Cheque for {cheque.product.name}</h3>
-                            <p>Amount: Rs. {cheque.amount}</p>
-                            <p>Bank Name: {cheque.bank_name}</p>
-                            <p>Account Holder Name: {cheque.bearer_name}</p>
-                            <p>Account Number: {cheque.account_number}</p>
-                            <p>Collected Date: {cheque.collected_date}</p>
-                            <p>Status: {cheque.status}</p>
+                            <p className="heads">
+                                Cheque for{' '}
+                                {cheque.products.length > 0
+                                ? cheque.products.map((product) => product.name).join(', ')
+                                 : 'No products'}
+                                </p>
+                            <p className="bodys">Amount: Rs. {cheque.amount}</p>
+                            <p className="bodys">Bank Name: {cheque.bank_name}</p>
+                            <p className="bodys">Account Holder Name: {cheque.bearer_name}</p>
+                            <p className="bodys">Account Number: {cheque.account_number}</p>
+                            <p className="bodys">Collected Date: {cheque.collected_date}</p>
+                            <p className="button">Status: {cheque.status}</p>
                         </div>
                     ))
                 ) : (

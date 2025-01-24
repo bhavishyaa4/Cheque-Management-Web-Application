@@ -7,6 +7,7 @@ use App\Models\Cheque;
 use App\Models\Company;
 use App\Models\Product;
 use App\Rules\UniqueAccountNumber;
+use App\Rules\UniqueEmail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -47,7 +48,11 @@ class ApplicantController extends Controller
     public function store(Request $req){
         $validator = Validator::make($req->all(),[
             'name' => 'required|string|max:50',
-            'email' => 'email|required|unique:applicants,email',
+            'email' => [
+                'required',
+                'email',
+                new UniqueEmail(Auth::id(), $req->company_id),
+            ],
             'password' => 'required|confirmed|min:6',
             'company_id' => 'required|exists:companies,id',
         ]);
@@ -273,8 +278,9 @@ class ApplicantController extends Controller
     ]);
     }
 
-    public function submitCheque(Request $req, $product_id)
+    public function submitCheque(Request $req)
     {
+        $companyId = Auth::user()->company_id;
         $validator = Validator::make($req->all(), [
             'amount' => 'required|numeric',
             'bank_name' => 'required|string|max:100',
@@ -283,20 +289,20 @@ class ApplicantController extends Controller
                 'required',
                 'numeric',
                 'min_digits:12', 
-                new UniqueAccountNumber(Auth::id()), 
+                new UniqueAccountNumber(Auth::id(), $companyId), 
             ],
             'collected_date' => 'required|date',
             'location' => 'required|string|max:100',
             'number' => 'required|string|max:10',
+            'product_ids' => 'required|array|min:1',
         ]);
 
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
 
-        Cheque::create([
+        $cheque = Cheque::create([
             'applicant_id' => Auth::id(),
-            'product_id' => $product_id,
             'amount' => $req->amount,
             'bank_name' => $req->bank_name,
             'bearer_name' => $req->bearer_name,
@@ -305,16 +311,24 @@ class ApplicantController extends Controller
             'location' => $req->location,
             'number' => $req->number,
             'status' => 'pending',
+            // 'company_id' => $companyId,
+            'company_id' => Auth::user()->company_id,
         ]);
-
+        $cheque->products()->attach($req->product_ids);
         return redirect()->route('applicant.cheques')->with('message', 'Cheque submitted successfully.');
     }
 
     public function cheques()
     {
-        $cheques = Cheque::where('applicant_id', Auth::id())
-            ->with(['product'])
-            ->get();
+
+        $applicant = Auth::guard('applicant')->user();
+        $companyId = $applicant->company_id;
+
+
+        $cheques = Cheque::where('applicant_id', $applicant->id)
+        ->where('company_id', $companyId)
+        ->with('products')
+        ->get();
 
         return Inertia::render('Applicant/Cheques', [
             'cheques' => $cheques,

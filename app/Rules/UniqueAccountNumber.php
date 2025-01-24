@@ -9,10 +9,13 @@ use Illuminate\Contracts\Validation\ValidationRule;
 class UniqueAccountNumber implements ValidationRule
 {
     protected $applicantId;
+    protected $companyId;
 
-    public function __construct($applicantId)
+    public function __construct($applicantId, $companyId)
     {
         $this->applicantId = $applicantId;
+        $this->companyId = $companyId;
+
     }
 
     /**
@@ -24,11 +27,12 @@ class UniqueAccountNumber implements ValidationRule
     {
         $exists = DB::table('cheques')
             ->where('account_number', $value)
+            ->where('company_id', $this->companyId) 
             ->where('applicant_id', '!=', $this->applicantId)
             ->exists();
 
         if ($exists) {
-            $fail('The account number is already in use by another user.');
+            $fail('The account number is already in use by another user for this company.');
         }
     }
 }

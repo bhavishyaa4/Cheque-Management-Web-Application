@@ -23,7 +23,7 @@
 
 .buy-product-container {
     display: flex;
-    background-color: #f9fafb;
+    background-color: #d9ded5;
 }
 
 .pays{
@@ -36,11 +36,12 @@
 
 .form-container {
     max-width: 650px;
-    margin: 30px auto 0;
+    margin: 10px auto;
+    margin-bottom: 20px;
     padding: 20px;
     background-color: #f9f9f9;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 15px rgba(17, 0, 0, 0.1);
 }
 .animate-fadeIn{
     animation:fadeIn 0.8s ease-in-out;

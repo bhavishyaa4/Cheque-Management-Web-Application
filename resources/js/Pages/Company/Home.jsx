@@ -41,7 +41,7 @@ export default function Dashboard({ company_name, company_id }) {
                         </Link>
                     </li>
                     <li>
-                        <Link href={`/employees/login?company_id=${company_id}`} className="sidebar-link">
+                        <Link href={`/employee/login?company_id=${company_id}`} className="sidebar-link">
                             <FaUserTie className="icon" /> Employee
                         </Link>
                     </li>

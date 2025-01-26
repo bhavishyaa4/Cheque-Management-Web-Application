@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Applicant;
 use App\Models\Company;
 use App\Models\Employee;
 use Illuminate\Http\Request;
@@ -180,16 +181,107 @@ class EmployeeController extends Controller
                 'message' => 'Employee Home Page.',
                 'status' => 'success',
                 'code' => 200,
-                'data' => $applicants,
+                'applicants' => $applicants,
             ]);
         }
         return Inertia::render('Employee/Home',[
             'message' => 'Employee Home Page.',
             'status' => 'success',
             'code' => 200,
-            'data' => $applicants,
+            'applicants' => $applicants,
         ]);
     }
+
+    // public function showCheques(Request $req, $applicantId){
+    //     $applicant = Applicant::find($applicantId);
+    //     if(!$applicant) {
+    //         if($req->wantsJson()){
+    //             return response()->json([
+    //                 'message' => 'Applicant not found.',
+    //                 'status' => 'error',
+    //                 'code' => 404,
+    //             ]);
+    //         }
+    //         return redirect()->back()->withErrors([
+    //             'message' => 'Applicant not found.',
+    //             'status' => 'error',
+    //             'code' => 404,
+    //         ]);
+    //     }
+
+    //     $cheques = $applicant->cheques;
+
+    //     if($req->wantsJson()){
+    //         return response()->json([
+    //             'message' => 'Cheques of Applicant.',
+    //             'status' => 'success',
+    //             'code' => 200,
+    //             'cheques' => $cheques,
+    //         ]);
+    //     }
+    //     return Inertia::render('Employee/Cheque',[
+    //         'message' => 'Cheques of Applicant.',
+    //         'status' => 'success',
+    //         'code' => 200,
+    //         'cheques' => $cheques,
+    //     ]);
+    // }
+
+//     public function showCheques(Request $req, $applicantId)
+// {
+//     $applicant = Applicant::find($applicantId);
+
+//     if (!$applicant) {
+//         return response()->json([
+//             'message' => 'Applicant not found.',
+//             'status' => 'error',
+//             'code' => 404,
+//         ]);
+//     }
+
+//     $cheques = $applicant->cheques()->get();
+
+//     return response()->json([
+//         'message' => 'Cheques of Applicant.',
+//         'status' => 'success',
+//         'code' => 200,
+//         'cheques' => $cheques,
+//     ]);
+// }
+
+
+public function showCheques(Request $req, $applicantId) {
+    $applicant = Applicant::find($applicantId);
+
+    if (!$applicant) {
+        return response()->json([
+            'message' => 'Applicant not found.',
+            'status' => 'error',
+            'code' => 404,
+        ], 404);
+    }
+
+    $cheques = $applicant->cheques;
+
+    if ($req->wantsJson()) {
+        return response()->json([
+            'message' => 'Cheques of Applicant.',
+            'status' => 'success',
+            'code' => 200,
+            'cheques' => $cheques,
+        ]);
+    }
+
+    // Returning an Inertia response for browser requests
+    return Inertia::render('Employee/Cheques', [
+        'message' => 'Cheques of Applicant.',
+        'status' => 'success',
+        'code' => 200,
+        'cheques' => $cheques,
+    ]);
+}
+
+
 
     public function logout(Request $req)
     {

@@ -47,9 +47,8 @@ Route::middleware(['auth:company'])->group(function () {
         Route::get('/login', [EmployeeController::class, 'loginForm'])->name('loginForm');
         Route::post('/login', [EmployeeController::class, 'login'])->name('login');
         Route::post('/logout', [EmployeeController::class, 'logout'])->name('logout');
-        Route::get('/dashboard', [EmployeeController::class, 'home'])->name('home'); 
+        Route::get('/dashboard', [EmployeeController::class, 'home'])->name('home');
+        Route::get('/applicant/{applicantId}/cheques', [EmployeeController::class, 'showCheques'])->name('employee.applicant.cheques'); 
     });
-    
-
 
 Route::post('/logout', [CompanyController::class, 'logout'])->name('logout');

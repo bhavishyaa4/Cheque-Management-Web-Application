@@ -34,7 +34,12 @@ class Cheque extends Model
         return $this->belongsToMany(Product::class, 'cheque_product');
     }
     public function company()
-{
-    return $this->belongsTo(Company::class);
-}
+    {
+        return $this->belongsTo(Company::class);
+    }
+
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class);
+    }
 }

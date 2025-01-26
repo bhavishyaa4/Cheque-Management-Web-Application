@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ApplicantController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -39,5 +40,16 @@ Route::middleware(['auth:company'])->group(function () {
         Route::get('/applicant/cheques', [ApplicantController::class, 'cheques'])->name('applicant.cheques');
         Route::get('/applicant/checkout', [ApplicantController::class, 'checkout'])->name('applicant.checkout');
     });
+//Route for Employee:
+    Route::prefix('employee')->name('employee.')->group(function () {
+        Route::get('/register', [EmployeeController::class, 'create'])->name('create');
+        Route::post('/register', [EmployeeController::class, 'store'])->name('store');
+        Route::get('/login', [EmployeeController::class, 'loginForm'])->name('loginForm');
+        Route::post('/login', [EmployeeController::class, 'login'])->name('login');
+        Route::post('/logout', [EmployeeController::class, 'logout'])->name('logout');
+        Route::get('/dashboard', [EmployeeController::class, 'home'])->name('home'); 
+    });
     
+
+
 Route::post('/logout', [CompanyController::class, 'logout'])->name('logout');

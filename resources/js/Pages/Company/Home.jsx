@@ -4,9 +4,11 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import '../../../css/companyDashboard.css';
 import { FaBox, FaUserTie, FaInfoCircle, FaPhoneAlt, FaSignOutAlt } from "react-icons/fa";
 
-export default function Dashboard({ company_name }) {
+export default function Dashboard({ company_name, company_id }) {
     const { post } = useForm();
     const [logoutMessage, setLogoutMessage] = useState("");
+    console.log('Company Name:',company_name);
+    console.log('Company Id:',company_id);
 
     const handleLogout = (e) => {
         e.preventDefault();
@@ -39,9 +41,9 @@ export default function Dashboard({ company_name }) {
                         </Link>
                     </li>
                     <li>
-                        <a href="#" className="sidebar-link">
+                        <Link href={`/employees/login?company_id=${company_id}`} className="sidebar-link">
                             <FaUserTie className="icon" /> Employee
-                        </a>
+                        </Link>
                     </li>
                     <li>
                         <a href="#" className="sidebar-link">

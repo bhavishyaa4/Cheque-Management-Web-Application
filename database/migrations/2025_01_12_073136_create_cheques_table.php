@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('product_id')->constrained();
             $table->decimal('amount', 10, 2);
             $table->string('bank_name'); 
-            $table->string('bearer_name');
+            $table->string('bearer_name');  
             $table->string('account_number');
             $table->date('collected_date');
             $table->string('location');

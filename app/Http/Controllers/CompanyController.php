@@ -181,6 +181,7 @@ class CompanyController extends Controller
                 'message' => 'Welcome to the company dashboard.',
                 'status' => 'success',
                 'company_name' => $user->name,
+                'company_id' => $user->id,
                 'code' => 200,
             ]);
         }
@@ -188,6 +189,7 @@ class CompanyController extends Controller
             'message' => 'Welcome to your company dashboard.',
             'status' => 'success',
             'company_name' => $user->name,
+            'company_id' => $user->id,
             'code' => 200,
         ]);
     }

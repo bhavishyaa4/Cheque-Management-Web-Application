@@ -1,17 +1,15 @@
 import React from 'react';
 import { Head } from '@inertiajs/react';
 
-export default function Cheques({ cheques = [], message }) {
-    // Ensure cheques is always an array
-    const safeCheques = Array.isArray(cheques) ? cheques : []; // Check if it's an array, otherwise fallback to empty array.
-
+export default function Cheques({ cheques = [] }) {
     return (
         <div className="cheques-container">
             <Head title="Cheques Dashboard" />
 
             <div className="cheque-list">
-                {safeCheques.length > 0 ? (
-                    safeCheques.map((cheque) => (
+                <h1>Cheque History of: {cheques.length > 0 && cheques[0].bearer_name}</h1>
+                {cheques.length > 0 ? (
+                    cheques.map((cheque) => (
                         <div key={cheque.id} className="cheque-card">
                             <p className="heads">
                                 Cheque for{' '}
@@ -25,6 +23,9 @@ export default function Cheques({ cheques = [], message }) {
                             <p className="bodys">Account Number: {cheque.account_number}</p>
                             <p className="bodys">Collected Date: {cheque.collected_date}</p>
                             <p className="button">Status: {cheque.status}</p>
+
+                            {/* Edit button links to the Edit page */}
+                            <a href={`/employee/cheques/edit/${cheque.id}`} className="edit-button">Edit</a>
                         </div>
                     ))
                 ) : (

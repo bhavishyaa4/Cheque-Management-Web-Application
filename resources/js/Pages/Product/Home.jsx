@@ -5,7 +5,7 @@ import '../../../css/Product/productDashBoardPage.css';
 import PrimaryButton from '@/Components/PrimaryButton';
 import {FaBox, FaUserTie, FaInfoCircle, FaPhoneAlt, FaSignOutAlt, FaPen, FaTrash } from "react-icons/fa";
 
-export default function Home({ products = [] }) {
+export default function Home({ products = [], company_id }) {
     const { delete: deleteProduct, processing } = useForm();
     const [productsList, setProductsList] = useState(products);
     console.log('Products:',products);
@@ -56,9 +56,9 @@ export default function Home({ products = [] }) {
                         </Link>
                     </li>
                     <li>
-                        <a href="#" className="sidebar-link">
+                        <Link href={`/company/employees?company_id=${company_id}`} className="sidebar-link">
                             <FaUserTie className="icon" /> Employee
-                        </a>
+                        </Link>
                     </li>
                     <li>
                         <a href="#" className="sidebar-link">
@@ -98,9 +98,12 @@ export default function Home({ products = [] }) {
                             <div className="actions">
                                 <div className="action-buttons">
                                     <button>
-                                        <a href={route('company.products.edit', product.id)} className="edit-button">
+                                        {/* <Link href={route('company.products.edit', product.id)} className="edit-button"> */}
+                                        <Link
+                                                href={`${route('company.products.edit', product.id)}?company_id=${company_id}`}
+                                                className="edit-button">
                                             <FaPen /> Edit
-                                        </a>
+                                        </Link>
                                     </button>
 
                                     <PrimaryButton

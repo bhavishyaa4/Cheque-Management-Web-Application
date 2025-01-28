@@ -5,7 +5,7 @@ import { Head, useForm, Link } from "@inertiajs/react";
 import PrimaryButton from '@/Components/PrimaryButton';
 import { FaUserTie, FaBox, FaPhoneAlt, FaSignOutAlt, FaInfoCircle, FaSave, FaArrowLeft } from "react-icons/fa";
 
-export default function Edit({ product }) {
+export default function Edit({ product, company_id }) {
   const { data, setData, put, processing, errors } = useForm({
     name: product.name,
     description: product.description,
@@ -15,6 +15,7 @@ export default function Edit({ product }) {
   });
 
   console.log('Form Data:', data);
+  console.log('Company Id:',company_id);
   console.log('Errors:', errors);
 
   const handleInputChange = (e) => {
@@ -74,9 +75,9 @@ export default function Edit({ product }) {
                         </Link>
                     </li>
                     <li>
-                        <a href="#" className="sidebar-link">
+                        <Link href={`/company/employees?company_id=${company_id}`} className="sidebar-link">
                             <FaUserTie className="icon" /> Employee
-                        </a>
+                        </Link>
                     </li>
                     <li>
                         <a href="#" className="sidebar-link">

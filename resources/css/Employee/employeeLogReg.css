@@ -1,12 +1,13 @@
 body{
-    background-color: white;
+    background: white;
 }
+
 @keyframes fadeIn {
     from {
         opacity: 0;
         transform: translateY(-60px);
     }
-    to {
+    to{
         opacity: 1;
         transform: translateY(10);
     }
@@ -25,84 +26,76 @@ body{
 }
 
 .block {
-    margin-bottom: 10px;
+    margin-bottom:10px;
     font-weight: bold;
-    animation: fadeIn 0.8s ease-out;
+    animation: fadeIn 0.8s ease-in-out;
 }
 
-/* .color:hover {
-    color: #16a34a;
-} */
-
 .animate-fadeIn {
-    animation: fadeIn 0.8s ease-out;
+    animation: fadeIn 0.8s ease-in-out;
 }
 
 .form-container {
     max-width: 500px;
     margin: 0 auto;
     background: white;
-    padding: 20px;
+    padding:20px;
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
-
-.input-field {
+.input-field{
     width: 100%;
-    padding: 10px;
+    padding:10px;
     border: 1px solid #ccc;
-    border-radius: 10px;
     outline: none;
     transition: box-shadow 0.3s ease;
 }
-
-.input-field:focus {
-    border: 1px solid #34d399; 
-    outline: none;
+.input-field:focus{
+    outline:none;
     animation: shake 0.5s ease-in-out;
 }
 
 .submit-button {
-    background: linear-gradient(90deg, #22c55e, #16a34a);
-    color: white;
+    background: linear-gradient(90deg, #374b9c, #3a5bbf);
+    color:white;
     font-weight: bold;
-    padding: 10px 20px;
+    padding:10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background 0.3s ease;
+    transition: background 0.3s ease-in-out;
+
 }
 
 .submit-button:hover {
-    background: linear-gradient(90deg, #16a34a, #22c55e);
+    background: linear-gradient(90deg, #3a5bbf, #374b9c);
 }
 
-.info-text {
+.info-text{
     font-size: 1.1rem;
-    color: #4a5568;
-    margin: 15px 0;
+    margin:15px 0;
 }
 
-.login-link {
+.login-link{
     font-weight: bold;
-    color: #22c55e;
+    color: #3a5bbf;
     text-decoration: none;
     transition: color 0.3s ease, text-decoration 0.3s ease;
 }
 
-.login-link:hover {
-    color: #16a34a;
+.login-link:hover{
+    color: #4a6ed3;
     text-decoration: underline;
 }
 
-.register-link {
+.register-link{
     font-weight: bold;
-    color: #22c55e;
+    color: #3a5bbf;
     text-decoration: none;
     transition: color 0.3s ease, text-decoration 0.3s ease;
 }
 
-.register-link:hover {
-    color: #16a34a;
+.register-link:hover{
+    color: #4a6ed3;
     text-decoration: underline;
 }

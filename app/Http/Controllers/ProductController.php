@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -12,6 +13,7 @@ class ProductController extends Controller
 {
     public function index(Request $req)
     {
+        // $company_id = $req->query('company_id');
         $user = auth('company')->user();
         if (!$user) {
             return redirect()->route('login');
@@ -24,6 +26,7 @@ class ProductController extends Controller
                 'products' => $products,
                 'message' => 'Products fetched successfully.',
                 'status' => 'success',
+                'company_id' => $user->id,
                 'code' => 200,
             ]);
         }
@@ -32,16 +35,20 @@ class ProductController extends Controller
             'products' => $products,
             'message' => 'Products fetched successfully.',
             'status' => 'success',
+            'company_id' => $user->id,
             'code' => 200,
         ]);
     }
 
     public function create(Request $req)
     {
+        $user = auth('company')->user();
+        Product::where('company_id', $user->id)->get();
         if ($req->wantsJson()) {
             return response()->json([
                 'message' => 'Create a Product.',
                 'status' => 'success',
+                'company_id' => $user->id,
                 'code' => 201,
             ]);
         }
@@ -49,6 +56,7 @@ class ProductController extends Controller
         return Inertia::render('Product/Create', [
             'message' => 'Create a New Product.',
             'status' => 'success',
+            'company_id' => $user->id,
             'code' => 201,
         ]);
     }
@@ -108,12 +116,22 @@ class ProductController extends Controller
 
     public function edit($id, Request $req)
     {
+        $company_id = $req->query('company_id');
+        // $company = Company::find($company_id);
+        // if (!$company) {
+        //     return response()->json([
+        //         'message' => 'Company not found.',
+        //         'status' => 'error',
+        //         'code' => 404
+        //     ]);
+        // }
         $product = Product::findOrFail($id);
 
         if ($req->wantsJson()) {
             return response()->json([
                 'product' => $product,
                 'message' => 'Product found.',
+                'company_id' => $company_id,
                 'status' => 'success',
                 'code' => 200,
             ]);
@@ -122,6 +140,7 @@ class ProductController extends Controller
         return Inertia::render('Product/Edit', [
             'product' => $product,
             'message' => 'Product found.',
+            'company_id' => $company_id,
             'status' => 'success',
             'code' => 200,
         ]);
@@ -195,14 +214,18 @@ class ProductController extends Controller
         return Inertia::render('Product/Home', [
             'products' => $products,
             'message' => 'Product Dashboard',
+            'company_id' => $user->id,
             'status' => 'success',
         ]);
     }
 
     public function control(Request $req)
     {
+        $user = auth('company')->user();
+        Product::where('company_id', $user->id)->get();
         return Inertia::render('Product/Control', [
             'message' => 'Product Control',
+            'company_id' => $user->id,
             'status' => 'success',
         ]);
     }

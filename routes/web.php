@@ -22,6 +22,7 @@ Route::middleware(['auth:company'])->group(function () {
         Route::delete('/company/products/{id}', [ProductController::class, 'destroy'])->name('company.products.destroy');
         Route::get('/company/products/home', [ProductController::class, 'home'])->name('company.products.home');
         Route::get('/company/products/control', [ProductController::class, 'control'])->name('company.products.control');
+        Route::get('/company/employees', [EmployeeController::class, 'employeeHome'])->name('company.employee');
     
 });
 //Route for Applicant:
@@ -40,7 +41,20 @@ Route::middleware(['auth:company'])->group(function () {
         Route::get('/applicant/cheques', [ApplicantController::class, 'cheques'])->name('applicant.cheques');
         Route::get('/applicant/checkout', [ApplicantController::class, 'checkout'])->name('applicant.checkout');
     });
-    Route::prefix('employee')->name('employee.')->middleware('auth:employee')->group(function () {
+
+//Route for Employee:
+    // Route::prefix('employee')->name('employee.')->middleware('auth:employee')->group(function () {
+    //     Route::get('/register', [EmployeeController::class, 'create'])->name('create');
+    //     Route::post('/register', [EmployeeController::class, 'store'])->name('store');
+    //     Route::get('/login', [EmployeeController::class, 'loginForm'])->name('loginForm');
+    //     Route::post('/login', [EmployeeController::class, 'login'])->name('login');
+    //     Route::post('/logout', [EmployeeController::class, 'logout'])->name('logout');
+    //     Route::get('/dashboard', [EmployeeController::class, 'home'])->name('home');
+    //     Route::get('/applicant/{applicantId}/cheques', [EmployeeController::class, 'showCheques'])->name('employee.applicant.cheques');
+    //     Route::get('/cheques/edit/{chequeId}', [EmployeeController::class, 'editCheque'])->name('employee.cheques.edit');
+    //     Route::put('/cheques/update/{chequeId}', [EmployeeController::class, 'updateCheque'])->name('employee.cheques.update');
+    // });
+        Route::prefix('employee')->name('employee.')->middleware('auth:company')->group(function () {
         Route::get('/register', [EmployeeController::class, 'create'])->name('create');
         Route::post('/register', [EmployeeController::class, 'store'])->name('store');
         Route::get('/login', [EmployeeController::class, 'loginForm'])->name('loginForm');

@@ -62,7 +62,7 @@ export default function Login({ company_id, company_name  }) {
                     </div>
 
                     <div>
-                        <InputLabel htmlFor="password" value="Password" />
+                        <InputLabel htmlFor="password" className="block" value="Password" />
                         <input
                             id="password"
                             type="password"
@@ -76,7 +76,7 @@ export default function Login({ company_id, company_name  }) {
                     </div>
 
                     {errorMessage && (
-                        <p className="text-blue-500 text-center text-sm">{errorMessage}</p>
+                        <p className="text-red-500 text-center text-sm">{errorMessage}</p>
                     )}
 
                     <div className="text-center">

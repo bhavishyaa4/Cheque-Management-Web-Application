@@ -5,7 +5,7 @@ import { FaUserTie, FaInfoCircle, FaPhoneAlt, FaSignOutAlt, FaPlus, FaBox } from
 import '../../../css/productSideBar.css';
 import '../../../css/Product/productHomePage.css';
 
-export default function Control() {
+export default function Control({company_id}) {
     const handleLogout = (e) => {
         e.preventDefault();
 
@@ -38,9 +38,9 @@ return (
                         </Link>
                     </li>
                     <li>
-                        <a href="#" className="sidebar-link">
+                        <Link href={`/company/employees?company_id=${company_id}`} className="sidebar-link">
                             <FaUserTie className="icon" /> Employee
-                        </a>
+                        </Link>
                     </li>
                     <li>
                         <a href="#" className="sidebar-link">

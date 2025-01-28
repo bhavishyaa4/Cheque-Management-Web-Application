@@ -5,7 +5,7 @@ import '../../../css/productSideBar.css';
 import '../../../css/Product/productEdit.css'
 import { FaBox, FaUserTie, FaInfoCircle, FaPhoneAlt, FaSignOutAlt } from "react-icons/fa";
 
-export default function Create() {
+export default function Create({company_id}) {
     const { data, setData, post, errors, processing } = useForm({
         name: "",
         description: "",
@@ -14,7 +14,8 @@ export default function Create() {
         image: null,
     });
 
-    const [errorMessage, setErrorMessage] = useState(''); 
+    const [errorMessage, setErrorMessage] = useState('');
+    console.log('Data', data)
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -81,9 +82,9 @@ export default function Create() {
                                       </Link>
                                   </li>
                                   <li>
-                                      <a href="#" className="sidebar-link">
+                                        <Link href={`/company/employees?company_id=${company_id}`} className="sidebar-link">
                                           <FaUserTie className="icon" /> Employee
-                                      </a>
+                                      </Link>
                                   </li>
                                   <li>
                                       <a href="#" className="sidebar-link">

@@ -88,6 +88,37 @@ class EmployeeController extends Controller
 
         return redirect()->route('employee.loginForm', ['company_id' => $req->company_id, 'company_name' => $company->name]);
     }
+    public function employeeHome (Request $req){
+
+        $company_id = $req->query('company_id');
+        $company = Company::find($company_id);
+
+        if (!$company) {
+            return response()->json([
+                'message' => 'Companys not found.',
+                'status' => 'error',
+                'code' => 404
+            ]);
+        }
+        $user = auth('company')->user();
+        if (!$user) {
+            return redirect()->route('login');
+        }
+            if($req->wantsJson()){
+                return response()->json([
+                    'message' => 'Welcome to the company employee page.',
+                    'status' => 'success',
+                    'company_id' => $company_id,
+                    'code' => 201,
+                ]);
+            }
+        return Inertia::render('Company/EmployeePage',[
+            'message' => 'Welcome to the company employee page.',
+            'status' => 'success',
+            'company_id' => $company_id,
+            'code' => 201,
+        ]); 
+    }
 
     public function loginForm(Request $req)
     {

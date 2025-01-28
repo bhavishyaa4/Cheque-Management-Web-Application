@@ -5,7 +5,7 @@ import { Link, Head, useForm } from '@inertiajs/react';
 import PrimaryButton from '@/Components/PrimaryButton';
 import { FaCog, FaBox, FaUserTie, FaInfoCircle, FaPhoneAlt, FaSignOutAlt } from 'react-icons/fa';
 
-export default function ProductsPage() {
+export default function ProductsPage({company_id}) {
     const { post } = useForm();
     
     const handleLogout = (e) => {
@@ -39,9 +39,9 @@ export default function ProductsPage() {
                         </Link>
                     </li>
                     <li>
-                        <a href="#" className="sidebar-link">
+                        <Link href={`/company/employees?company_id=${company_id}`} className="sidebar-link">
                             <FaUserTie className="icon" /> Employee
-                        </a>
+                        </Link>
                     </li>
                     <li>
                         <a href="#" className="sidebar-link">

@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
+import '../../../css/Employee/employeeLogReg.css';
 
 export default function Login({ company_id, company_name }) {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -14,6 +15,8 @@ export default function Login({ company_id, company_name }) {
 
     const [errorMessage, setErrorMessage] = useState('');
     const emailInputRef = useRef(null);
+    console.log('Data', data);
+    console.log('Errors', errors);
 
     useEffect(() => {
         emailInputRef.current.focus();
@@ -37,20 +40,21 @@ export default function Login({ company_id, company_name }) {
     return (
         <>
             <Head title="Employee Login" />
-            <div className="container mx-auto">
-                <h2 className="text-3xl text-green-500 font-bold mb-6 text-center mt-6">{company_name || 'Unknown Company'} Employee Login</h2>
+            <div className="container mx-auto animate-fadeIn">
+                <h2 className="text-3xl text-blue-500 font-bold mb-6 text-center mt-6">{company_name || 'Unknown Company'} Employee Login</h2>
 
-                <form onSubmit={submitHandler} className="space-y-6">
+                <form onSubmit={submitHandler} className="space-y-6  form-container">
                     <div>
-                        <InputLabel htmlFor="email" value="Email" />
+                        <InputLabel htmlFor="email" className='block' value="Email" />
                         <input
                             ref={emailInputRef}
                             id="email"
                             type="email"
                             name="email"
+                            autoComplete="email"
                             value={data.email}
                             onChange={(e) => setData('email', e.target.value)}
-                            className="input-field"
+                            className="rounded-md border-blue-300 shadow-sm focus:borderblue-500 focus:ring-blue-500 input-field"
                         />
                         <InputError message={errors.email} />
                     </div>
@@ -61,15 +65,16 @@ export default function Login({ company_id, company_name }) {
                             id="password"
                             type="password"
                             name="password"
+                            autoComplete="password"
                             value={data.password}
                             onChange={(e) => setData('password', e.target.value)}
-                            className="input-field"
+                            className="rounded-md border-blue-300 shadow-sm focus:borderblue-500 focus:ring-blue-500 input-field"
                         />
                         <InputError message={errors.password} />
                     </div>
 
                     {errorMessage && (
-                        <p className="text-blue-500 text-center text-sm">{errorMessage}</p>
+                        <p className="text-red-500 text-center text-sm">{errorMessage}</p>
                     )}
 
                     <div className="text-center">

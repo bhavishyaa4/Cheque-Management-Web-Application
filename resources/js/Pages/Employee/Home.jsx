@@ -7,6 +7,7 @@ export default function Home({ applicants = [], message }) {
     const [cheques, setCheques] = useState([]);
     const [loadingApplicantId, setLoadingApplicantId] = useState(null);
     const { get } = useForm();
+    console.log('Data', applicants);
 
     const showCheques = (applicantId) => {
         setLoadingApplicantId(applicantId);

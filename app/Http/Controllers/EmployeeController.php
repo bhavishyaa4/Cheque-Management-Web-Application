@@ -100,15 +100,16 @@ class EmployeeController extends Controller
                 'code' => 404
             ]);
         }
-        $user = auth('company')->user();
-        if (!$user) {
-            return redirect()->route('login');
-        }
+        // $user = auth('company')->user();
+        // if (!$user) {
+        //     return redirect()->route('login');
+        // }
             if($req->wantsJson()){
                 return response()->json([
                     'message' => 'Welcome to the company employee page.',
                     'status' => 'success',
                     'company_id' => $company_id,
+                    'company_name' => $company->name,
                     'code' => 201,
                 ]);
             }
@@ -116,9 +117,45 @@ class EmployeeController extends Controller
             'message' => 'Welcome to the company employee page.',
             'status' => 'success',
             'company_id' => $company_id,
+            'company_name' => $company->name,
             'code' => 201,
         ]); 
     }
+
+    public function viewEmployees(Request $req, $company_id)
+{
+    $company = Company::find($company_id);
+    
+    if (!$company) {
+        return response()->json([
+            'message' => 'Company not found.',
+            'status' => 'error',
+            'code' => 404,
+        ]);
+    }
+
+    // Fetch employees for the company
+    $employees = Employee::where('company_id', $company_id)->get();
+
+    if ($req->wantsJson()) {
+        return response()->json([
+            'message' => 'Employee list displayed.',
+            'status' => 'success',
+            'code' => 201,
+            'company_name' => $company->name,
+            'company_id' => $company_id,
+            'employees' => $employees,
+        ]);
+    }
+
+    return Inertia::render('Employee/EmployeeListPage', [
+        'company_id' => $company_id,
+        'company_name' => $company->name,
+        'employees' => $employees,
+        'message' => 'Employees for the company.',
+        'status' => 'success',
+    ]);
+}
 
     public function loginForm(Request $req)
     {

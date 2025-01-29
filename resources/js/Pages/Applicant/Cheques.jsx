@@ -6,7 +6,8 @@ import '../../../css/Applicant/cheque.css';
 
 export default function Cheques({ cheques = [], company_id  }) {
     const { post } = useForm({});
-    console.log('Cheques:', cheques)
+    console.log('Cheques:', cheques);
+    console.log('Company ID:', company_id);
 
     const handleLogout = (e) => {
         e.preventDefault();

@@ -5,9 +5,10 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import '../../../css/companyDashboard.css';
 import '../../../css/Employee/employeeHome.css';
 
- export default function EmployeePage({company_id}){
+ export default function EmployeePage({company_id, company_name}){
 
     console.log('Company Id:',company_id);
+    console.log('Company Name:', company_name);
     const { post } = useForm();
     const handleLogout = (e) => {
         e.preventDefault();
@@ -67,15 +68,15 @@ import '../../../css/Employee/employeeHome.css';
                    <h1>Employee Control</h1>
                    <div className="employee-options">
                    <Link href={`/employee/login?company_id=${company_id}`} className="option-button">
-                            <PrimaryButton>
+                            <PrimaryButton className="hello">
                                 <FaUserPlus className="icon" /> Add Employee 
                             </PrimaryButton>
                         </Link>
-                    <Link className="option-button">
-                        <PrimaryButton>
-                            <FaEye className="icon" /> View Employee 
-                        </PrimaryButton>
-                    </Link>
+                        <Link href={`/company/employees/${company_id}`} className="option-button">
+                            <PrimaryButton className="hello">
+                                <FaEye className="icon" /> View Employee
+                            </PrimaryButton>
+                        </Link>
                    </div>
                 </div>
             </div>

@@ -223,7 +223,25 @@ class EmployeeController extends Controller
         Auth::guard('employee')->login($employee);
         $req->session()->regenerate();
 
-        return redirect()->route('employee.home');
+        return redirect()->route('employee.firstDash');
+    }
+
+    public function firstPage(Request $req){
+        $employee = Auth::guard('employee')->user();
+        if($req->wantsJson()){
+            return response()->json([
+                'message' => 'Welcome to the first page.',
+                'status' => 'success',
+                'employeeName' => $employee->name,
+                'code' => 200,
+            ]);
+        }
+        return Inertia::render('Employee/FirstPage',[
+            'message' => 'Welcome to the first page.',
+            'status' => 'success',
+            'employeeName' => $employee->name,
+            'code' => 200,
+        ]);
     }
 
     public function home(Request $req)
@@ -243,6 +261,7 @@ class EmployeeController extends Controller
             'status' => 'success',
             'code' => 200,
             'applicants' => $applicants,
+            'employeeName' => $employee->name,
         ]);
     }
 

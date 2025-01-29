@@ -79,7 +79,7 @@ export default function Login({ company_id, company_name }) {
 
                     <div className="text-center">
                         <PrimaryButton className="submit-button" disabled={processing}>
-                            {processing ? 'Processing...' : 'Login'}
+                            {processing ? 'Logging in...' : 'Login'}
                         </PrimaryButton>
                     </div>
 

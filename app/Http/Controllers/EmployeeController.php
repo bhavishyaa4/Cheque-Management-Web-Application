@@ -347,4 +347,11 @@ class EmployeeController extends Controller
 
         return redirect()->route('employee.loginForm');
     }
+
+    public function deleteEmployee(Request $req, $company_id, $employeeId){
+        $employee = Employee::findOrFail($employeeId);
+        $employee->delete();
+        return redirect()->route('company.employees', ['company_id' => $company_id])
+                         ->with('success', 'Employee deleted successfully.');
+    }
 }

@@ -24,6 +24,8 @@ Route::middleware(['auth:company'])->group(function () {
         Route::get('/company/products/control', [ProductController::class, 'control'])->name('company.products.control');
         Route::get('/company/employees', [EmployeeController::class, 'employeeHome'])->name('company.employee');
         Route::get('/company/employees/{company_id}', [EmployeeController::class, 'viewEmployees'])->name('company.employees');
+        Route::delete('/company/employee/{company_id}/{employeeId}', [EmployeeController::class, 'deleteEmployee'])->name('company.employee.delete');
+
 });
 //Route for Applicant:
     Route::get('/applicant/register', [ApplicantController::class, 'create'])->name('applicant.register');

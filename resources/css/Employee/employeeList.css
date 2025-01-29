@@ -1,0 +1,77 @@
+.employee-list-content{
+    padding:20px;
+    flex: 1;
+    justify-content: center;
+}
+.employee-list-content h1{
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 1rem;
+    color: black
+}
+.employee-table {
+    width: 80%; 
+    max-width: 1000px; 
+    margin: 0 auto;
+    border-radius: 10px;
+    overflow: hidden;
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.employee-table thead {
+    background-color: #007bff;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.employee-table th {
+    padding: 15px 20px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+}
+
+.employee-table tbody {
+    background-color: #f4f4f9;
+}
+
+.employee-table td {
+    padding: 15px 20px;
+    text-align: left;
+    font-size: 1rem;
+    color: #555;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background-color 0.3s ease;
+}
+
+.employee-table tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+.employee-table td[colspan="3"] {
+    text-align: center;
+    color: #aaa;
+    padding: 20px;
+    font-style: italic;
+}
+.delete-button .icon {
+    margin-right: 5px;
+    color: red;
+}
+
+.delete-button:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .employee-table th, .employee-table td {
+        padding: 12px;
+        font-size: 0.9rem;
+    }
+
+    .employee-table {
+        font-size: 0.9rem;
+    }
+}

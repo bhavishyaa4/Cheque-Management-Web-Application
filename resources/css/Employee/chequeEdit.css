@@ -1,0 +1,11 @@
+.edit-cheque-container{
+flex: 1;
+padding:20px;
+}
+
+.edit-cheque-container h1{
+    color: black;
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}

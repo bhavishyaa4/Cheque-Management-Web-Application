@@ -66,12 +66,24 @@
 .cheque-card .button {
     font-size: 1rem;
     color: #28a745;
-    font-weight: 500;
-    margin-bottom: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    background-color: #f4f4f4;
+    padding:10px;
+    border-radius: 8px;
+    margin-top: 0.8rem;
+    margin-bottom: 1.3rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .cheque-card .edit-button {
-    padding: 10px 15px;
+    display: flex;
+    max-width: 80px;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
     background-color: #007bff;
     color: white;
     border: none;
@@ -79,6 +91,7 @@
     text-decoration: none;
     text-align: center;
     font-size: 1rem;
+    font-weight: 600;
     transition: background 0.3s ease, transform 0.2s ease;
     margin-top: auto;
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import { Head, useForm, Link } from '@inertiajs/react';
 import PrimaryButton from '@/Components/PrimaryButton';
 import { FaSignOutAlt, FaUserEdit, FaUsers } from 'react-icons/fa';
-import '../../../css/companyDashboard.css';
+import '../../../css/productSideBar.css';
 import '../../../css/Employee/chequeHistory.css';
 
 export default function Cheques({ cheques = [] }) {

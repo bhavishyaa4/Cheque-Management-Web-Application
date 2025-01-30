@@ -1,0 +1,121 @@
+.cheques-container {
+    flex: 1;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.cheques-container h1 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+    color: #333;
+    font-weight: bold;
+    text-align: center;
+}
+
+.cheque-list {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 2rem;
+    justify-content: center; 
+    padding: 10px;
+    margin-top: 20px; 
+}
+
+.cheque-card {
+    background: linear-gradient(to bottom, #ffffff, #f9f9f9);
+    color: #333;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px; 
+    border: 1px solid #ddd;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: left;
+}
+
+.cheque-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+}
+
+.cheque-card .heads {
+    font-weight: bold;
+    font-size: 1.3rem;
+    color: black;
+}
+
+.cheque-card .bodys {
+    font-size: 1rem;
+    color: #555;
+    margin-top: 0.8rem;
+    font-style: italic;
+    font-weight: 600;
+    line-height: 1.6;
+    letter-spacing: 0.5px;
+    background-color: #f4f4f4;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s; 
+}
+
+.cheque-card .button {
+    font-size: 1rem;
+    color: #28a745;
+    font-weight: 500;
+    margin-bottom: 12px;
+}
+
+.cheque-card .edit-button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    text-decoration: none;
+    text-align: center;
+    font-size: 1rem;
+    transition: background 0.3s ease, transform 0.2s ease;
+    margin-top: auto;
+}
+
+.cheque-card .edit-button:hover {
+    background-color: #0056b3;
+    transform: scale(1.07);
+}
+
+p.no-cheques {
+    font-size: 16px;
+    color: #777;
+    margin-top: 20px;
+}
+
+@media (max-width: 1024px) {
+    .cheque-list {
+        gap: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .cheque-list {
+        gap: 15px;
+    }
+
+    .cheque-card {
+        max-width: 500px;
+    }
+}
+
+@media (max-width: 480px) {
+    .cheque-list {
+        gap: 10px;
+    }
+
+    .cheque-card {
+        max-width: 100%;
+    }
+}

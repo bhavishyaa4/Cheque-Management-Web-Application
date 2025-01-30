@@ -62,28 +62,27 @@ export default function Home({ applicants = [], message}) {
                     </div>
                     <div className="employee-dash">
                         <h1>Users</h1>
-                    {applicants.length === 0 ? (
-                        <p>No applicants available.</p>
+                        {applicants.length === 0 ? (
+                            <p>No applicants available.</p>
                         ) : (
-                     <ul>
-                            {applicants.map((applicant) => (
-                                <li key={applicant.id} className="applicant-item">
-                                    <div>
+                            <div className="applicant-container">
+                                {applicants.map((applicant) => (
+                                    <div key={applicant.id} className="applicant-item">
                                         <strong>{applicant.name}</strong>
-                                            <p>Client Details: {applicant.email}</p>
-                                            <PrimaryButton
-                                                className="show-cheques-btn"
-                                                onClick={() => showCheques(applicant.id)} 
-                                                disabled={loadingApplicantId === applicant.id}>
-                                                {loadingApplicantId === applicant.id ? 'Opening...' : 'Show Cheques'}
+                                        <p><strong>Email:</strong> {applicant.email}</p>
+                                        <PrimaryButton
+                                            className="show-cheques-btn"
+                                            onClick={() => showCheques(applicant.id)}
+                                            disabled={loadingApplicantId === applicant.id}
+                                        >
+                                            {loadingApplicantId === applicant.id ? 'Opening...' : 'Show Cheques'}
                                         </PrimaryButton>
                                     </div>
-                                </li>
-                            ))}
-                        </ul>
-                    )}
+                                ))}
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
-        </div>
-    );
-}
+        );
+    }   

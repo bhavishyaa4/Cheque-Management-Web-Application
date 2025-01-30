@@ -7,6 +7,8 @@ import '../../../css/Employee/employeeFirstPage.css';
 
 export default function FirstPage({employeeName}){
 
+    const {post} = useForm();
+
     const handleLogout = (e) => {
         e.preventDefault();
         const isConfirmed = window.confirm("Are you sure you want to log out?");

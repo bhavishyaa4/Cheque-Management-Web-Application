@@ -102,15 +102,15 @@ export default function Home({ products = [], company_id }) {
                                         <Link
                                                 href={`${route('company.products.edit', product.id)}?company_id=${company_id}`}
                                                 className="edit-button">
-                                            <FaPen /> Edit
+                                            <FaPen />
+                                            {processing ? 'Editing...' : 'Edit'}
                                         </Link>
                                     </button>
 
                                     <PrimaryButton
                                         onClick={() => handleDelete(product.id)}
                                         className="delete-button"
-                                        disabled={processing}
-                                    >
+                                        disabled={processing}>
                                         <FaTrash /> Delete
                                     </PrimaryButton>
                                 </div>

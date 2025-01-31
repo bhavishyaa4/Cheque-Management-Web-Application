@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useEffect, useRef} from 'react';
 import { useForm, Head, Link } from '@inertiajs/react';
 import { FaSignOutAlt, FaUserEdit, FaUsers } from 'react-icons/fa';
 import '../../../css/companyDashboard.css';
@@ -25,6 +25,15 @@ export default function EditCheque({ cheque }) {
         put(`/employee/cheques/update/${cheque.id}`);
     };
 
+    const amountInputRef = useRef(null);
+    useEffect(() => {
+        amountInputRef.current.focus();
+    }, []);
+
+    console.log('Cheque Data:', data);
+    console.log('Errors:', errors);
+    console.log('post:', cheque);
+
     return (
         <div className="dashboard-container">
             <div className="sidebar">
@@ -47,52 +56,61 @@ export default function EditCheque({ cheque }) {
                     </PrimaryButton>
                 </div>
             </div>
-            <div className="edit-cheque-container">
+            <div className="edit-cheque-container mx-auto">
                 <Head title="Edit Cheque" />
-                <h1>Edit Cheque</h1>
-                <form onSubmit={handleSubmit}>
-                    <div>
-                        <label>Amount</label>
-                        <input
-                            type="number"
-                            name="amount"
-                            value={data.amount}
-                            onChange={(e) => setData('amount', e.target.value)}
-                        />
-                        {errors.amount && <div className="error">{errors.amount}</div>}
-                    </div>
+                <form onSubmit={handleSubmit} className='form-container'>
+                    <h2 className='form-title'>Edit Cheque</h2>
+                        <div className="form-content">
+                            <div className='form-group'>
+                                <label htmlFor='amount'>Amount</label>
+                                <input
+                                    ref={amountInputRef}
+                                    type="number"
+                                    id='number'
+                                    className='form-control'
+                                    name="amount"
+                                    value={data.amount}
+                                    onChange={(e) => setData('amount', e.target.value)}
+                                />
+                                {errors.amount && <div className="error">{errors.amount}</div>}
+                            </div>
 
-                    <div>
-                        <label>Status</label>
-                        <select
-                            name="status"
-                            value={data.status}
-                            onChange={(e) => setData('status', e.target.value)}
-                        >
-                            <option value="pending">Pending</option>
-                            <option value="hold">Hold</option>
-                            <option value="cancelled">Cancelled</option>
-                            <option value="ok">Completed</option>
-                        </select>
-                        {errors.status && <div className="error">{errors.status}</div>}
-                    </div>
+                            <div className='form-group'>
+                                <label htmlFor='status'>Status</label>
+                                <select
+                                    className='form-control'
+                                    name="status"
+                                    value={data.status}
+                                    onChange={(e) => setData('status', e.target.value)}
+                                >
+                                    <option value="pending">Pending</option>
+                                    <option value="hold">Hold</option>
+                                    <option value="cancelled">Cancelled</option>
+                                    <option value="ok">Completed</option>
+                                </select>
+                                {errors.status && <div className="error">{errors.status}</div>}
+                            </div>
 
-                    <div>
-                        <label>Collected Date</label>
-                        <input
-                            type="date"
-                            name="collected_date"
-                            value={data.collected_date}
-                            onChange={(e) => setData('collected_date', e.target.value)}
-                        />
-                        {errors.collected_date && <div className="error">{errors.collected_date}</div>}
-                    </div>
+                            <div className='form-group'>
+                                <label htmlFor='collecteDate'>Collected Date</label>
+                                <input
+                                    type="date"
+                                    name="collected_date"
+                                    className='form-control'
+                                    value={data.collected_date}
+                                    onChange={(e) => setData('collected_date', e.target.value)}
+                                />
+                                {errors.collected_date && <div className="error">{errors.collected_date}</div>}
+                            </div>
+                        </div>
+                            <div className="form-actions">
+                                <PrimaryButton type="submit" className='save-button' disabled={processing}>
+                                    {processing ? 'Updating...' : 'Update Cheque'}
 
-                    <button type="submit" disabled={processing}>
-                        Update Cheque
-                    </button>
-                </form>
-            </div>
-        </div>
+                                </PrimaryButton>
+                            </div>
+                    </form>
+             </div>
+         </div>
     );
 }

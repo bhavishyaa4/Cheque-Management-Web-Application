@@ -341,21 +341,27 @@ class EmployeeController extends Controller
 
         if ($cheque->status == 'cancelled') {
             $cheque->delete();
-            return response()->json([
-                'message' => 'Cheque cancelled and deleted.',
-                'status' => 'success',
-                'code' => 200,
-            ]);
+            // return response()->json([
+            //     'message' => 'Cheque cancelled and deleted.',
+            //     'status' => 'success',
+            //     'code' => 200,
+            // ]);
+        return redirect()->route('employee.employee.applicant.cheques',['applicantId' => $cheque->applicant_id])->with(
+            'message','Cheque Cancelled and Deleted Successfully.'
+        );
         }
 
         $cheque->save();
 
-        return response()->json([
-            'message' => 'Cheque updated successfully.',
-            'status' => 'success',
-            'code' => 200,
-            'cheque' => $cheque,
-        ]);
+        // return response()->json([
+        //     'message' => 'Cheque updated successfully.',
+        //     'status' => 'success',
+        //     'code' => 200,
+        //     'cheque' => $cheque,
+        // ]);
+        return redirect()->route('employee.employee.applicant.cheques', ['applicantId' => $cheque->applicant_id])->with(
+            'message','Cheque Updated Successfully.'
+        );
     }
 
     public function logout(Request $req)

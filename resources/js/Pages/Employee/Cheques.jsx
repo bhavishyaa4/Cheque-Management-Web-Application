@@ -62,7 +62,7 @@ export default function Cheques({ cheques = [] }) {
                             </div>
                         ))
                     ) : (
-                        <p>No cheques submitted yet.</p>
+                        <p className='no-cheque'>No cheques submitted yet.</p>
                     )}
                 </div>
             </div>

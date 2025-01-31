@@ -183,7 +183,8 @@ export default function Edit({ product, company_id }) {
 
               <div className="form-actions">
                 <PrimaryButton type="submit" className="save-button" disabled={processing}>
-                  <FaSave /> Save Changes
+                <FaSave />
+                  {processing ? 'Saving...' : 'Save Changes'}
                 </PrimaryButton>
                 <a href={route("company.products.home")} className="back-button">
                   <FaArrowLeft /> Back to Dashboard

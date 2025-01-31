@@ -76,6 +76,14 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+.no-cheque{
+    color:black;
+    font-weight: 500;
+    font-size: 1.2rem;
+    font-style: italic;
+    text-decoration: underline;
+}
+
 .cheque-card .edit-button {
     display: flex;
     max-width: 80px;

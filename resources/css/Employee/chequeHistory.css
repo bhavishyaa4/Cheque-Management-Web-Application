@@ -86,7 +86,6 @@
 
 .cheque-card .edit-button {
     display: flex;
-    max-width: 80px;
     align-items: center;
     justify-content: center;
     margin-left: auto;

@@ -65,7 +65,7 @@ export default function Dashboard({ company_name, company_id }) {
 
             <div className="main-content">
                 <Head title="Company Dashboard" />
-                <h1 className="company-name">{company_name}</h1>
+                <h1 className="company-name">Welcome To <strong className="text-5xl">{company_name}</strong> </h1>
                 {logoutMessage && (
                     <div className="logout-message">{logoutMessage}</div>
                 )}
@@ -73,7 +73,6 @@ export default function Dashboard({ company_name, company_id }) {
                 <div className="banner-section">
                     <div className="banner">
                         <img src="/company/photo-1549637642-90187f64f420.jpg" alt="Banner 1" />
-                        {/* <h2 className="banner-caption">Welcome to {company_name}</h2> */}
                     </div>
                     <div className="banner">
                         <img src="/company/photo-1504805572947-34fad45aed93.jpg" alt="Banner 2" />

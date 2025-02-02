@@ -364,6 +364,46 @@ class EmployeeController extends Controller
         );
     }
 
+
+    public function employeeEdit(Request $req){
+        $employee = Auth::guard('employee')->user();
+        if($req->wantsJson()){
+            return response()->json([
+                'message' => 'Welcome to the employee Edit Page',
+                'status' => 'success',
+                'employee' => $employee,
+                'code' => '200',
+            ]);
+        }
+        return Inertia::render('Employee/EditProfile',[
+            'message' => 'Welcome to the employee Edit Page',
+            'status' => 'success',
+            'employee' => $employee,
+            'code' => '200',
+        ]);
+
+    }
+
+    public function employeeUpdate(Request $req){
+        $validator = Validator::make($req->all(),[
+            'name' => 'nullable|string|max:50',
+        ]);
+
+        if($validator->fails()){
+            return back()->withErrors($validator)->withInput();
+        }
+
+        $employee = Auth::guard('employee')->user();
+
+        $employee->update([
+            'name' => $req->input('name', $employee->name),
+        ]);
+        
+        return redirect()->route('employee.firstDash')->with(
+            'message', 'Employee Updated Successfully.'
+        );
+    }
+
     public function logout(Request $req)
     {
         Auth::guard('employee')->logout();

@@ -49,7 +49,7 @@ export default function Home({ applicants = [], message}) {
                                 </Link>
                             </li>
                             <li>
-                                <Link href="#" className='sidebar-link'>
+                                <Link href="/employee/edit-profile" className='sidebar-link'>
                                     <FaUserEdit className='icon'/> Edit Profile 
                                 </Link>
                             </li>

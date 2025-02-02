@@ -87,7 +87,7 @@ export default function Create({company_id}) {
                                       </Link>
                                   </li>
                                   <li>
-                                      <a href="#" className="sidebar-link">
+                                      <a href="/company/about" className="sidebar-link">
                                           <FaInfoCircle className="icon" /> About
                                       </a>
                                   </li>

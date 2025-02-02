@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Head, useForm, Link } from '@inertiajs/react';
 import PrimaryButton from '@/Components/PrimaryButton';
 import { FaSignOutAlt, FaUserEdit, FaUsers } from 'react-icons/fa';
@@ -8,6 +8,12 @@ import '../../../css/Employee/chequeHistory.css';
 export default function Cheques({ cheques = [] }) {
 
     const { post } = useForm({});
+    const [getEditing, setEditing] = useState(null);
+
+    const handleEdit = (chequeId) => {
+        setEditing(chequeId);
+        window.location.href = `/employee/cheques/edit/${chequeId}`;
+    }
 
     const handleLogout = (e) => {
         e.preventDefault();
@@ -58,7 +64,14 @@ export default function Cheques({ cheques = [] }) {
                                 <p className="bodys">Account Number: {cheque.account_number}</p>
                                 <p className="bodys">Collected Date: {cheque.collected_date}</p>
                                 <p className="button">Status: {cheque.status}</p>
-                                <a href={`/employee/cheques/edit/${cheque.id}`} className="edit-button">Edit</a>
+                                {/* <a href={`/employee/cheques/edit/${cheque.id}`} className="edit-button">Edit</a> */}
+                                <PrimaryButton
+                                    onClick={() => handleEdit(cheque.id)}
+                                    className="edit-button"
+                                    disabled={getEditing === cheque.id}
+                                >
+                                    {getEditing === cheque.id ? 'Editing...' : 'Edit'}
+                                </PrimaryButton>
                             </div>
                         ))
                     ) : (

@@ -194,6 +194,32 @@ class CompanyController extends Controller
         ]);
     }
 
+    public function aboutCompany(Request $req)
+    {
+        $user = auth('company')->user();
+
+        if (!$user) {
+            return redirect()->route('login');
+        }
+
+        if ($req->wantsJson()) {
+            return response()->json([
+                'message' => 'Welcome to the company dashboard.',
+                'status' => 'success',
+                'company_name' => $user->name,
+                'company_id' => $user->id,
+                'code' => 200,
+            ]);
+        }
+        return Inertia::render('Company/About', [
+            'message' => 'Welcome to your company dashboard.',
+            'status' => 'success',
+            'company_name' => $user->name,
+            'company_id' => $user->id,
+            'code' => 200,
+        ]);
+    }
+
     public function logout(Request $req)
     {
         auth('company')->logout();

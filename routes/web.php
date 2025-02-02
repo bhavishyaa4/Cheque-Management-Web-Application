@@ -13,6 +13,7 @@ Route::get('/company/login', [CompanyController::class, 'loginForm'])->name('log
 Route::post('/company/login', [CompanyController::class, 'login']);
 Route::middleware(['auth:company'])->group(function () {
     Route::get('/company/home', [CompanyController::class, 'home'])->name('home');
+    Route::get('/company/about',[CompanyController::class,'aboutCompany'])->name('about');
     //Routes for Product:
         Route::get('/company/products', [ProductController::class, 'index'])->name('company.products');
         Route::get('/company/products/create', [ProductController::class, 'create'])->name('company.products.create');
@@ -32,7 +33,8 @@ Route::middleware(['auth:company'])->group(function () {
     Route::post('/applicant/register', [ApplicantController::class, 'store']);
     Route::get('/applicant/login', [ApplicantController::class, 'loginForm'])->name('applicant.loginForm');
     Route::post('/applicant/login', [ApplicantController::class, 'login'])->name('applicant.login');
-    Route::get('/applicant/publicdash', [ApplicantController::class,'publicHome'])->name('applicant.publicdash');
+    // Route::get('/applicant/publicdash', [ApplicantController::class,'publicHome'])->name('applicant.publicdash');
+    Route::get('/', [ApplicantController::class,'publicHome'])->name('applicant.publicdash');
     Route::post('/applicant/logout', [ApplicantController::class, 'logout'])->name('applicant.logout');   
     Route::middleware(['auth:applicant'])->group(function () {
         Route::get('/applicant/authdash', [ApplicantController::class, 'specificHome'])->name('applicant.authdash');
@@ -56,6 +58,9 @@ Route::middleware(['auth:company'])->group(function () {
         Route::get('/applicant/{applicantId}/cheques', [EmployeeController::class, 'showCheques'])->name('employee.applicant.cheques');
         Route::get('/cheques/edit/{chequeId}', [EmployeeController::class, 'editCheque'])->name('employee.cheques.edit');
         Route::put('/cheques/update/{chequeId}', [EmployeeController::class, 'updateCheque'])->name('employee.cheques.update');
+        Route::get('/edit-profile', [EmployeeController::class, 'employeeEdit'])->name('editprofile');
+        Route::post('/update-profile', [EmployeeController::class, 'employeeUpdate'])->name('updateprofile');
+
     });
 
 Route::post('/logout', [CompanyController::class, 'logout'])->name('logout');

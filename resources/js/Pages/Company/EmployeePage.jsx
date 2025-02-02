@@ -47,7 +47,7 @@ import '../../../css/Employee/employeeHome.css';
                             </Link>
                         </li>
                         <li>
-                            <Link href="#" className="sidebar-link">
+                            <Link href="/company/about" className="sidebar-link">
                             <FaInfoCircle className="icon"/> About
                             </Link>
                         </li>

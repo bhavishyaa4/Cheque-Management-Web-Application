@@ -22,7 +22,11 @@ export default function EditCheque({ cheque }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        put(`/employee/cheques/update/${cheque.id}`);
+        put(`/employee/cheques/update/${cheque.id}`,{
+            onSuccess: () => {
+                window.confirm('Updated Sucessfully.');
+            }
+        });
     };
 
     const amountInputRef = useRef(null);
@@ -40,12 +44,12 @@ export default function EditCheque({ cheque }) {
                 <div className="sidebar-header">Employee Dashboard</div>
                 <ul className='sidebar-menu'>
                     <li>
-                        <Link href='#' className='sidebar-link'>
+                        <Link href='/employee/dashboard' className='sidebar-link'>
                             <FaUsers className='icon'/> View Users
                         </Link>
                     </li>
                     <li>
-                        <Link href="#" className='sidebar-link'>
+                        <Link href="/employee/edit-profile" className='sidebar-link'>
                             <FaUserEdit className='icon'/> Edit Profile
                         </Link>
                     </li>
@@ -56,10 +60,10 @@ export default function EditCheque({ cheque }) {
                     </PrimaryButton>
                 </div>
             </div>
-            <div className="edit-cheque-container mx-auto">
+            <div className="edit-cheque-container mx-auto animate-fadeIn">
                 <Head title="Edit Cheque" />
                 <form onSubmit={handleSubmit} className='form-container'>
-                    <h2 className='form-title'>Edit Cheque</h2>
+                    <h2 className='form-title text-purple-500'>Edit Cheque</h2>
                         <div className="form-content">
                             <div className='form-group'>
                                 <label htmlFor='amount'>Amount</label>
@@ -67,7 +71,7 @@ export default function EditCheque({ cheque }) {
                                     ref={amountInputRef}
                                     type="number"
                                     id='number'
-                                    className='form-control'
+                                    className='rounded-md border-purple-300 shadow-sm focus:border-purple-500 focus:ring-purple-500 form-control'
                                     name="amount"
                                     value={data.amount}
                                     onChange={(e) => setData('amount', e.target.value)}
@@ -78,7 +82,7 @@ export default function EditCheque({ cheque }) {
                             <div className='form-group'>
                                 <label htmlFor='status'>Status</label>
                                 <select
-                                    className='form-control'
+                                    className='rounded-md border-purple-300 shadow-sm focus:border-purple-500 focus:ring-purple-500 form-control'
                                     name="status"
                                     value={data.status}
                                     onChange={(e) => setData('status', e.target.value)}
@@ -96,7 +100,7 @@ export default function EditCheque({ cheque }) {
                                 <input
                                     type="date"
                                     name="collected_date"
-                                    className='form-control'
+                                    className='rounded-md border-purple-300 shadow-sm focus:border-purple-500 focus:ring-purple-500 form-control'
                                     value={data.collected_date}
                                     onChange={(e) => setData('collected_date', e.target.value)}
                                 />

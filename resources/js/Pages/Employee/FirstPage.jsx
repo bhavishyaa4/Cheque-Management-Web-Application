@@ -31,7 +31,7 @@ export default function FirstPage({employeeName}){
                                 </Link>
                             </li>
                             <li>
-                                <Link href="#" className='sidebar-link'>
+                                <Link href="/employee/edit-profile" className='sidebar-link'>
                                     <FaUserEdit className='icon'/> Edit Profile 
                                 </Link>
                             </li>
@@ -43,8 +43,53 @@ export default function FirstPage({employeeName}){
                             </div>
                     </div>
                     <div className="employee-dash">
-                    <h1>Employee Dashboard</h1>
-                    <p className='start'>Welcome {employeeName} to employee dashboard</p>                       
+                        <h1>Employee Dashboard</h1>
+                        <p className='start'>
+                            <span className="word">
+                                {"Welcome,  ".split("").map((letter, index) => (
+                                    <span key={index} className="letter" style={{ animationDelay: `${index * 0.1}s` }}>
+                                        {letter}
+                                    </span>
+                                ))}
+                            </span>
+                            <span className="word">
+                                {employeeName.split("").map((letter, index) => (
+                                    <span
+                                        key={index}
+                                        className="letter"
+                                        style={{
+                                            animationDelay: `${(index + "Welcome,  ".length) * 0.1}s`,
+                                            fontWeight: 'bold',
+                                            fontSize: '1.5rem',
+                                            fontFamily: 'cursive'
+                                        }}
+                                    >
+                                        {letter}
+                                    </span>
+                                ))}
+                            </span>
+                            <span className="word">
+                                {" To ".split("").map((letter, index) => (
+                                    <span key={index} className="letter" style={{ animationDelay: `${(index + "Welcome,  ".length + employeeName.length) * 0.1}s` }}>
+                                        {letter}
+                                    </span>
+                                ))}
+                            </span>
+                            <span className="word">
+                                {" Employee ".split("").map((letter, index) => (
+                                    <span key={index} className="letter" style={{ animationDelay: `${(index + "Welcome,  ".length + employeeName.length + " to ".length) * 0.1}s` }}>
+                                        {letter}
+                                    </span>
+                                ))}
+                            </span>
+                            <span className="word">
+                                {" Dashboard.".split("").map((letter, index) => (
+                                    <span key={index} className="letter" style={{ animationDelay: `${(index + "Welcome,  ".length + employeeName.length + " to ".length + " Employee ".length) * 0.1}s` }}>
+                                        {letter}
+                                    </span>
+                                ))}
+                            </span>
+                        </p>
                     </div>
                 </div>
             </div>

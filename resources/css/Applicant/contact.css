@@ -64,6 +64,7 @@ label{
     padding: 10px;
     border:1px solid #ccc;
     outline: none;
+    color: black;
 }
 .form-control:focus{
     outline:none;

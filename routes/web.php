@@ -44,6 +44,7 @@ Route::middleware(['auth:company'])->group(function () {
         Route::post('/applicant/buy/{product_id}', [ApplicantController::class, 'submitCheque'])->name('applicant.submitCheque');
         Route::get('/applicant/cheques', [ApplicantController::class, 'cheques'])->name('applicant.cheques');
         Route::get('/applicant/checkout', [ApplicantController::class, 'checkout'])->name('applicant.checkout');
+        Route::get('/applicant/contact',[ApplicantController::class, 'contactUs'])->name('applicant.contact');
     });
 
 //Route for Employee:

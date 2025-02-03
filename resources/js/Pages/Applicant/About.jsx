@@ -44,15 +44,15 @@ export default function Dashboard({ company_name }) {
                         </a>
                     </li>
                     <li>
-                        <a href="#" className="sidebar-link">
-                            <FaPhoneAlt className="icon" /> Contact
-                        </a>
-                    </li>
-                    <li>
                         <a href="/applicant/cheques" className="sidebar-link">
                             <FaMoneyBillAlt className="icon" />Cheque
                         </a>
-                    </li>                    
+                    </li> 
+                    <li>
+                        <a href="#" className="sidebar-link">
+                            <FaPhoneAlt className="icon" /> Contact
+                        </a>
+                    </li>                   
                 </ul>
                 <div className="logout-container">
                     <PrimaryButton onClick={handleLogout} className="logout-button">

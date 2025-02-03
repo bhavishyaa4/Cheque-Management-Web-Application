@@ -61,9 +61,9 @@ export default function EditProfile({ employee }) {
                 </div>
             </div>
                 <div className="edit-cheque-container mx-auto animate-fadeIn">
-                    <h2 className='form-title text-purple-500'>Edit Profile</h2>
                     <form onSubmit={handleSubmit} className='form-container'>
                         <div className="form-content">
+                        <h2 className='form-title text-purple-500'>Edit Profile</h2>
                             <div className="form-group">
                                 <label htmlFor="name">Name</label>
                                 <input

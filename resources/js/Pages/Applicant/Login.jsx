@@ -3,7 +3,6 @@ import { useState,useEffect, useRef } from 'react';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
 import '../../../css/Applicant/applicantLogReg.css'
 
 export default function Login({ company_id, company_name  }) {

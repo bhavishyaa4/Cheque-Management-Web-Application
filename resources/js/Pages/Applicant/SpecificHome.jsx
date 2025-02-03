@@ -108,13 +108,13 @@ export default function SpecificHome({ company }) {
                         </a>
                     </li>
                     <li>
-                        <a href="#" className="sidebar-link">
-                            <FaPhoneAlt className="icon" /> Contact
+                        <a href="/applicant/cheques" className="sidebar-link">
+                            <FaMoneyBillAlt className="icon" />Cheque
                         </a>
                     </li>
                     <li>
-                        <a href="/applicant/cheques" className="sidebar-link">
-                            <FaMoneyBillAlt className="icon" />Cheque
+                        <a href="/applicant/contact" className="sidebar-link">
+                            <FaPhoneAlt className="icon" /> Contact
                         </a>
                     </li>
                 </ul>

@@ -335,6 +335,21 @@ class ApplicantController extends Controller
         ]);
     }
 
+    public function contactUs (Request $req){
+        if($req -> wantsJson()){
+            return response()->json([
+                'message' => 'Welcome To Contact Us Page.',
+                'code' => '201',
+                'status' => 'success',
+            ]);
+        } 
+        return Inertia::render('Applicant/Contact',[
+            'message' => 'Welcome To Contact Us Page.',
+            'status' => 'success',
+            'code' => 201,
+        ]);
+    }
+
     public function logout(Request $req)
     {
         Auth::guard('applicant')->logout();

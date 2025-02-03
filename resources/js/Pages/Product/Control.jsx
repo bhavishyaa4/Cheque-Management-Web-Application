@@ -30,7 +30,7 @@ return (
     <Head title="Product Control" />
     <div className="dashboard-container">
         <div className="sidebar">
-                <div className="sidebar-header">Dashboard</div>
+                <Link href="/company/home" className="sidebar-header">Dashboard</Link>
                 <ul className="sidebar-menu">
                     <li>
                         <Link href="/company/products" className="sidebar-link">

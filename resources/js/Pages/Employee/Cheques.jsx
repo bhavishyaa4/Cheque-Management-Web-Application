@@ -26,7 +26,9 @@ export default function Cheques({ cheques = [] }) {
     return (
         <div className="dashboard-container">
             <div className="sidebar">
-                <div className="sidebar-header">Employee Dashboard</div>
+                        <Link href='/employee/firstDash' className='sidebar-header'>
+                            Employee Dashboard
+                        </Link>
                 <ul className='sidebar-menu'>
                     <li>
                         <Link href="/employee/dashboard" className='sidebar-link'>
@@ -34,7 +36,7 @@ export default function Cheques({ cheques = [] }) {
                         </Link>
                     </li>
                     <li>
-                        <Link href="#" className='sidebar-link'>
+                        <Link href="/employee/edit-profile" className='sidebar-link'>
                             <FaUserEdit className='icon' /> Edit Profile
                         </Link>
                     </li>

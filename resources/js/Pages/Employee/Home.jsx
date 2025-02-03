@@ -41,7 +41,9 @@ export default function Home({ applicants = [], message}) {
             <Head title="Employee Dashboard" />
             <div className="dashboard-container">
                 <div className="sidebar">
-                    <div className="sidebar-header">Employee Dashboard</div>
+                        <Link href='/employee/firstDash' className='sidebar-header'>
+                            Employee Dashboard
+                        </Link>
                         <ul className='sidebar-menu'>
                             <li>
                                 <Link href="/employee/dashboard"className='sidebar-link'>

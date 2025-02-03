@@ -39,7 +39,9 @@ export default function EditProfile({ employee }) {
             <div className="dashboard-container">
                 <Head title = 'Employee Edit Profile'/>
                 <div className="sidebar">
-                <div className="sidebar-header">Employee Dashboard</div>
+                        <Link href='/employee/firstDash' className='sidebar-header'>
+                            Employee Dashboard
+                        </Link>
                 <ul className='sidebar-menu'>
                     <li>
                         <Link href='/employee/dashboard' className='sidebar-link'>

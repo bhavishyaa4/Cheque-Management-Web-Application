@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Head, Link, useForm } from "@inertiajs/react";
 import PrimaryButton from '@/Components/PrimaryButton';
 import '../../../css/companyDashboard.css';
-import { FaBox, FaInfoCircle, FaPhoneAlt, FaSignOutAlt } from "react-icons/fa";
+import { FaBox, FaInfoCircle, FaMoneyBillAlt, FaPhoneAlt, FaSignOutAlt } from "react-icons/fa";
 
 export default function Dashboard({ company_name }) {
     const { post } = useForm();
@@ -31,7 +31,7 @@ export default function Dashboard({ company_name }) {
         <>
         <div className="user-container">
             <div className="sidebar">
-                <div className="sidebar-header">Dashboard</div>
+                <Link href="/applicant/authdash" className="sidebar-header">Dashboard</Link>
                 <ul className="sidebar-menu">
                     <li>
                         <Link href="/applicant/authdash" className="sidebar-link">
@@ -48,6 +48,11 @@ export default function Dashboard({ company_name }) {
                             <FaPhoneAlt className="icon" /> Contact
                         </a>
                     </li>
+                    <li>
+                        <a href="/applicant/cheques" className="sidebar-link">
+                            <FaMoneyBillAlt className="icon" />Cheque
+                        </a>
+                    </li>                    
                 </ul>
                 <div className="logout-container">
                     <PrimaryButton onClick={handleLogout} className="logout-button">

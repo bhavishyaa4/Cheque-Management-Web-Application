@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Head, useForm, Link } from '@inertiajs/react';
 import PrimaryButton from '@/Components/PrimaryButton';
-import { FaBox, FaInfoCircle, FaPhoneAlt, FaSignOutAlt } from 'react-icons/fa';
+import { FaBox, FaInfoCircle, FaMoneyBillAlt, FaPhoneAlt, FaSignOutAlt } from 'react-icons/fa';
 import "../../../css/Applicant/applicantSideBar.css";
 import "../../../css/Applicant/buyProduct.css";
 
@@ -81,7 +81,7 @@ export default function BuyProduct({ products, amount }) {
         <div className="buy-product-container">
             <Head title="Buy Product" />
             <div className="sidebar">
-                <div className="sidebar-header">Dashboard</div>
+                <Link href="/applicant/authdash" className="sidebar-header">Dashboard</Link>
                 <ul className="sidebar-menu">
                     <li>
                         <Link href="/applicant/authdash" className="sidebar-link">
@@ -96,6 +96,11 @@ export default function BuyProduct({ products, amount }) {
                     <li>
                         <a href="#" className="sidebar-link">
                             <FaPhoneAlt className="icon" /> Contact
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/applicant/cheques" className="sidebar-link">
+                            <FaMoneyBillAlt className="icon" />Cheque
                         </a>
                     </li>
                 </ul>

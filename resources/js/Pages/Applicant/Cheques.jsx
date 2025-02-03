@@ -1,6 +1,6 @@
 import React from 'react';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { FaBox, FaInfoCircle, FaPhoneAlt, FaSignOutAlt } from 'react-icons/fa';
+import { FaBox, FaInfoCircle, FaMoneyBillAlt, FaPhoneAlt, FaSignOutAlt } from 'react-icons/fa';
 import '../../../css/Applicant/applicantSideBar.css';
 import '../../../css/Applicant/cheque.css';
 
@@ -20,9 +20,9 @@ export default function Cheques({ cheques = [], company_id  }) {
         <div className="cheques-container">
             <Head title="Cheques Dashboard" />
             <div className="sidebar">
-                <div className="sidebar-header">
+                <Link href="/applicant/authdash" className="sidebar-header">
                     Dashboard
-                </div>
+                </Link>
                 <ul className="sidebar-menu">
                     <li>
                         <Link href="/applicant/authdash" className="sidebar-link">
@@ -37,6 +37,11 @@ export default function Cheques({ cheques = [], company_id  }) {
                     <li>
                         <a href="#" className="sidebar-link">
                             <FaPhoneAlt className="icon" /> Contact
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/applicant/cheques" className="sidebar-link">
+                            <FaMoneyBillAlt className="icon" />Cheque
                         </a>
                     </li>
                 </ul>

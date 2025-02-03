@@ -31,7 +31,7 @@ export default function ProductsPage({company_id}) {
         <Head title="Products Dashboard" />
         <div className="dashboard-container">
             <div className="sidebar">
-                <div className="sidebar-header">Dashboard</div>
+                <Link href='/company/home' className="sidebar-header">Dashboard</Link>
                 <ul className="sidebar-menu">
                     <li>
                         <Link href="/company/products" className="sidebar-link">
@@ -61,7 +61,9 @@ export default function ProductsPage({company_id}) {
                 </div>
             </div>
         <div className="products-page">
-            <h1>Products Page</h1>
+            <Link href='/company/products/home'>
+                <h1>Products Page</h1>
+            </Link>
             <div className="product-options">
                 <Link href="/company/products/home" className="option-button">
                     <PrimaryButton>

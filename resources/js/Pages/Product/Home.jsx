@@ -66,7 +66,7 @@ export default function Home({ products = [], company_id }) {
                         </a>
                     </li>
                     <li>
-                        <a href="#" className="sidebar-link">
+                        <a href="/company/contactus" className="sidebar-link">
                             <FaPhoneAlt className="icon" /> Contact
                         </a>
                     </li>

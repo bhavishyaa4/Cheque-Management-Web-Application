@@ -48,12 +48,12 @@ export default function EmployeeListPage({ company_id, company_name, employees }
                             </Link>
                         </li>
                         <li>
-                            <Link href="#" className="sidebar-link">
+                            <Link href="/company/about" className="sidebar-link">
                                 <FaInfoCircle className="icon" /> About
                             </Link>
                         </li>
                         <li>
-                            <Link href="#" className="sidebar-link">
+                            <Link href="/company/contactus" className="sidebar-link">
                                 <FaPhoneAlt className="icon" /> Contact
                             </Link>
                         </li>

@@ -52,7 +52,7 @@ import '../../../css/Employee/employeeHome.css';
                             </Link>
                         </li>
                         <li>
-                            <Link href="#" className="sidebar-link">
+                            <Link href="/company/contactus" className="sidebar-link">
                             <FaPhoneAlt className="icon"/> Contact
                             </Link>
                         </li>

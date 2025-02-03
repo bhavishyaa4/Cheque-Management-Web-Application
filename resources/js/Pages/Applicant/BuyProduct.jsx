@@ -99,7 +99,7 @@ export default function BuyProduct({ products, amount }) {
                         </a>
                     </li>
                     <li>
-                        <a href="#" className="sidebar-link">
+                        <a href="/applicant/contact" className="sidebar-link">
                             <FaPhoneAlt className="icon" /> Contact
                         </a>
                     </li>

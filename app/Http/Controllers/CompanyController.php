@@ -220,6 +220,30 @@ class CompanyController extends Controller
         ]);
     }
 
+    public function contactUsAdmin (Request $req){
+
+        $user = auth('company')->user();
+        if(!$user){
+            return redirect()->route('login');
+        }
+        if($req -> wantsJson()){
+            return response()->json([
+                'message' => 'Welcome To Contact Us Page.',
+                'code' => 201,
+                'status' => 'success',
+                'company_id' => $user->id,
+                'company_name' => $user->name,
+            ]);
+        } 
+        return Inertia::render('Company/Contact',[
+            'message' => 'Welcome To Contact Us Page.',
+            'status' => 'success',
+            'code' => 201,
+            'company_id' => $user->id,
+            'company_name' => $user->name,
+        ]);
+    }
+
     public function logout(Request $req)
     {
         auth('company')->logout();

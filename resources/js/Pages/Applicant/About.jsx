@@ -49,7 +49,7 @@ export default function Dashboard({ company_name }) {
                         </a>
                     </li> 
                     <li>
-                        <a href="#" className="sidebar-link">
+                        <a href="/applicant/contact" className="sidebar-link">
                             <FaPhoneAlt className="icon" /> Contact
                         </a>
                     </li>                   

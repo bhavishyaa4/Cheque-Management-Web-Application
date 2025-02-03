@@ -49,7 +49,7 @@ export default function ProductsPage({company_id}) {
                         </a>
                     </li>
                     <li>
-                        <a href="#" className="sidebar-link">
+                        <a href="/company/contactus" className="sidebar-link">
                             <FaPhoneAlt className="icon" /> Contact
                         </a>
                     </li>

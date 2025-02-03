@@ -14,6 +14,7 @@ Route::post('/company/login', [CompanyController::class, 'login']);
 Route::middleware(['auth:company'])->group(function () {
     Route::get('/company/home', [CompanyController::class, 'home'])->name('home');
     Route::get('/company/about',[CompanyController::class,'aboutCompany'])->name('about');
+    Route::get('/company/contactus',[CompanyController::class,'contactUsAdmin'])->name('company.contact');
     //Routes for Product:
         Route::get('/company/products', [ProductController::class, 'index'])->name('company.products');
         Route::get('/company/products/create', [ProductController::class, 'create'])->name('company.products.create');

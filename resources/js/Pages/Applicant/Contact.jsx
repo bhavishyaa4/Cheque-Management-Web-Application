@@ -4,13 +4,14 @@ import React, { useEffect } from "react";
 import SideBar from "@/Components/SideBar";
 import '../../../css/companyDashboard.css'
 import '../../../css/Applicant/contact.css'
+import InputError from "@/Components/InputError";
 
 const Contact = () =>{
     
     const {data, errors, setData, post, processing, reset} = useForm({
         name: "",
         email: "",
-        message: "",
+        messageContent: "",
     });
 
     const handleChange = (e) => {
@@ -24,12 +25,12 @@ const Contact = () =>{
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        post(route('applicant.contact'),{
+        post(route('applicant.contact.send'),{
             onError: (errors) => {
                 console.log('Errors:',errors);
             },
            onFinish: () => {
-                reset('name','email','message');
+                reset('name','email','messageContent');
             },
             onSuccess: () => {
                 alert("Message Sent Successfully.")
@@ -55,6 +56,7 @@ const Contact = () =>{
                                 value={data.name}
                                 onChange={handleChange}                               
                                 />
+                                <InputError message={errors.name}/>
                             </div>
                             <div className="form-group">
                                 <label htmlFor="email">Email:</label>
@@ -65,17 +67,19 @@ const Contact = () =>{
                                 value={data.email}
                                 onChange={handleChange}                               
                                 />
+                                <InputError message={errors.email}/>
                             </div>
                             <div className="form-group">
-                                <label htmlFor="message">Message:</label>
+                                <label htmlFor="messageContent">Message:</label>
                                 <textarea type="text"
                                 rows="5"
-                                id="message"
-                                name="message"
+                                id="messageContent"
+                                name="messageContent"
                                 className="rounded-md border-yellow-400 shadow-sm focus:border-yellow-400 focus:ring-yellow-400 form-control"
-                                value={data.message}
+                                value={data.messageContent}
                                 onChange={handleChange}                               
                                 />
+                                <InputError message={errors.messageContent}/>
                             </div>
                         </div>
                         <div className="form-actions">

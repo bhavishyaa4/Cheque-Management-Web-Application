@@ -15,6 +15,7 @@ Route::middleware(['auth:company'])->group(function () {
     Route::get('/company/home', [CompanyController::class, 'home'])->name('home');
     Route::get('/company/about',[CompanyController::class,'aboutCompany'])->name('about');
     Route::get('/company/contactus',[CompanyController::class,'contactUsAdmin'])->name('company.contact');
+    Route::post('/company/contacted',[CompanyController::class, 'sendContactUsAdmin'])->name('company.contact.send');
     //Routes for Product:
         Route::get('/company/products', [ProductController::class, 'index'])->name('company.products');
         Route::get('/company/products/create', [ProductController::class, 'create'])->name('company.products.create');
@@ -46,6 +47,7 @@ Route::middleware(['auth:company'])->group(function () {
         Route::get('/applicant/cheques', [ApplicantController::class, 'cheques'])->name('applicant.cheques');
         Route::get('/applicant/checkout', [ApplicantController::class, 'checkout'])->name('applicant.checkout');
         Route::get('/applicant/contact',[ApplicantController::class, 'contactUs'])->name('applicant.contact');
+        Route::post('/applicant/contact',[ApplicantController::class, 'sendContactUs'])->name('applicant.contact.send');
     });
 
 //Route for Employee:

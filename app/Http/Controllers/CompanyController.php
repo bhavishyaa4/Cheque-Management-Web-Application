@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 
 class CompanyController extends Controller
@@ -243,6 +244,36 @@ class CompanyController extends Controller
             'company_name' => $user->name,
         ]);
     }
+
+    public function sendContactUsAdmin (Request $req){
+        $validator = Validator::make($req->all(),[
+         'name' => 'required|string|max:50',
+         'email' => 'required|email|max:100',
+         'messageContent' => 'required|string|max:1000', 
+        ]);
+ 
+        if($validator->fails()){
+         if($req->wantsJson()){
+             return response()->json([
+                 'message' => 'Please fill the required fields.',
+                 'status' => 'error',
+                 'code' => 201,
+                 'errors' => $validator->errors(),
+                 ]);
+             }
+             return back()->withErrors($validator)->withInput();
+        }
+        Mail::send('emails.companycontact',[
+         'name' => $req->name,
+         'email' => $req->email,
+         'messageContent' => $req->messageContent,
+        ], function($mail) use ($req) {
+         $mail->to('bhavishyasunuwarrai4@gmail.com')
+             ->subject('New Contact Message Form Company.')
+             ->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'))
+             ->replyTo($req->email, $req->name);
+        });
+     }
 
     public function logout(Request $req)
     {

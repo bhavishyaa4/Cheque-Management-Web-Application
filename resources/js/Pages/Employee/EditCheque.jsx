@@ -38,6 +38,16 @@ export default function EditCheque({ cheque }) {
     console.log('Errors:', errors);
     console.log('post:', cheque);
 
+    const getColorStatus = (status) => {
+        switch (status) {
+            case 'Pending': return 'bg-yellow-100 text-yellow-500 border-yellow-400';
+            case 'Hold': return 'bg-orange-100 text-orange-500 border-orange-400';
+            case 'Cancelled': return 'bg-red-100 text-red-500 border-red-400';
+            case 'Completed': return 'bg-green-100 text-green-500 border-green-400';
+            default: return 'bg-gray-100 text-gray-500 border-gray-400';
+        }
+    }
+
     return (
         <div className="dashboard-container">
             <div className="sidebar">
@@ -84,15 +94,15 @@ export default function EditCheque({ cheque }) {
                             <div className='form-group'>
                                 <label htmlFor='status'>Status</label>
                                 <select
-                                    className='rounded-md border-purple-300 shadow-sm focus:border-purple-500 focus:ring-purple-500 form-control'
+                                    className={`rounded-md border-purple-300 shadow-sm focus:border-purple-500 focus:ring-purple-500 form-control ${getColorStatus(data.status)}`}
                                     name="status"
                                     value={data.status}
                                     onChange={(e) => setData('status', e.target.value)}
                                 >
-                                    <option value="pending">Pending</option>
-                                    <option value="hold">Hold</option>
-                                    <option value="cancelled">Cancelled</option>
-                                    <option value="ok">Completed</option>
+                                    <option value="Pending" className='text-yellow-600'>Pending</option>
+                                    <option value="Hold" className='text-orange-600'>Hold</option>
+                                    <option value="Cancelled" className='text-red-600'>Cancelled</option>
+                                    <option value="Completed" className='text-green-600'>Completed</option>
                                 </select>
                                 {errors.status && <div className="error">{errors.status}</div>}
                             </div>

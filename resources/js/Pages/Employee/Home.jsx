@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Head, Link, useForm } from '@inertiajs/react';
 import PrimaryButton from '@/Components/PrimaryButton';
-import { FaSignOutAlt, FaUserEdit, FaUsers } from 'react-icons/fa';
+import { FaSignOutAlt, FaTrash, FaUserEdit, FaUsers } from 'react-icons/fa';
 import '../../../css/companyDashboard.css';
 import '../../../css/Employee/employeeFirstPage.css';
 
 export default function Home({ applicants = [], message}) {
-    const {post} = useForm();
+    const {post, delete: destroy} = useForm();
     const [selectedApplicant, setSelectedApplicant] = useState(null);
     const [cheques, setCheques] = useState([]);
     const [loadingApplicantId, setLoadingApplicantId] = useState(null);
@@ -34,6 +34,20 @@ export default function Home({ applicants = [], message}) {
             onError: () => alert('Failed to load cheques'),
             onFinish: () => setLoadingApplicantId(null),
         });
+    };
+
+    const deleteApplicant = (applicantId) => {
+        const isConfirmed = window.confirm("Are you sure you want to delete this applicant?");
+        if (isConfirmed) {
+            destroy(route('employee.applicant.delete', applicantId), {
+                preserveScroll: true,
+                onSuccess: () => {
+                    alert('Applicant deleted successfully');
+                    window.location.href = "/employee/dashboard"; ;
+                },
+                onError: () => alert('Failed to delete applicant'),
+            });
+        }
     };
 
     return (
@@ -72,6 +86,7 @@ export default function Home({ applicants = [], message}) {
                                     <div key={applicant.id} className="applicant-item">
                                         <strong>{applicant.name}</strong>
                                         <p><strong>Email:</strong> {applicant.email}</p>
+                                        <div className="action-section">
                                         <PrimaryButton
                                             className="show-cheques-btn"
                                             onClick={() => showCheques(applicant.id)}
@@ -79,6 +94,10 @@ export default function Home({ applicants = [], message}) {
                                         >
                                             {loadingApplicantId === applicant.id ? 'Opening...' : 'Show Cheques'}
                                         </PrimaryButton>
+                                        <button className='delete-btn' onClick={() => deleteApplicant(applicant.id)}>
+                                            <FaTrash className='delete-icon' />
+                                        </button>
+                                        </div>
                                     </div>
                                 ))}
                             </div>

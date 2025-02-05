@@ -22,7 +22,7 @@ return new class extends Migration
             $table->date('collected_date');
             $table->string('location');
             $table->string('number');
-            $table->enum('status', ['pending', 'hold', 'cancelled', 'ok'])->default('pending');
+            $table->enum('status', ['Pending', 'Hold', 'Cancelled', 'Completed'])->default('pending');
             $table->timestamps();
         });
     }

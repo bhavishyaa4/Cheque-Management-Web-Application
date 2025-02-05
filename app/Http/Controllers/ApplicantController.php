@@ -322,7 +322,7 @@ class ApplicantController extends Controller
             'collected_date' => $req->collected_date,
             'location' => $req->location,
             'number' => $req->number,
-            'status' => 'pending',
+            'status' => 'Pending',
             // 'company_id' => $companyId,
             'company_id' => Auth::user()->company_id,
         ]);

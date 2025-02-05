@@ -321,7 +321,7 @@ class EmployeeController extends Controller
         }
 
         $validator = Validator::make($req->all(), [
-            'status' => 'required|in:pending,hold,cancelled,ok',
+            'status' => 'required|in:Pending,Hold,Cancelled,Completed',
             'amount' => 'required|numeric',
             'collected_date' => 'required|date',
         ]);
@@ -402,6 +402,34 @@ class EmployeeController extends Controller
         return redirect()->route('employee.firstDash')->with(
             'message', 'Employee Updated Successfully.'
         );
+    }
+
+    public function deleteApplicant (Request $req, $applicantId){
+        $applicant = Applicant::find($applicantId);
+        if(!$applicant){
+            return response()->json([
+                'message' => 'Applicant Not Found.',
+                'status' => 'error',
+                'code' => 401,
+            ]);
+        }
+
+        $applicant->cheques()->delete();
+        $applicant->delete();
+
+        if($req->wantsJson()){
+            return response()->json([
+                'message' => 'Applicant Deleted Successfully.',
+                'status' => 'success',
+                'code' => 201,
+            ]);
+        }
+        // return Inertia::render('Employee/Home',[
+        //     'message' => 'Applicant Deleted Successfully.',
+        //     'status' => 'success',
+        //     'code' => 201,
+        // ]);
+        return redirect()->route('home')->with('message', 'Applicant deleted successfully.');
     }
 
     public function logout(Request $req)

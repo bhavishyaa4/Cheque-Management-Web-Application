@@ -23,6 +23,16 @@ export default function Cheques({ cheques = [] }) {
         }
     };
 
+    const getColorStatus = (status) => {
+        switch (status) {
+            case 'Pending': return 'bg-yellow-100 text-yellow-500 border-yellow-400';
+            case 'Hold': return 'bg-orange-100 text-orange-500 border-orange-400';
+            case 'Cancelled': return 'bg-red-100 text-red-500 border-red-400';
+            case 'Completed': return 'bg-green-100 text-green-500 border-green-400';
+            default: return 'bg-gray-100 text-gray-500 border-gray-400';
+        }
+    };
+
     return (
         <div className="dashboard-container">
             <div className="sidebar">
@@ -65,7 +75,10 @@ export default function Cheques({ cheques = [] }) {
                                 <p className="bodys">Account Holder Name: {cheque.bearer_name}</p>
                                 <p className="bodys">Account Number: {cheque.account_number}</p>
                                 <p className="bodys">Collected Date: {cheque.collected_date}</p>
-                                <p className="button">Status: {cheque.status}</p>
+                                {/* <p className="button">Status: {cheque.status}</p> */}
+                                <p className={`button  rounded-md border px-3 py-1${getColorStatus(cheque.status)}`}>
+                                    Status: {cheque.status}
+                                </p>
                                 {/* <a href={`/employee/cheques/edit/${cheque.id}`} className="edit-button">Edit</a> */}
                                 <PrimaryButton
                                     onClick={() => handleEdit(cheque.id)}

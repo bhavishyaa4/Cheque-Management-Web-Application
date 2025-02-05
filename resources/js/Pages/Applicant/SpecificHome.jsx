@@ -216,11 +216,24 @@ export default function SpecificHome({ company }) {
                 )}
                 <div className="cart-total">
                     <h3 className="amount-total">Total: Rs <em>{getTotalAmount()}</em></h3>
-                    <Link href={route('applicant.buyProduct', {
+                    {/* <Link href={route('applicant.buyProduct', {
                             product_ids: cart.map(item => item.id).join(','),
                             amount: getTotalAmount(),
                         })} className="checkout-button">Go to Checkout
-                    </Link>
+                    </Link> */}
+                    <Link
+                        href={route('applicant.buyProduct', {
+                            product_ids: cart.map(item => item.id).join(','),
+                            amount: getTotalAmount(),
+                            quantities: JSON.stringify(cart.reduce((acc, item) => {
+                                acc[item.id] = item.quantity;
+                                return acc;
+                            }, {}))
+                        })}
+                        className="checkout-button"
+                    >
+                        Go to Checkout
+                    </Link> 
                 </div>
             </div>
         </div>

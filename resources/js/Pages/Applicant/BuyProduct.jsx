@@ -5,7 +5,7 @@ import { FaBox, FaInfoCircle, FaMoneyBillAlt, FaPhoneAlt, FaSignOutAlt } from 'r
 import "../../../css/Applicant/applicantSideBar.css";
 import "../../../css/Applicant/buyProduct.css";
 
-export default function BuyProduct({ products, amount }) {
+export default function BuyProduct({ products, amount, quantities }) {
     const { data, setData, post, errors, processing } = useForm({
         amount: amount || "",
         bank_name: '',
@@ -14,11 +14,15 @@ export default function BuyProduct({ products, amount }) {
         collected_date: '',
         location: '',
         number: '',
-        product_ids: []
+        product_ids: products.map(product => product.id),
+        // quantities: Object.fromEntries(products.map(product => [product.id, quantities[product.id] || 0])),
     });
 
     const [errorMessage, setErrorMessage] = useState('');
     const amountInputRef = useRef(null);
+
+    console.log("Quantities prop:", quantities);
+    console.log(data)
 
     useEffect(() => {
         amountInputRef.current.focus();
@@ -30,10 +34,8 @@ export default function BuyProduct({ products, amount }) {
     };
 
     const handleProductSelection = (e) => {
-        // const { value, checked } = e.target;
-        // setData('product_ids', checked ? [...data.product_ids, value] : data.product_ids.filter(id => id !== value));
         const { value, checked } = e.target;
-        const selectedProduct = products.find((product) => product.id === parseInt(value));
+        setData('product_ids', checked ? [...data.product_ids, value] : data.product_ids.filter(id => id !== value));
     
         if (checked) {
             setData('product_ids', [...data.product_ids, value]);
@@ -53,27 +55,25 @@ export default function BuyProduct({ products, amount }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setErrorMessage('');
 
         if (data.product_ids.length === 0) {
-            setErrorMessage('You must select at least one product.');
+            alert("You must select at least one product.");
             return;
         }
+        const productId = data.product_ids[0];
+        const formData = {
+            ...data,
+            quantities: Object.fromEntries(
+                products.map((product) => [
+                    `quantity_${product.id}`,
+                    quantities[product.id] || 0
+                ])
+            )
+        };
 
-        post(route('applicant.submitCheque', products[0].id), {
-            onError: (err) => {
-                if (err.message) {
-                    setErrorMessage(err.message);
-                } else {
-                    setErrorMessage('An unexpected error occurred. Please try again.');
-                }
-            },
-            onFinish: () => {
-                setErrorMessage('');
-            },
-            onSuccess: () => {
-                alert('Cheque submitted successfully!');
-            }
+        post(route("applicant.submitCheque", { product_id: productId }), {
+            data: formData,
+            onSuccess: () => alert("Cheque submitted successfully!"),
         });
     };
 
@@ -217,13 +217,8 @@ export default function BuyProduct({ products, amount }) {
                             <label>Select Products</label>
                             {products.map((product) => (
                                 <div key={product.id}>
-                                    <input
-                                        type="checkbox"
-                                        id={`product-${product.id}`}
-                                        value={product.id}
-                                        onChange={handleProductSelection}
-                                    />
-                                    <label htmlFor={`product-${product.id}`}>{product.name}</label>
+                                    <p>{product.name}</p>
+                                    <p>Selected Quantity: {quantities[product.id] || 0}</p>                                  
                                 </div>
                             ))}
                         </div>

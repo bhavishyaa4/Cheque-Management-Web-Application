@@ -10,6 +10,7 @@ use App\Rules\UniqueAccountNumber;
 use App\Rules\UniqueEmail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
@@ -276,23 +277,27 @@ class ApplicantController extends Controller
         ]);
     }
 
-    public function buyProduct(Request $req,$product_ids)
-    {
+    public function buyProduct(Request $req, $product_ids)
+{
     $product_ids = explode(',', $product_ids);
     $products = Product::whereIn('id', $product_ids)->get();
     $amount = $req->query('amount', 0);
+    $quantities = json_decode($req->query('quantities', '{}'), true);
+
     return Inertia::render('Applicant/BuyProduct', [
         'products' => $products,
         'amount' => $amount,
+        'quantities' => $quantities, 
         'message' => 'Fill the Cheque details.',
         'status' => 'success',
         'code' => 200,
     ]);
-    }
+}
 
     public function submitCheque(Request $req)
     {
         $companyId = Auth::user()->company_id;
+    
         $validator = Validator::make($req->all(), [
             'amount' => 'required|numeric',
             'bank_name' => 'required|string|max:100',
@@ -308,11 +313,12 @@ class ApplicantController extends Controller
             'number' => 'required|string|max:10',
             'product_ids' => 'required|array|min:1',
         ]);
-
+    
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
-
+    
+        // Create Cheque
         $cheque = Cheque::create([
             'applicant_id' => Auth::id(),
             'amount' => $req->amount,
@@ -323,12 +329,32 @@ class ApplicantController extends Controller
             'location' => $req->location,
             'number' => $req->number,
             'status' => 'Pending',
-            // 'company_id' => $companyId,
-            'company_id' => Auth::user()->company_id,
+            'company_id' => $companyId,
         ]);
-        $cheque->products()->attach($req->product_ids);
-        return redirect()->route('applicant.cheques')->with('message', 'Cheque submitted successfully.');
+    
+        // Attach products to cheque and deduct stock
+        foreach ($req->product_ids as $productId) {
+            $product = Product::find($productId);
+    
+            if ($product) {
+                $quantityField = "quantity_{$productId}";
+    
+                if ($req->has($quantityField)) {
+                    $selectedQuantity = intval($req->$quantityField);
+    
+                    // Ensure stock does not go negative
+                    if ($product->stock >= $selectedQuantity) {
+                        $product->decrement('stock', $selectedQuantity);
+                    } else {
+                        return back()->with('error', "Not enough stock for {$product->name}.");
+                    }
+                }
+            }
+        }
+    
+        return redirect()->route('applicant.cheques')->with('message', 'Cheque submitted successfully, and stock updated.');
     }
+    
 
     public function cheques()
     {

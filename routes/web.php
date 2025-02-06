@@ -65,6 +65,7 @@ Route::middleware(['auth:company'])->group(function () {
         Route::get('/edit-profile', [EmployeeController::class, 'employeeEdit'])->name('editprofile');
         Route::post('/update-profile', [EmployeeController::class, 'employeeUpdate'])->name('updateprofile');
         Route::delete('/applicant/{applicantId}/delete',[EmployeeController::class, 'deleteApplicant'])->name('applicant.delete');
+        Route::delete('/applicant/cheque/{cheque}',[EmployeeController::class, 'deleteCheque'])->name('applicant.cheque.delete');
 
     });
 

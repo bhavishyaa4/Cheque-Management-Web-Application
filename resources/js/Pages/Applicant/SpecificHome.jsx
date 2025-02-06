@@ -4,7 +4,7 @@ import { FaBox, FaInfoCircle, FaPhoneAlt, FaSignOutAlt, FaShoppingCart, FaMoneyB
 import "../../../css/Applicant/authDash.css";
 import "../../../css/Applicant/applicantSideBar.css";
 
-export default function SpecificHome({ company }) {
+export default function SpecificHome({ company, names }) {
     const { post } = useForm();
     const [companyDetails] = useState(company);
     const [selectedQuantities, setSelectedQuantities] = useState({});
@@ -132,6 +132,7 @@ export default function SpecificHome({ company }) {
 
             <div className="product-container">
                 <h1>Welcome to {companyDetails.name} Product Page</h1>
+                <h1 className="text-2xl ">{names}</h1>              
                 <div className="products">
                     {companyDetails.products.map((product) => (
                         <div key={product.id} className="product-card">
@@ -216,24 +217,11 @@ export default function SpecificHome({ company }) {
                 )}
                 <div className="cart-total">
                     <h3 className="amount-total">Total: Rs <em>{getTotalAmount()}</em></h3>
-                    {/* <Link href={route('applicant.buyProduct', {
+                    <Link href={route('applicant.buyProduct', {
                             product_ids: cart.map(item => item.id).join(','),
                             amount: getTotalAmount(),
                         })} className="checkout-button">Go to Checkout
-                    </Link> */}
-                    <Link
-                        href={route('applicant.buyProduct', {
-                            product_ids: cart.map(item => item.id).join(','),
-                            amount: getTotalAmount(),
-                            quantities: JSON.stringify(cart.reduce((acc, item) => {
-                                acc[item.id] = item.quantity;
-                                return acc;
-                            }, {}))
-                        })}
-                        className="checkout-button"
-                    >
-                        Go to Checkout
-                    </Link> 
+                    </Link>
                 </div>
             </div>
         </div>

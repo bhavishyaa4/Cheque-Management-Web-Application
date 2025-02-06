@@ -1,18 +1,34 @@
 import React, { useState } from 'react';
 import { Head, useForm, Link } from '@inertiajs/react';
 import PrimaryButton from '@/Components/PrimaryButton';
-import { FaSignOutAlt, FaUserEdit, FaUsers } from 'react-icons/fa';
+import { FaSignOutAlt, FaTrash, FaUserEdit, FaUsers } from 'react-icons/fa';
 import '../../../css/productSideBar.css';
 import '../../../css/Employee/chequeHistory.css';
 
-export default function Cheques({ cheques = [] }) {
+export default function Cheques({ cheques = [], name }) {
 
-    const { post } = useForm({});
+    const { post, delete:destroy } = useForm({});
     const [getEditing, setEditing] = useState(null);
 
     const handleEdit = (chequeId) => {
         setEditing(chequeId);
         window.location.href = `/employee/cheques/edit/${chequeId}`;
+    }
+
+    const deleteCheque = (chequeId) => {
+        const isConfirmed = window.confirm("Are you sure you want to delete this Cheque?");
+        if(isConfirmed) {
+            destroy(route('employee.applicant.cheque.delete',chequeId),{
+                preserveScroll:true,
+                onSuccess: () => {
+                    alert('Cheque Deleted Successfully.');
+                    window.location.href = "/employee/dashboard";
+                },
+                onError: () => {
+                    alert('Failed to Delete Cheque.');
+                }
+            });
+        };
     }
 
     const handleLogout = (e) => {
@@ -59,7 +75,8 @@ export default function Cheques({ cheques = [] }) {
             </div>
             <div className="cheques-container">
                 <Head title="Cheques Dashboard" />
-                <h1>Cheque History of: {cheques.length > 0 && cheques[0].bearer_name}</h1>
+                {/* <h1>Cheque History of: {cheques.length > 0 && cheques[0].bearer_name}</h1> */}
+                <h1>Cheque History of: {name}</h1>
                 <div className="cheque-list">
                     {cheques.length > 0 ? (
                         cheques.map((cheque) => (
@@ -80,13 +97,17 @@ export default function Cheques({ cheques = [] }) {
                                     Status: {cheque.status}
                                 </p>
                                 {/* <a href={`/employee/cheques/edit/${cheque.id}`} className="edit-button">Edit</a> */}
-                                <PrimaryButton
-                                    onClick={() => handleEdit(cheque.id)}
-                                    className="edit-button"
-                                    disabled={getEditing === cheque.id}
-                                >
-                                    {getEditing === cheque.id ? 'Editing...' : 'Edit'}
-                                </PrimaryButton>
+                                <div className="form-actions">
+                                        <PrimaryButton
+                                        onClick={() => handleEdit(cheque.id)}
+                                        className="edit-button"
+                                        disabled={getEditing === cheque.id}>
+                                        {getEditing === cheque.id ? 'Editing...' : 'Edit'}
+                                    </PrimaryButton>
+                                    <button className='delete-button' onClick={() => deleteCheque(cheque.id)}>
+                                        <FaTrash className='deleted-icon' />
+                                    </button>
+                                </div>
                             </div>
                         ))
                     ) : (

@@ -5,7 +5,7 @@ import { FaBox, FaInfoCircle, FaMoneyBillAlt, FaPhoneAlt, FaSignOutAlt } from 'r
 import "../../../css/Applicant/applicantSideBar.css";
 import "../../../css/Applicant/buyProduct.css";
 
-export default function BuyProduct({ products, amount, quantities }) {
+export default function BuyProduct({ products, amount }) {
     const { data, setData, post, errors, processing } = useForm({
         amount: amount || "",
         bank_name: '',
@@ -14,14 +14,12 @@ export default function BuyProduct({ products, amount, quantities }) {
         collected_date: '',
         location: '',
         number: '',
-        product_ids: products.map(product => product.id),
-        // quantities: Object.fromEntries(products.map(product => [product.id, quantities[product.id] || 0])),
+        product_ids: [],
     });
 
     const [errorMessage, setErrorMessage] = useState('');
     const amountInputRef = useRef(null);
 
-    console.log("Quantities prop:", quantities);
     console.log(data)
 
     useEffect(() => {
@@ -34,9 +32,11 @@ export default function BuyProduct({ products, amount, quantities }) {
     };
 
     const handleProductSelection = (e) => {
+        // const { value, checked } = e.target;
+        // setData('product_ids', checked ? [...data.product_ids, value] : data.product_ids.filter(id => id !== value));
         const { value, checked } = e.target;
-        setData('product_ids', checked ? [...data.product_ids, value] : data.product_ids.filter(id => id !== value));
-    
+        const selectedProduct = products.find((product) => product.id === parseInt(value));
+
         if (checked) {
             setData('product_ids', [...data.product_ids, value]);
             setData('amount', parseFloat(data.amount) + parseFloat(selectedProduct.price));
@@ -55,25 +55,26 @@ export default function BuyProduct({ products, amount, quantities }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        setErrorMessage('');
 
         if (data.product_ids.length === 0) {
-            alert("You must select at least one product.");
+            setErrorMessage('You must select at least one product.');
             return;
         }
-        const productId = data.product_ids[0];
-        const formData = {
-            ...data,
-            quantities: Object.fromEntries(
-                products.map((product) => [
-                    `quantity_${product.id}`,
-                    quantities[product.id] || 0
-                ])
-            )
-        };
-
-        post(route("applicant.submitCheque", { product_id: productId }), {
-            data: formData,
-            onSuccess: () => alert("Cheque submitted successfully!"),
+        post(route('applicant.submitCheque', products[0].id), {
+            onError: (err) => {
+                if (err.message) {
+                    setErrorMessage(err.message);
+                } else {
+                    setErrorMessage('An unexpected error occurred. Please try again.');
+                }
+            },
+            onFinish: () => {
+                setErrorMessage('');
+            },
+            onSuccess: () => {
+                alert('Cheque submitted successfully!');
+            }
         });
     };
 
@@ -217,8 +218,13 @@ export default function BuyProduct({ products, amount, quantities }) {
                             <label>Select Products</label>
                             {products.map((product) => (
                                 <div key={product.id}>
-                                    <p>{product.name}</p>
-                                    <p>Selected Quantity: {quantities[product.id] || 0}</p>                                  
+                                    <input
+                                        type="checkbox"
+                                        id={`product-${product.id}`}
+                                        value={product.id}
+                                        onChange={handleProductSelection}
+                                    />
+                                    <label htmlFor={`product-${product.id}`}>{product.name}</label>
                                 </div>
                             ))}
                         </div>

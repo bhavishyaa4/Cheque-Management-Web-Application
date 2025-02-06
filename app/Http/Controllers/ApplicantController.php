@@ -239,6 +239,7 @@ class ApplicantController extends Controller
                 'message' => 'Welcome to your Company Product Page.',
                 'status' => 'success',
                 'code' => 200,
+                'names' => $applicant->name,
             ]);
         }
         return Inertia::render('Applicant/SpecificHome',[
@@ -246,6 +247,7 @@ class ApplicantController extends Controller
             'message' => 'Welcome to your Company Product Page.',
             'status' => 'success',
             'code' => 200,
+            'names' => $applicant->name,
         ]);
     }
 
@@ -318,7 +320,6 @@ class ApplicantController extends Controller
             return back()->withErrors($validator)->withInput();
         }
     
-        // Create Cheque
         $cheque = Cheque::create([
             'applicant_id' => Auth::id(),
             'amount' => $req->amount,
@@ -332,27 +333,21 @@ class ApplicantController extends Controller
             'company_id' => $companyId,
         ]);
     
-        // Attach products to cheque and deduct stock
-        foreach ($req->product_ids as $productId) {
-            $product = Product::find($productId);
-    
-            if ($product) {
-                $quantityField = "quantity_{$productId}";
-    
-                if ($req->has($quantityField)) {
-                    $selectedQuantity = intval($req->$quantityField);
-    
-                    // Ensure stock does not go negative
-                    if ($product->stock >= $selectedQuantity) {
-                        $product->decrement('stock', $selectedQuantity);
-                    } else {
-                        return back()->with('error', "Not enough stock for {$product->name}.");
-                    }
-                }
-            }
-        }
-    
-        return redirect()->route('applicant.cheques')->with('message', 'Cheque submitted successfully, and stock updated.');
+        $cheque = Cheque::create([
+            'applicant_id' => Auth::id(),
+            'amount' => $req->amount,
+            'bank_name' => $req->bank_name,
+            'bearer_name' => $req->bearer_name,
+            'account_number' => $req->account_number,
+            'collected_date' => $req->collected_date,
+            'location' => $req->location,
+            'number' => $req->number,
+            'status' => 'Pending',
+            // 'company_id' => $companyId,
+            'company_id' => Auth::user()->company_id,
+        ]);
+        $cheque->products()->attach($req->product_ids);
+        return redirect()->route('applicant.cheques')->with('message', 'Cheque submitted successfully.');
     }
     
 

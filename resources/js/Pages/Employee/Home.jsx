@@ -43,7 +43,7 @@ export default function Home({ applicants = [], message}) {
                 preserveScroll: true,
                 onSuccess: () => {
                     alert('Applicant deleted successfully');
-                    window.location.href = "/employee/dashboard"; ;
+                    window.location.href = "/employee/dashboard";
                 },
                 onError: () => alert('Failed to delete applicant'),
             });

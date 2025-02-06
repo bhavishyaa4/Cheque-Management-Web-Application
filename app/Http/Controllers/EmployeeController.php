@@ -100,10 +100,6 @@ class EmployeeController extends Controller
                 'code' => 404
             ]);
         }
-        // $user = auth('company')->user();
-        // if (!$user) {
-        //     return redirect()->route('login');
-        // }
             if($req->wantsJson()){
                 return response()->json([
                     'message' => 'Welcome to the company employee page.',
@@ -277,6 +273,7 @@ class EmployeeController extends Controller
         }
 
         $cheques = $applicant->cheques()->with('products')->get();
+        $user = Auth::guard('applicant')->user();
 
         if ($req->wantsJson()) {
             return response()->json([
@@ -284,6 +281,7 @@ class EmployeeController extends Controller
                 'status' => 'success',
                 'code' => 200,
                 'cheques' => $cheques,
+                'name' => $user->name,
             ]);
         }
 
@@ -292,6 +290,7 @@ class EmployeeController extends Controller
             'status' => 'success',
             'code' => 200,
             'cheques' => $cheques,
+            'name' => $user->name,
         ]);
     }
 
@@ -424,12 +423,32 @@ class EmployeeController extends Controller
                 'code' => 201,
             ]);
         }
-        // return Inertia::render('Employee/Home',[
-        //     'message' => 'Applicant Deleted Successfully.',
-        //     'status' => 'success',
-        //     'code' => 201,
-        // ]);
+
         return redirect()->route('home')->with('message', 'Applicant deleted successfully.');
+    }
+
+    public function deleteCheque(Request $req, $chequeId){
+        $cheque = Cheque::find($chequeId);
+        if(!$cheque){
+            if($req->wantsJson()){
+                return response()->json([
+                    'message' => 'Cheque Not Found.',
+                    'status' => 'error',
+                    'code' => 401,
+                ]);
+            }
+            return redirect()->back()->with('message', 'Cheque Not Found.');
+        }
+        $cheque->delete();
+
+        if($req->wantsJson()){
+            return response()->json([
+                'message' => 'Cheque Deleted Successfully.',
+                'status' => 'success',
+                'code' => 200,
+            ]);
+        }
+        return redirect()->back()->with('message', 'Cheque deleted successfully.');
     }
 
     public function logout(Request $req)

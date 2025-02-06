@@ -31,7 +31,7 @@ export default function Login({ company_id, company_name }) {
                 }
             },
             onFinish: () => {
-                reset();
+                reset('password');
                 setErrorMessage('');
             },
         });

@@ -16,7 +16,7 @@ export default function EditCheque({ cheque }) {
         e.preventDefault();
         const isConfirmed = window.confirm('Are you sure you want to logout?');
         if(isConfirmed){
-            post(route('logout'));
+            post(route('employee.logout'));
         }
     };
 

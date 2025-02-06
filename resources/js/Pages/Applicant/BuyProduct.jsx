@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Head, useForm, Link } from '@inertiajs/react';
 import PrimaryButton from '@/Components/PrimaryButton';
-import { FaBox, FaInfoCircle, FaMoneyBillAlt, FaPhoneAlt, FaSignOutAlt } from 'react-icons/fa';
+import { FaBox, FaInfoCircle, FaMoneyBillAlt, FaPhoneAlt, FaSignOutAlt, FaUserEdit } from 'react-icons/fa';
 import "../../../css/Applicant/applicantSideBar.css";
 import "../../../css/Applicant/buyProduct.css";
 
@@ -32,10 +32,10 @@ export default function BuyProduct({ products, amount }) {
     };
 
     const handleProductSelection = (e) => {
-        // const { value, checked } = e.target;
-        // setData('product_ids', checked ? [...data.product_ids, value] : data.product_ids.filter(id => id !== value));
         const { value, checked } = e.target;
-        const selectedProduct = products.find((product) => product.id === parseInt(value));
+        setData('product_ids', checked ? [...data.product_ids, value] : data.product_ids.filter(id => id !== value));
+        // const { value, checked } = e.target;
+        // const selectedProduct = products.find((product) => product.id === parseInt(value));
 
         if (checked) {
             setData('product_ids', [...data.product_ids, value]);
@@ -104,6 +104,11 @@ export default function BuyProduct({ products, amount }) {
                             <FaPhoneAlt className="icon" /> Contact
                         </a>
                     </li>
+                    <li>
+                        <a href="/applicant/edit-profile" className="sidebar-link">
+                            <FaUserEdit className="icon" /> Edit Profile
+                        </a>
+                    </li>                    
                 </ul>
                 <div className="logout-container">
                     <button onClick={handleLogout} className="logout-button">

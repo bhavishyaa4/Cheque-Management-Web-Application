@@ -319,20 +319,7 @@ class ApplicantController extends Controller
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
-    
-        $cheque = Cheque::create([
-            'applicant_id' => Auth::id(),
-            'amount' => $req->amount,
-            'bank_name' => $req->bank_name,
-            'bearer_name' => $req->bearer_name,
-            'account_number' => $req->account_number,
-            'collected_date' => $req->collected_date,
-            'location' => $req->location,
-            'number' => $req->number,
-            'status' => 'Pending',
-            'company_id' => $companyId,
-        ]);
-    
+        
         $cheque = Cheque::create([
             'applicant_id' => Auth::id(),
             'amount' => $req->amount,
@@ -411,6 +398,44 @@ class ApplicantController extends Controller
             ->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'))
             ->replyTo($req->email, $req->name);
        });
+    }
+
+    public function applicantEdit(Request $req){
+        $user = Auth::guard('applicant')->user();
+        if($req->wantsJson()){
+            return response()->json([
+                'message' => 'Applicant Edit Page.',
+                'status' => 'success',
+                'code' => 200,
+                'user' => $user,
+            ]);
+        }
+        return Inertia::render('Applicant/EditProfile',[
+            'message' => 'Applicant Edit Page.',
+            'status' => 'success',
+            'code' => 200,
+            'user' => $user,
+        ]);
+    }
+    public function applicantUpdate(Request $req){
+        $validator = Validator::make($req->all(),[
+            'name' => 'nullable|string|max:50',
+        ]);
+
+        if($validator->fails()){
+            return back()->withErrors($validator)->withInput();
+        }
+
+        $user = Auth::guard('applicant')->user();
+        // $user->update([
+        //     'name' => $req->input('name', $user->name),
+        // ]);
+        DB::table('applicants')
+        ->where('id', $user->id)
+        ->update([
+            'name' => $req->input('name', $user->name),
+        ]);
+        return redirect()->route('applicant.authdash')->with('message', 'Profile Updated Successfully.');
     }
 
     public function logout(Request $req)

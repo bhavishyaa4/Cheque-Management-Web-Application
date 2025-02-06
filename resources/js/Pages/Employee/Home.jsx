@@ -17,7 +17,7 @@ export default function Home({ applicants = [], message}) {
         e.preventDefault();
         const isConfirmed = window.confirm("Are you sure you want to log out?");
         if(isConfirmed){
-            post(route('logout'));
+            post(route('employee.logout'));
         }
     };
 

@@ -7,6 +7,7 @@ use App\Models\Company;
 use App\Models\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
@@ -394,7 +395,12 @@ class EmployeeController extends Controller
 
         $employee = Auth::guard('employee')->user();
 
-        $employee->update([
+        // $employee->update([
+        //     'name' => $req->input('name', $employee->name),
+        // ]);
+        DB::table('employees')
+        ->where('id', $employee->id)
+        ->update([
             'name' => $req->input('name', $employee->name),
         ]);
         
@@ -456,6 +462,14 @@ class EmployeeController extends Controller
         Auth::guard('employee')->logout();
         $req->session()->invalidate();
         $req->session()->regenerateToken();
+
+        if($req->wantsJson()){
+            return response()->json([
+                'message' => 'Logout Successfully Completed.',
+                'status' => 'success',
+                'code' => 200,
+            ]);
+        }
 
         return redirect()->route('employee.loginForm');
     }

@@ -2,7 +2,7 @@ import { Link, useForm } from "@inertiajs/react";
 import React from "react";
 import PrimaryButton from "@/Components/PrimaryButton";
 import '../../css/companyDashboard.css';
-import { FaBox, FaInfoCircle, FaMoneyBillAlt, FaPhoneAlt, FaSignOutAlt } from "react-icons/fa";
+import { FaBox, FaInfoCircle, FaMoneyBillAlt, FaPhoneAlt, FaSignOutAlt, FaUserEdit } from "react-icons/fa";
 
 const SideBar = () => {
 
@@ -11,7 +11,7 @@ const SideBar = () => {
         e.preventDefault();
         const isConfirmed = window.confirm('Are you sure you want to logout?');
         if(isConfirmed){
-            post(route('logout'));
+            post(route('applicant.logout'));
         }
     };
 
@@ -43,6 +43,11 @@ const SideBar = () => {
                                     <FaPhoneAlt className='icon'/> Contact 
                                 </Link>
                             </li>
+                            <li>
+                                <a href="/applicant/edit-profile" className="sidebar-link">
+                                    <FaUserEdit className="icon" /> Edit Profile
+                                </a>
+                            </li>                            
                         </ul>
                             <div className="logout-container">
                                 <PrimaryButton onClick={handleLogout} className='logout-button'>

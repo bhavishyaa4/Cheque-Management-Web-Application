@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Head, Link, useForm } from "@inertiajs/react";
-import { FaBox, FaInfoCircle, FaPhoneAlt, FaSignOutAlt, FaShoppingCart, FaMoneyBillAlt} from "react-icons/fa";
+import { FaBox, FaInfoCircle, FaPhoneAlt, FaSignOutAlt, FaShoppingCart, FaMoneyBillAlt, FaUserEdit} from "react-icons/fa";
 import "../../../css/Applicant/authDash.css";
 import "../../../css/Applicant/applicantSideBar.css";
 
@@ -115,6 +115,11 @@ export default function SpecificHome({ company, names }) {
                     <li>
                         <a href="/applicant/contact" className="sidebar-link">
                             <FaPhoneAlt className="icon" /> Contact
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/applicant/edit-profile" className="sidebar-link">
+                            <FaUserEdit className="icon" /> Edit Profile
                         </a>
                     </li>
                 </ul>

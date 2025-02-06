@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Head, Link, useForm } from "@inertiajs/react";
 import PrimaryButton from '@/Components/PrimaryButton';
 import '../../../css/Applicant/about.css';
-import { FaTruckMoving, FaHeadset, FaCreditCard, FaBoxOpen, FaRecycle, FaBox, FaInfoCircle, FaMoneyBillAlt, FaPhoneAlt, FaSignOutAlt } from "react-icons/fa";
+import { FaTruckMoving, FaHeadset, FaCreditCard, FaBoxOpen, FaRecycle, FaBox, FaInfoCircle, FaMoneyBillAlt, FaPhoneAlt, FaSignOutAlt, FaUserEdit } from "react-icons/fa";
 
 export default function Dashboard({ company_name }) {
     console.log('Company Name:',company_name);
@@ -53,7 +53,12 @@ export default function Dashboard({ company_name }) {
                         <a href="/applicant/contact" className="sidebar-link">
                             <FaPhoneAlt className="icon" /> Contact
                         </a>
-                    </li>                   
+                    </li>
+                    <li>
+                        <a href="/applicant/edit-profile" className="sidebar-link">
+                            <FaUserEdit className="icon" /> Edit Profile
+                        </a>
+                    </li>                                      
                 </ul>
                 <div className="logout-container">
                     <PrimaryButton onClick={handleLogout} className="logout-button">

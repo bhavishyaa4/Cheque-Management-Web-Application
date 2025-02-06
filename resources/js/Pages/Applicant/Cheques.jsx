@@ -1,6 +1,6 @@
 import React from 'react';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { FaBox, FaInfoCircle, FaMoneyBillAlt, FaPhoneAlt, FaSignOutAlt } from 'react-icons/fa';
+import { FaBox, FaInfoCircle, FaMoneyBillAlt, FaPhoneAlt, FaSignOutAlt, FaUserEdit } from 'react-icons/fa';
 import '../../../css/Applicant/applicantSideBar.css';
 import '../../../css/Applicant/cheque.css';
 
@@ -52,6 +52,11 @@ export default function Cheques({ cheques = [], company_id  }) {
                     <li>
                         <a href="/applicant/contact" className="sidebar-link">
                             <FaPhoneAlt className="icon" /> Contact
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/applicant/edit-profile" className="sidebar-link">
+                            <FaUserEdit className="icon" /> Edit Profile
                         </a>
                     </li>
                 </ul>

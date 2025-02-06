@@ -11,6 +11,7 @@ Route::get('/company/register', [CompanyController::class, 'create'])->name('com
 Route::post('/company/register', [CompanyController::class, 'store'])->name('company.store');
 Route::get('/company/login', [CompanyController::class, 'loginForm'])->name('login');
 Route::post('/company/login', [CompanyController::class, 'login']);
+Route::post('/logout', [CompanyController::class, 'logout'])->name('logout');
 Route::middleware(['auth:company'])->group(function () {
     Route::get('/company/home', [CompanyController::class, 'home'])->name('home');
     Route::get('/company/about',[CompanyController::class,'aboutCompany'])->name('about');
@@ -35,9 +36,9 @@ Route::middleware(['auth:company'])->group(function () {
     Route::post('/applicant/register', [ApplicantController::class, 'store']);
     Route::get('/applicant/login', [ApplicantController::class, 'loginForm'])->name('applicant.loginForm');
     Route::post('/applicant/login', [ApplicantController::class, 'login'])->name('applicant.login');
+    Route::post('/applicant/logout',[ApplicantController::class, 'logout'])->name('applicant.logout');
     // Route::get('/applicant/publicdash', [ApplicantController::class,'publicHome'])->name('applicant.publicdash');
     Route::get('/', [ApplicantController::class,'publicHome'])->name('applicant.publicdash');
-    Route::post('/applicant/logout', [ApplicantController::class, 'logout'])->name('applicant.logout');   
     Route::middleware(['auth:applicant'])->group(function () {
         Route::get('/applicant/authdash', [ApplicantController::class, 'specificHome'])->name('applicant.authdash');
         Route::get('/applicant/about', [ApplicantController::class, 'userHome'])->name('applicant.home');
@@ -48,6 +49,8 @@ Route::middleware(['auth:company'])->group(function () {
         Route::get('/applicant/checkout', [ApplicantController::class, 'checkout'])->name('applicant.checkout');
         Route::get('/applicant/contact',[ApplicantController::class, 'contactUs'])->name('applicant.contact');
         Route::post('/applicant/contact',[ApplicantController::class, 'sendContactUs'])->name('applicant.contact.send');
+        Route::get('/applicant/edit-profile', [ApplicantController::class, 'applicantEdit'])->name('applicant.editprofile');
+        Route::post('/applicant/update-profile', [ApplicantController::class, 'applicantUpdate'])->name('applicant.updateprofile');
     });
 
 //Route for Employee:
@@ -66,7 +69,5 @@ Route::middleware(['auth:company'])->group(function () {
         Route::post('/update-profile', [EmployeeController::class, 'employeeUpdate'])->name('updateprofile');
         Route::delete('/applicant/{applicantId}/delete',[EmployeeController::class, 'deleteApplicant'])->name('applicant.delete');
         Route::delete('/applicant/cheque/{cheque}',[EmployeeController::class, 'deleteCheque'])->name('applicant.cheque.delete');
-
     });
 
-Route::post('/logout', [CompanyController::class, 'logout'])->name('logout');

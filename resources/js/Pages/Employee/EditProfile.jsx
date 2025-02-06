@@ -4,9 +4,10 @@ import { FaSignOutAlt, FaUserEdit, FaUsers } from 'react-icons/fa';
 import PrimaryButton from '@/Components/PrimaryButton';
 import '../../../css/companyDashboard.css';
 import '../../../css/Employee/chequeEdit.css';
+import InputError from '@/Components/InputError';
 
 export default function EditProfile({ employee }) {
-    const { data, setData, post, processing } = useForm({
+    const { data, setData, post, processing, errors } = useForm({
         // name: employee?.name || '', 
         name:employee.name,
     });
@@ -17,13 +18,13 @@ export default function EditProfile({ employee }) {
         e.preventDefault();
         const isConfirmed = window.confirm('Are you sure you want to logout?');
         if(isConfirmed){
-            post(route('logout'));
+            post(route('employee.logout'));
         }
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        post(route('employee.updateprofile'), data ,{
+        post(route('employee.updateprofile') ,{
             onSuccess: () => {
                 window.confirm('Profile Updated Successfully.');
             }
@@ -75,6 +76,7 @@ export default function EditProfile({ employee }) {
                                     value={data.name}
                                     onChange={(e) => setData('name', e.target.value)}
                                 />
+                                <InputError message={errors.name}/>
                             </div>
                         </div>
                         <div className="form-actions">

@@ -273,7 +273,7 @@ class EmployeeController extends Controller
             ], 404);
         }
 
-        $cheques = $applicant->cheques()->with('products')->get();
+        $cheques = $applicant->cheques()->with('products')->get();        
         $user = Auth::guard('applicant')->user();
 
         if ($req->wantsJson()) {

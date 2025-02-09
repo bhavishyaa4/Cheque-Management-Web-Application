@@ -51,7 +51,11 @@ return [
         'employee' => [
             'driver' => 'session',
             'provider' => 'employees',
-        ]
+        ],
+        'superadmin' => [
+            'driver' => 'session',
+            'provider' => 'superadmins'
+        ],
     ],
 
     /*
@@ -88,7 +92,11 @@ return [
         'employees' => [
             'driver' => 'eloquent',
             'model' => App\Models\Employee::class,
-        ]
+        ],
+        'superadmins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\SuperAdmin::class,
+        ],
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',

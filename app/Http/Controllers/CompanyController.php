@@ -56,6 +56,7 @@ class CompanyController extends Controller
             'password' => Hash::make($req->password),
             'address' => $req->address,
             'phone' => $req->phone,
+            'status' => 'Pending',
         ]);
 
         auth('company')->login($user);
@@ -139,6 +140,35 @@ class CompanyController extends Controller
             ]);
         }
 
+        // if($user->status === 'Pending'){
+        //     if($req->wantsJson()){
+        //         return response()->json([
+        //             'message' => 'Your Registration is Under Review.',
+        //             'status' => 'error',
+        //             'code' => 403,
+        //         ]);
+        //     }
+        //     return Inertia::render('Company/Pending',[
+        //         'message' => 'Your Registration is Under Review.',
+        //         'status' => 'error',
+        //         'code' => 403,
+        //     ]) ;
+        // }
+        // else if($user->status === 'Disabled'){
+        //     if($req->wantsJson()){
+        //         return response()->json([
+        //             'message' => 'Your Company is Currenlty Disabled for the moment.',
+        //             'status' => 'error',
+        //             'code' => 403,
+        //         ]);
+        //     }
+        //     return Inertia::render('Company/Disabled',[
+        //         'message' => 'Your Company is Currenlty Disabled for the moment.',
+        //         'status' => 'error',
+        //         'code' => 403,
+        //     ]) ;
+        // }
+
         auth('company')->login($user);
         $req->session()->regenerate();
 
@@ -152,6 +182,7 @@ class CompanyController extends Controller
 
         return redirect()->route('home');
     }
+
 
     public function loginForm(Request $req)
     {

@@ -4,7 +4,21 @@ use App\Http\Controllers\ApplicantController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SuperAdminController;
 use Illuminate\Support\Facades\Route;
+
+
+//Routes for SuperAdmin:
+    Route::get('/superadmin/register',[SuperAdminController::class, 'create'])->name('superadmin.create');
+    Route::post('/superadmin/register',[SuperAdminController::class, 'store'])->name('superadmin.store');
+    Route::get('/superadmin/login',[SuperAdminController::class, 'loginForm'])->name('superadmin.loginForm');
+    Route::post('/superadmin/login',[SuperAdminController::class, 'login'])->name('superadmin.login');
+    Route::post('/superadmin/logout', [SuperAdminController::class, 'logout'])->name('superadmin.logout');
+
+    Route::prefix('superadmin')->name('superadmin.')->middleware(['auth:superadmin'])->group(function () {
+        Route::get('/home',[SuperAdminController::class,'index'])->name('home');
+
+    });
 
 // Routes for Company:
 Route::get('/company/register', [CompanyController::class, 'create'])->name('company.create');
@@ -29,7 +43,6 @@ Route::middleware(['auth:company'])->group(function () {
         Route::get('/company/employees', [EmployeeController::class, 'employeeHome'])->name('company.employee');
         Route::get('/company/employees/{company_id}', [EmployeeController::class, 'viewEmployees'])->name('company.employees');
         Route::delete('/company/employee/{company_id}/{employeeId}', [EmployeeController::class, 'deleteEmployee'])->name('company.employee.delete');
-
 });
 //Route for Applicant:
     Route::get('/applicant/register', [ApplicantController::class, 'create'])->name('applicant.register');

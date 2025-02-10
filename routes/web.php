@@ -36,6 +36,8 @@ Route::middleware(['auth:company'])->group(function () {
     Route::get('/company/about',[CompanyController::class,'aboutCompany'])->name('about');
     Route::get('/company/contactus',[CompanyController::class,'contactUsAdmin'])->name('company.contact');
     Route::post('/company/contacted',[CompanyController::class, 'sendContactUsAdmin'])->name('company.contact.send');
+    Route::get('/company/pending', [CompanyController::class, 'pending'])->name('company.pending');
+    Route::get('/company/disabled', [CompanyController::class, 'disabled'])->name('company.disabled');
     //Routes for Product:
         Route::get('/company/products', [ProductController::class, 'index'])->name('company.products');
         Route::get('/company/products/create', [ProductController::class, 'create'])->name('company.products.create');

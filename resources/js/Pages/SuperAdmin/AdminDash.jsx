@@ -4,8 +4,11 @@ import React, { useState } from "react";
 import { FaBox, FaInfoCircle, FaSignOutAlt, FaTrash, FaCheck, FaTimes } from "react-icons/fa";
 
 const AdminDash = ({ company = [], admin_name, admin_id }) => {
-    const { post, processing } = useForm();
+    const { post } = useForm();
     const [companyList, setCompanyList] = useState(company);
+    const [loadingApprove, setLoadingApprove] = useState(null); // Track which company is being approved
+    const [loadingDisable, setLoadingDisable] = useState(null); // Track which company is being disabled
+
     console.log('Admin Name:', admin_name);
     console.log('Admin ID:', admin_id);
 
@@ -20,8 +23,10 @@ const AdminDash = ({ company = [], admin_name, admin_id }) => {
     const handleApprove = (id) => {
         const isConfirmed = window.confirm("Are you sure you want to approve this company?");
         if (isConfirmed) {
+            setLoadingApprove(id); 
             post(route('superadmin.approveCompany', { id }), {
                 onSuccess: () => {
+                    setLoadingApprove(null); 
                     window.location.href = '/superadmin/home';
                 },
             });
@@ -29,14 +34,16 @@ const AdminDash = ({ company = [], admin_name, admin_id }) => {
     };
 
     const handleDisable = (id) => {
-       const isConfirmed = window.confirm("Are you sure you want to disable this company?");
-       if(isConfirmed){
-        post(route('superadmin.disableCompany', {id}),{
-             onSuccess: () => {
-                window.location.href = '/superadmin/home';
-             }
+        const isConfirmed = window.confirm("Are you sure you want to disable this company?");
+        if (isConfirmed) {
+            setLoadingDisable(id); 
+            post(route('superadmin.disableCompany', { id }), {
+                onSuccess: () => {
+                    setLoadingDisable(null); 
+                    window.location.href = '/superadmin/home';
+                },
             });
-       };
+        }
     };
 
     return (
@@ -72,11 +79,18 @@ const AdminDash = ({ company = [], admin_name, admin_id }) => {
 
                                     <div className="actions">
                                         <div className="action-buttons">
-                                            <PrimaryButton onClick={() => handleApprove(company.id)}>
-                                                <FaCheck /> {processing ? 'Approving...' : 'Approve'}
+                                            <PrimaryButton 
+                                                onClick={() => handleApprove(company.id)}
+                                                disabled={loadingApprove === company.id}
+                                            >
+                                                <FaCheck /> {loadingApprove === company.id ? 'Approving...' : 'Approve'}
                                             </PrimaryButton>
-                                            <PrimaryButton onClick={() => handleDisable(company.id)}>
-                                                <FaTimes /> {processing ? 'Disabling...' : 'Disable'}
+
+                                            <PrimaryButton 
+                                                onClick={() => handleDisable(company.id)}
+                                                disabled={loadingDisable === company.id}
+                                            >
+                                                <FaTimes /> {loadingDisable === company.id ? 'Disabling...' : 'Disable'}
                                             </PrimaryButton>
                                         </div>
                                     </div>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Head, Link, useForm } from '@inertiajs/react';
 import PrimaryButton from '@/Components/PrimaryButton';
-import { FaSignOutAlt, FaUserEdit, FaUsers } from 'react-icons/fa';
+import { FaDraftingCompass, FaSignOutAlt, FaUserEdit, FaUsers } from 'react-icons/fa';
 import '../../../css/companyDashboard.css';
 import '../../../css/Employee/employeeFirstPage.css';
 
@@ -36,6 +36,11 @@ export default function FirstPage({employeeName}){
                             <li>
                                 <Link href="/employee/edit-profile" className='sidebar-link'>
                                     <FaUserEdit className='icon'/> Edit Profile 
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href="/employee/tracker" className='sidebar-link'>
+                                    <FaDraftingCompass className='icon'/> Tracker 
                                 </Link>
                             </li>
                         </ul>

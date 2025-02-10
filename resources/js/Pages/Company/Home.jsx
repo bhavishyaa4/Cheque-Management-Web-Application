@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Head, Link, useForm } from "@inertiajs/react";
 import PrimaryButton from '@/Components/PrimaryButton';
 import '../../../css/companyDashboard.css';
-import { FaBox, FaUserTie, FaInfoCircle, FaPhoneAlt, FaSignOutAlt } from "react-icons/fa";
+import { FaBox, FaUserTie, FaInfoCircle, FaPhoneAlt, FaSignOutAlt, FaDraftingCompass } from "react-icons/fa";
 
 export default function Dashboard({ company_name, company_id }) {
     const { post } = useForm();
@@ -48,6 +48,11 @@ export default function Dashboard({ company_name, company_id }) {
                     <li>
                         <a href="/company/about" className="sidebar-link">
                             <FaInfoCircle className="icon" /> About
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/company/trackers" className="sidebar-link">
+                            <FaDraftingCompass className="icon" /> Tracker
                         </a>
                     </li>
                     <li>

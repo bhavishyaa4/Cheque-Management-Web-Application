@@ -474,6 +474,49 @@ class EmployeeController extends Controller
         return redirect()->route('employee.loginForm');
     }
 
+    public function tracker(Request $request)
+    {
+        $company = Auth::guard('company')->user();
+        
+        $cheques = $company->cheques()->get();
+        $totalCheques = $cheques->count();
+    
+        $chequeCounts = [
+            'pending' => $cheques->where('status', 'Pending')->count(),
+            'hold' => $cheques->where('status', 'Hold')->count(),
+            'cancelled' => $cheques->where('status', 'Cancelled')->count(),
+            'completed' => $cheques->where('status', 'Completed')->count(),
+        ];
+    
+        $totalUsers = $company->applicants()->count();
+        $totalProducts = $company->products()->count();
+        $totalEmployess = $company->employees()->count();
+    
+        if ($request->wantsJson()) {
+            return response()->json([
+                'message' => 'Tracker data retrieved successfully',
+                'status' => 'success',
+                'totalCheques' => $totalCheques,
+                'chequeCounts' => $chequeCounts,
+                'totalUsers' => $totalUsers,
+                'totalProducts'=> $totalProducts,
+                'totalEmployess' => $totalEmployess,
+                'code' => 200,
+            ]);
+        }
+    
+        return Inertia::render('Employee/Tracker', [
+            'message' => 'Tracker data retrieved successfully',
+            'status' => 'success',
+            'totalCheques' => $totalCheques,
+            'chequeCounts' => $chequeCounts,
+            'totalUsers' => $totalUsers,
+            'totalProducts'=> $totalProducts,
+            'totalEmployess' => $totalEmployess,
+            'code' => 200,
+        ]);
+    }
+    
     public function deleteEmployee(Request $req, $company_id, $employeeId){
         $employee = Employee::findOrFail($employeeId);
         $employee->delete();

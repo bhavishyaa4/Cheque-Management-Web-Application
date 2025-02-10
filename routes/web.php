@@ -33,6 +33,7 @@ Route::post('/company/login', [CompanyController::class, 'login']);
 Route::post('/logout', [CompanyController::class, 'logout'])->name('logout');
 Route::middleware(['auth:company'])->group(function () {
     Route::get('/company/home', [CompanyController::class, 'home'])->name('home');
+    Route::get('/company/trackers', [CompanyController::class, 'trackers'])->name('company.trackers');
     Route::get('/company/about',[CompanyController::class,'aboutCompany'])->name('about');
     Route::get('/company/contactus',[CompanyController::class,'contactUsAdmin'])->name('company.contact');
     Route::post('/company/contacted',[CompanyController::class, 'sendContactUsAdmin'])->name('company.contact.send');
@@ -81,6 +82,7 @@ Route::middleware(['auth:company'])->group(function () {
         Route::post('/login', [EmployeeController::class, 'login'])->name('login');
         Route::post('/logout', [EmployeeController::class, 'logout'])->name('logout');
         Route::get('/firstDash',[EmployeeController::class, 'firstPage'])->name('firstDash');
+        Route::get('/tracker', [EmployeeController::class, 'tracker'])->name('tracker');
         Route::get('/dashboard', [EmployeeController::class, 'home'])->name('home');
         Route::get('/applicant/{applicantId}/cheques', [EmployeeController::class, 'showCheques'])->name('employee.applicant.cheques');
         Route::get('/cheques/edit/{chequeId}', [EmployeeController::class, 'editCheque'])->name('employee.cheques.edit');

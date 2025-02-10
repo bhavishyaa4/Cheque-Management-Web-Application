@@ -6,7 +6,7 @@ use App\Models\Company;
 use App\Models\SuperAdmin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
 use PDO;
@@ -245,7 +245,7 @@ class SuperAdminController extends Controller
     }
     
     public function deleteCompany(Request $req, $id){
-        $company = Company::with(['employees', 'products', 'applicants'])->find($id);
+        $company = Company::with(['employees', 'products', 'applicants', 'cheques'])->find($id);
         if(!$company){
             if($req->wantsJson()){
                 return response()->json([
@@ -258,6 +258,7 @@ class SuperAdminController extends Controller
         $company->employees()->delete();
         $company->products()->delete();
         $company->applicants()->delete();
+        $company->cheques()->delete(); 
         $company->delete();
         
         if($req->wantsJson()){
@@ -272,6 +273,58 @@ class SuperAdminController extends Controller
             'status' => 'success',
             'code' => 200,
         ]);
+    }
+
+    public function contactCompany (Request $req){
+        $admin = auth('superadmin')->user();
+        if (!$admin) {
+            return redirect()->route('superadmin.loginForm');
+        }
+        if($req->wantsJson()){
+            return response()->json([
+                'message' => 'Welcome To Contact Us Page.',
+                'code' => 201,
+                'status' => 'success',
+                'admin_name' => $admin->name,
+                'admin_id' => $admin->id,
+            ]);
+        }
+        return Inertia::render('SuperAdmin/SendMail',[
+            'message' => 'Welcome To Contact Us Page.',
+            'code' => 201,
+            'status' => 'success',
+            'admin_name' => $admin->name,
+            'admin_id' => $admin->id,
+        ]);
+    }
+
+    public function sendcontactCompany (Request $req){
+        $validator = Validator::make($req->all(),[
+            'name' => 'required|string|max:50',
+            'email' => 'required|email|string',
+            'messageContent' => 'required|string|max:1000',
+        ]);
+        if($validator->fails()){
+            if($req->wantsJson()){
+                return response()->json([
+                    'message' => 'Please Fill the Required Fields.',
+                    'status' => 'error',
+                    'code' => 201,
+                    'errors' => $validator->errors(),
+                ]);
+            }
+            return back()->withErrors($validator)->withInput();
+        }
+        Mail::send('emails.adminmail',[
+            'name' => $req->name,
+            'email' => $req->email,
+            'messageContent' => $req->messageContent,
+        ], function($mail) use ($req){
+            $mail->to('bhavishyasunuwarrai4@gmail.com')
+                ->subject('Company Status Update.')
+                ->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'))
+                ->replyTo($req->email, $req->name);
+        }); 
     }
 
     public function logout(Request $req){

@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('cheques', function (Blueprint $table) {
-            //
+            // Adding foreign key to 'employee_id'
             $table->foreignId('employee_id')->nullable()->constrained('employees')->onDelete('set null');
         });
     }
@@ -23,7 +23,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('cheques', function (Blueprint $table) {
-            //
+            // Dropping foreign key for 'employee_id' column if it exists
             $table->dropForeign(['employee_id']);
             $table->dropColumn('employee_id');
         });

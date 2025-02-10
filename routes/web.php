@@ -19,6 +19,9 @@ use Illuminate\Support\Facades\Route;
         Route::get('/home',[SuperAdminController::class,'index'])->name('home');
         Route::post('/approvecompany/{id}',[SuperAdminController::class, 'approveCompany'])->name('approveCompany');
         Route::post('/disablecompany/{id}',[SuperAdminController::class, 'disableCompany'])->name('disableCompany');
+        Route::post('delete/{id}', [SuperAdminController::class, 'deleteCompany'])->name('deleteCompany');
+        Route::get('/sendmail',[SuperAdminController::class, 'contactCompany'])->name('contact');
+        Route::post('/processmail',[SuperAdminController::class, 'sendcontactCompany'])->name('send');
 
     });
 

@@ -162,12 +162,19 @@ class SuperAdminController extends Controller
     }
 
     public function index(Request $req){
+        $admin = auth('superadmin')->user();
+
+        if (!$admin) {
+            return redirect()->route('superadmin.loginForm');
+        }
         $company = Company::all();
         if($req->wantsJson()){
             return response()->json([
                 'message' => 'All companies are Fetched.',
                 'status' => 'success',
                 'code' => 201,
+                'admin_name' => $admin->name,
+                'admin_id' => $admin->id,
                 'company' => $company
             ]);
         }
@@ -175,6 +182,8 @@ class SuperAdminController extends Controller
             'message' => 'All companies are Fetched.',
             'status' => 'success',
             'code' => 201,
+            'admin_name' => $admin->name,
+            'admin_id' => $admin->id,
             'company' => $company 
         ]);
     }

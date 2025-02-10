@@ -64,20 +64,20 @@ export default function EditProfile({ employee }) {
                 <div className="edit-cheque-container mx-auto animate-fadeIn">
                     <form onSubmit={handleSubmit} className='form-container'>
                         <div className="form-content">
-                        <h2 className='form-title text-purple-500'>Edit Profile</h2>
-                            <div className="form-group">
-                                <label htmlFor="name">Name</label>
-                                <input
-                                    ref={emailInputRef}
-                                    type="text"
-                                    id="name"
-                                    name="name"
-                                    className='rounded-md border-purple-300 shadow-sm focus:border-purple-500 focus:ring-purple-500 form-control'
-                                    value={data.name}
-                                    onChange={(e) => setData('name', e.target.value)}
-                                />
-                                <InputError message={errors.name}/>
-                            </div>
+                            <h2 className='form-title text-purple-500'>Edit Profile</h2>
+                                <div className="form-group">
+                                    <label htmlFor="name">Name</label>
+                                    <input
+                                        ref={emailInputRef}
+                                        type="text"
+                                        id="name"
+                                        name="name"
+                                        className='rounded-md border-purple-300 shadow-sm focus:border-purple-500 focus:ring-purple-500 form-control'
+                                        value={data.name}
+                                        onChange={(e) => setData('name', e.target.value)}
+                                    />
+                                    <InputError message={errors.name}/>
+                                </div>
                         </div>
                         <div className="form-actions">
                             <PrimaryButton type="submit" className='save-button' disabled={processing}>

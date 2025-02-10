@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 
     Route::prefix('superadmin')->name('superadmin.')->middleware(['auth:superadmin'])->group(function () {
         Route::get('/home',[SuperAdminController::class,'index'])->name('home');
+        Route::post('/approvecompany/{id}',[SuperAdminController::class, 'approveCompany'])->name('approveCompany');
+        Route::post('/disablecompany/{id}',[SuperAdminController::class, 'disableCompany'])->name('disableCompany');
 
     });
 

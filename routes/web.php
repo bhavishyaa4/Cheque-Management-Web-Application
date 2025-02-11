@@ -34,7 +34,11 @@ Route::post('/logout', [CompanyController::class, 'logout'])->name('company.logo
     //Routes for Company Pending and Company Disable:
     Route::get('/company/pending', [CompanyController::class, 'pending'])->name('company.pending');
     Route::get('/company/disabled', [CompanyController::class, 'disabled'])->name('company.disabled');
-    
+    Route::get('/company/productpen',[CompanyController::class, 'productPen'])->name('company.productpen');
+    Route::get('/company/employeepen',[CompanyController::class, 'employeePen'])->name('company.employeetpen');
+    Route::get('/company/aboutpen',[CompanyController::class, 'aboutPen'])->name('company.aboutpen');
+    Route::get('/company/contactpen',[CompanyController::class, 'contactPen'])->name('company.contactpen');
+
 Route::middleware(['auth:company'])->group(function () {
     Route::get('/company/home', [CompanyController::class, 'home'])->name('company.home');
     Route::get('/company/trackers', [CompanyController::class, 'trackers'])->name('company.trackers');

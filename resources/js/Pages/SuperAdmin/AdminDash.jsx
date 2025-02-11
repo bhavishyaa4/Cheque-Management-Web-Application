@@ -1,13 +1,15 @@
 import PrimaryButton from "@/Components/PrimaryButton";
 import { Head, Link, useForm } from "@inertiajs/react";
 import React, { useState } from "react";
-import { FaBox, FaInfoCircle, FaSignOutAlt, FaTrash, FaCheck, FaTimes } from "react-icons/fa";
+import { FaInfoCircle, FaSignOutAlt, FaCheck, FaTimes } from "react-icons/fa";
+import '../../../css/companyDashboard.css'
+import '../../../css/SuperAdmin/adminHome.css'
 
 const AdminDash = ({ company = [], admin_name, admin_id }) => {
     const { post } = useForm();
     const [companyList, setCompanyList] = useState(company);
-    const [loadingApprove, setLoadingApprove] = useState(null); // Track which company is being approved
-    const [loadingDisable, setLoadingDisable] = useState(null); // Track which company is being disabled
+    const [loadingApprove, setLoadingApprove] = useState(null); 
+    const [loadingDisable, setLoadingDisable] = useState(null);
 
     console.log('Admin Name:', admin_name);
     console.log('Admin ID:', admin_id);
@@ -54,7 +56,7 @@ const AdminDash = ({ company = [], admin_name, admin_id }) => {
                     <Link href="/superadmin/home" className="sidebar-header">Admin Dashboard</Link>
                     <ul className="sidebar-menu">
                         <li>
-                            <Link href="/superadmin/sendmail">
+                            <Link href="/superadmin/sendmail" className="sidebar-link">
                                 <FaInfoCircle className="icon" /> Send Email
                             </Link>
                         </li>
@@ -66,7 +68,7 @@ const AdminDash = ({ company = [], admin_name, admin_id }) => {
                     </div>
                 </div>
                 <div className="company-container">
-                    <h1>Company List</h1>
+                    <h1 className="company-header">Company List</h1>
                     <div className="company-list">
                         {companyList.length > 0 ? (
                             companyList.map((company) => (

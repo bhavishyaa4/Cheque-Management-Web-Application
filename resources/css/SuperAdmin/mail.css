@@ -1,0 +1,89 @@
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translate3d(-15px, 0, 0) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translate3d(0,0,0) sacle(1);
+    }
+}
+
+@keyframes shake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-2px);
+    }
+    75% {
+        transform: translateX(2px);
+    }
+}
+
+.animate-fadeIn {
+    animation: fadeIn 0.5s ease-in-out forwards;
+}
+
+.contact-container{
+    flex:1;
+    padding:20px;
+}
+
+.form-container{
+    background: #f9f9f9;
+    max-width: 500px;
+    margin: 10px auto 0;
+    padding:30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-title{
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 1.1rem;
+}
+
+.form-content{
+    margin-bottom: 20px;
+}
+.form-group{
+    margin-bottom: 20px;
+}
+label{
+    display: block;
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: black;
+    margin-bottom: 8px;
+}
+.form-control{
+    width: 100%;
+    padding: 10px;
+    border:1px solid #ccc;
+    outline: none;
+    color: black;
+}
+.form-control:focus{
+    outline:none;
+    animation: shake 0.5s ease-in-out;
+}
+.form-actions{
+    display: flex;
+}
+.save-button{
+    background: linear-gradient(90deg, #FB923C, #F97316);
+    color:white;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 5px;
+    padding: 12px 20px;
+    font-size: 0.9rem;
+    transition: background 0.3s;
+}
+.save-button:hover{
+    background: linear-gradient(90deg, #F97316, #FB923C);
+}

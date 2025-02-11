@@ -2,7 +2,9 @@ import InputError from "@/Components/InputError";
 import PrimaryButton from "@/Components/PrimaryButton";
 import { Head, useForm, Link } from "@inertiajs/react";
 import React, { useEffect } from "react";
-import { FaBox, FaInfoCircle, FaSignOutAlt } from "react-icons/fa";
+import '../../../css/companyDashboard.css'
+import '../../../css/SuperAdmin/mail.css'
+import { FaInfoCircle, FaSignOutAlt } from "react-icons/fa";
 
 const SendMail = ({admin_name, admin_id}) => {
     const {data, post, setData, errors, processing, reset} = useForm({
@@ -53,7 +55,7 @@ const SendMail = ({admin_name, admin_id}) => {
                             <Link href="/superadmin/home" className="sidebar-header">Admin Dashboard</Link>
                             <ul className="sidebar-menu">
                                 <li>
-                                    <Link href="/superadmin/sendmail">
+                                    <Link href="/superadmin/sendmail" className="sidebar-link">
                                         <FaInfoCircle className="icon" /> Send Email
                                     </Link>
                                 </li>
@@ -66,7 +68,7 @@ const SendMail = ({admin_name, admin_id}) => {
                         </div>
             <div className="contact-container mx-auto animate-fadeIn">
                     <form onSubmit={handleSubmit}className="form-container">
-                    <h2 className=" form-title text-purple-500">Company Update</h2>
+                    <h2 className=" form-title text-orange-500">Super Admin Mail</h2>
                         <div className="form-content">
                             <div className="form-group">
                                 <label htmlFor="name">Name:</label>
@@ -74,7 +76,7 @@ const SendMail = ({admin_name, admin_id}) => {
                                 ref={nameInputRef}
                                 id="name"
                                 name="name"
-                                className="rounded-md border-purple-400 shadow-sm focus:border-purple-400 focus:ring-purple-400 form-control"
+                                className="rounded-md border-orange-500 shadow-sm focus:border-orange-600 focus:ring-orange-600 form-control"
                                 value={data.name}
                                 onChange={handleChange}                               
                                 />
@@ -85,7 +87,7 @@ const SendMail = ({admin_name, admin_id}) => {
                                 <input type="email"
                                 id="email"
                                 name="email"
-                                className="rounded-md border-purple-400 shadow-sm focus:border-purple-400 focus:ring-purple-400 form-control"
+                                className="rounded-md border-orange-500 shadow-sm focus:border-orange-600 focus:ring-orange-600 form-control"
                                 value={data.email}
                                 onChange={handleChange}                               
                                 />
@@ -97,7 +99,7 @@ const SendMail = ({admin_name, admin_id}) => {
                                 rows="5"
                                 id="messageContent"
                                 name="messageContent"
-                                className="rounded-md border-purple-400 shadow-sm focus:border-purple-400 focus:ring-purple-400 form-control"
+                                className="rounded-md border-orange-500 shadow-sm focus:border-orange-600 focus:ring-orange-600 form-control"
                                 value={data.messageContent}
                                 onChange={handleChange}                               
                                 />

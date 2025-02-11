@@ -85,14 +85,14 @@ const AdminDash = ({ company = [], admin_name, admin_id }) => {
                                                 onClick={() => handleApprove(company.id)}
                                                 disabled={loadingApprove === company.id}
                                             >
-                                                <FaCheck /> {loadingApprove === company.id ? 'Approving...' : 'Approve'}
+                                                <FaCheck className="approve"  /> {loadingApprove === company.id ? 'Approving...' : 'Approve'}
                                             </PrimaryButton>
 
                                             <PrimaryButton 
                                                 onClick={() => handleDisable(company.id)}
                                                 disabled={loadingDisable === company.id}
                                             >
-                                                <FaTimes /> {loadingDisable === company.id ? 'Disabling...' : 'Disable'}
+                                                <FaTimes className="disable" /> {loadingDisable === company.id ? 'Disabling...' : 'Disable'}
                                             </PrimaryButton>
                                         </div>
                                     </div>

@@ -1,4 +1,4 @@
-import SideBarDis from "@/Components/SideBarDis";
+import SideBarPen from "@/Components/SideBarPen";
 import { Head } from "@inertiajs/react";
 
 const Pending = () => {
@@ -7,7 +7,7 @@ const Pending = () => {
             <>
                 <Head title="Pending Company"/>
                 <div className="dashboard-container">
-                    <SideBarDis />
+                    <SideBarPen />
                 </div>
             </>
         )

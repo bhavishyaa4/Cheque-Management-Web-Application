@@ -308,6 +308,14 @@ class CompanyController extends Controller
         });
      }
 
+     public function productPen(Request $req){
+
+     }
+
+     public function employeePen(Request $req){
+        
+     }
+
     public function logout(Request $req)
     {
         Auth::guard('company')->logout();

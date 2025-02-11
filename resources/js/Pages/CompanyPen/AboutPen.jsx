@@ -8,6 +8,7 @@ const AboutPen = () => {
             <div className="dashboard-container">
                 <SideBarPen />
                     <Head title="About Pending" />
+                    <h1>About Us</h1>
                 </div>        
         </>
     )

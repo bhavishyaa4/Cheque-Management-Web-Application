@@ -3,7 +3,7 @@ import { Head, useForm, Link } from "@inertiajs/react";
 import '../../../css/productSideBar.css';
 import '../../../css/Product/productDashBoardPage.css';
 import PrimaryButton from '@/Components/PrimaryButton';
-import {FaBox, FaUserTie, FaInfoCircle, FaPhoneAlt, FaSignOutAlt, FaPen, FaTrash } from "react-icons/fa";
+import {FaBox, FaUserTie, FaInfoCircle, FaPhoneAlt, FaSignOutAlt, FaPen, FaTrash, FaDraftingCompass } from "react-icons/fa";
 
 export default function Home({ products = [], company_id }) {
     const { delete: deleteProduct, processing } = useForm();
@@ -65,6 +65,11 @@ export default function Home({ products = [], company_id }) {
                             <FaInfoCircle className="icon" /> About
                         </a>
                     </li>
+                        <li>
+                            <a href="/company/trackers" className="sidebar-link">
+                                <FaDraftingCompass className="icon" /> Tracker
+                            </a>
+                        </li> 
                     <li>
                         <a href="/company/contactus" className="sidebar-link">
                             <FaPhoneAlt className="icon" /> Contact

@@ -2,7 +2,7 @@ import { Link, useForm } from "@inertiajs/react";
 import React from "react";
 import PrimaryButton from "@/Components/PrimaryButton";
 import '../../css/companyDashboard.css';
-import { FaBox, FaInfoCircle, FaUserTie, FaPhoneAlt, FaSignOutAlt } from "react-icons/fa";
+import { FaBox, FaInfoCircle, FaUserTie, FaPhoneAlt, FaSignOutAlt, FaDraftingCompass } from "react-icons/fa";
 
 const SideBarAdmin = ({company_name,company_id}) => {
 
@@ -40,6 +40,11 @@ const SideBarAdmin = ({company_name,company_id}) => {
                                     <FaInfoCircle className='icon'/> About 
                                 </Link>
                             </li>
+                            <li>
+                                <a href="/company/trackers" className="sidebar-link">
+                                    <FaDraftingCompass className="icon" /> Tracker
+                                </a>
+                            </li>                           
                             <li>
                                 <Link href="/company/contactus" className='sidebar-link'>
                                     <FaPhoneAlt className='icon'/> Contact 

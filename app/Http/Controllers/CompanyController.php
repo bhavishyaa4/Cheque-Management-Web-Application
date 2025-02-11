@@ -351,6 +351,8 @@ class CompanyController extends Controller
                 'totalUsers' => $totalUsers,
                 'totalProducts'=> $totalProducts,
                 'totalEmployess' => $totalEmployess,
+                'company_id' => $company->id,
+                'company_name' => $company->name,
                 'code' => 200,
             ]);
         }
@@ -363,6 +365,8 @@ class CompanyController extends Controller
             'totalUsers' => $totalUsers,
             'totalProducts'=> $totalProducts,
             'totalEmployess' => $totalEmployess,
+            'company_id' => $company->id,
+            'company_name' => $company->name,
             'code' => 200,
         ]);
     }

@@ -1,7 +1,7 @@
 import React from "react";
 import { Head, Link } from "@inertiajs/react";
 import PrimaryButton from '@/Components/PrimaryButton';
-import { FaUserTie, FaInfoCircle, FaPhoneAlt, FaSignOutAlt, FaPlus, FaBox } from "react-icons/fa";
+import { FaUserTie, FaInfoCircle, FaPhoneAlt, FaSignOutAlt, FaPlus, FaBox, FaDraftingCompass } from "react-icons/fa";
 import '../../../css/productSideBar.css';
 import '../../../css/Product/productHomePage.css';
 
@@ -47,6 +47,11 @@ return (
                             <FaInfoCircle className="icon" /> About
                         </a>
                     </li>
+                        <li>
+                            <a href="/company/trackers" className="sidebar-link">
+                                <FaDraftingCompass className="icon" /> Tracker
+                            </a>
+                        </li> 
                     <li>
                         <a href="/company/contactus" className="sidebar-link">
                             <FaPhoneAlt className="icon" /> Contact

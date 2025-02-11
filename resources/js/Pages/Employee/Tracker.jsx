@@ -1,6 +1,6 @@
 import React from "react";
 import { Head, Link } from "@inertiajs/react";
-import { FaBan, FaChartLine, FaCheckCircle, FaDraftingCompass, FaFileInvoice, FaHourglassHalf, FaPause, FaSignOutAlt, FaUserEdit, FaUsers } from "react-icons/fa";
+import { FaBan, FaChartLine, FaCheckCircle, FaDraftingCompass, FaFileInvoice, FaFileInvoiceDollar, FaHourglassHalf, FaPause, FaPauseCircle, FaRegPauseCircle, FaSignOutAlt, FaUserEdit, FaUsers } from "react-icons/fa";
 import PrimaryButton from "@/Components/PrimaryButton";
 import '../../../css/companyDashboard.css';
 import '../../../css/Employee/tracker.css';
@@ -63,7 +63,7 @@ const Tracker = ({ totalCheques, chequeCounts, totalUsers, totalProducts, totalE
                         <div className="cheque-header">Total Cheques</div>
                         <div className="stats-row">
                             <div className="stat-item">
-                                <FaFileInvoice className="stat-icon" />
+                                <FaFileInvoiceDollar className="stat-icon" />
                                 <div className="stat-value">{totalCheques}</div>
                             </div>
                         </div>

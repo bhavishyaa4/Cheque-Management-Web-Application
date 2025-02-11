@@ -35,7 +35,7 @@ export default function EmployeeListPage({ company_id, company_name, employees }
             <Head title="Employee List" />
             <div className="dashboard-container">
                 <div className="sidebar">
-                    <div className="sidebar-header">Dashboard</div>
+                    <Link href="/company/home" className="sidebar-header">Dashboard</Link>
                     <ul className="sidebar-menu">
                         <li>
                             <Link href="/company/products" className="sidebar-link">
@@ -53,15 +53,15 @@ export default function EmployeeListPage({ company_id, company_name, employees }
                             </Link>
                         </li>
                         <li>
+                                <Link href="/company/trackers" className='sidebar-link'>
+                                    <FaDraftingCompass className='icon'/> Tracker 
+                                </Link>
+                            </li>
+                        <li>
                             <Link href="/company/contactus" className="sidebar-link">
                                 <FaPhoneAlt className="icon" /> Contact
                             </Link>
                         </li>
-                            <li>
-                                <Link href="/employee/tracker" className='sidebar-link'>
-                                    <FaDraftingCompass className='icon'/> Tracker 
-                                </Link>
-                            </li>
                     </ul>
                     <div className="logout-container">
                         <PrimaryButton onClick={handleLogout} className="logout-button">

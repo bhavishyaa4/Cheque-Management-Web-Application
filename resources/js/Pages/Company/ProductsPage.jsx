@@ -3,7 +3,7 @@ import '../../../css/productSideBar.css';
 import '../../../css/Product/productHomePage.css'
 import { Link, Head, useForm } from '@inertiajs/react';
 import PrimaryButton from '@/Components/PrimaryButton';
-import { FaCog, FaBox, FaUserTie, FaInfoCircle, FaPhoneAlt, FaSignOutAlt } from 'react-icons/fa';
+import { FaCog, FaBox, FaUserTie, FaInfoCircle, FaPhoneAlt, FaSignOutAlt, FaDraftingCompass } from 'react-icons/fa';
 
 export default function ProductsPage({company_id}) {
     const { post } = useForm();
@@ -48,6 +48,11 @@ export default function ProductsPage({company_id}) {
                             <FaInfoCircle className="icon" /> About
                         </a>
                     </li>
+                        <li>
+                            <a href="/company/trackers" className="sidebar-link">
+                                <FaDraftingCompass className="icon" /> Tracker
+                            </a>
+                        </li>                     
                     <li>
                         <a href="/company/contactus" className="sidebar-link">
                             <FaPhoneAlt className="icon" /> Contact

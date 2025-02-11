@@ -3,7 +3,7 @@ import '../../../css/productSideBar.css';
 import '../../../css/Product/productEdit.css';
 import { Head, useForm, Link } from "@inertiajs/react";
 import PrimaryButton from '@/Components/PrimaryButton';
-import { FaUserTie, FaBox, FaPhoneAlt, FaSignOutAlt, FaInfoCircle, FaSave, FaArrowLeft } from "react-icons/fa";
+import { FaUserTie, FaBox, FaPhoneAlt, FaSignOutAlt, FaInfoCircle, FaSave, FaArrowLeft, FaDraftingCompass } from "react-icons/fa";
 
 export default function Edit({ product, company_id }) {
   const { data, setData, put, processing, errors } = useForm({
@@ -84,6 +84,11 @@ export default function Edit({ product, company_id }) {
                             <FaInfoCircle className="icon" /> About
                         </a>
                     </li>
+                        <li>
+                            <a href="/company/trackers" className="sidebar-link">
+                                <FaDraftingCompass className="icon" /> Tracker
+                            </a>
+                        </li>                     
                     <li>
                         <a href="/company/contactus" className="sidebar-link">
                             <FaPhoneAlt className="icon" /> Contact

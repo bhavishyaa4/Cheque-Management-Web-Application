@@ -1,6 +1,6 @@
 import React, {useEffect, useRef} from 'react';
 import { useForm, Head, Link } from '@inertiajs/react';
-import { FaSignOutAlt, FaUserEdit, FaUsers } from 'react-icons/fa';
+import { FaDraftingCompass, FaSignOutAlt, FaUserEdit, FaUsers } from 'react-icons/fa';
 import '../../../css/companyDashboard.css';
 import '../../../css/Employee/chequeEdit.css';
 import PrimaryButton from '@/Components/PrimaryButton';
@@ -63,6 +63,11 @@ export default function EditCheque({ cheque }) {
                     <li>
                         <Link href="/employee/edit-profile" className='sidebar-link'>
                             <FaUserEdit className='icon'/> Edit Profile
+                        </Link>
+                    </li>
+                    <li>
+                        <Link href="/employee/tracker" className='sidebar-link'>
+                                <FaDraftingCompass className='icon'/> Tracker 
                         </Link>
                     </li>
                 </ul>

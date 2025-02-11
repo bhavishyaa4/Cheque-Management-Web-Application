@@ -1,7 +1,7 @@
 import React from "react";
 import { Head, Link, useForm } from "@inertiajs/react";
 import PrimaryButton from "@/Components/PrimaryButton";
-import { FaBox, FaInfoCircle, FaPhoneAlt, FaUserTie, FaSignOutAlt, FaTrash } from "react-icons/fa";
+import { FaBox, FaInfoCircle, FaPhoneAlt, FaUserTie, FaSignOutAlt, FaTrash, FaDraftingCompass } from "react-icons/fa";
 import '../../../css/companyDashboard.css';
 import '../../../css/Employee/employeeList.css';
 
@@ -57,6 +57,11 @@ export default function EmployeeListPage({ company_id, company_name, employees }
                                 <FaPhoneAlt className="icon" /> Contact
                             </Link>
                         </li>
+                            <li>
+                                <Link href="/employee/tracker" className='sidebar-link'>
+                                    <FaDraftingCompass className='icon'/> Tracker 
+                                </Link>
+                            </li>
                     </ul>
                     <div className="logout-container">
                         <PrimaryButton onClick={handleLogout} className="logout-button">

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { FaSignOutAlt, FaUserEdit, FaUsers } from 'react-icons/fa';
+import { FaDraftingCompass, FaSignOutAlt, FaUserEdit, FaUsers } from 'react-icons/fa';
 import PrimaryButton from '@/Components/PrimaryButton';
 import '../../../css/companyDashboard.css';
 import '../../../css/Employee/chequeEdit.css';
@@ -53,6 +53,11 @@ export default function EditProfile({ employee }) {
                         <Link href="/employee/edit-profile" className='sidebar-link'>
                             <FaUserEdit className='icon'/> Edit Profile
                         </Link>
+                    </li>
+                    <li>
+                        <Link href="/employee/tracker" className='sidebar-link'>
+                            <FaDraftingCompass className='icon'/> Tracker 
+                         </Link>
                     </li>
                 </ul>
                 <div className="logout-container">

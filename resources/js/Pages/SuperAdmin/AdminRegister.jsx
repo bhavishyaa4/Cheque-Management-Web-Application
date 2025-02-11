@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import InputError from "@/Components/InputError";
 import TextInput from "@/Components/TextInput";
 import InputLabel from "@/Components/InputLabel";
-import '../../../css/companyLogReg.css'
+import '../../../css/SuperAdmin/adminLogReg.css'
 
 const AdminRegister = () => {
     const {data, setData, post, processing, errors, reset} = useForm({
@@ -39,7 +39,7 @@ const AdminRegister = () => {
         <>
             <Head title="Admin Register" />
             <div className="container mx-auto animate-fadeIn">
-                <h2 className="text-3xl text-purple-500 font-bold mb-6 text-center mt-6">Admin Register</h2>
+                <h2 className="text-3xl text-orange-500 font-bold mb-6 text-center mt-6">Admin Register</h2>
                 <form onSubmit={submitHandler}  className="space-y-6 form-container">
                     <div>
                         <InputLabel htmlFor="name" value="Name" />
@@ -50,7 +50,7 @@ const AdminRegister = () => {
                             autoComplete="name"
                             value={data.name}
                             isFocused={true}
-                            className="rounded-md border-purple-300 shadow-sm focus:border-purple-500 focus:ring-purple-500 input-field"
+                            className="rounded-md border-orange-500 shadow-sm focus:border-orange-600 focus:ring-orange-600 input-field"
                             onChange={(e) => setData('name', e.target.value)}
                         />
                         <InputError message={errors.name} />                        
@@ -63,7 +63,7 @@ const AdminRegister = () => {
                             name="email"
                             autoComplete="email"
                             value={data.email}
-                            className="rounded-md border-purple-300 shadow-sm focus:border-purple-500 focus:ring-purple-500 input-field"
+                            className="rounded-md border-orange-500 shadow-sm focus:border-orange-600 focus:ring-orange-600 input-field"
                             onChange={(e) => setData('email', e.target.value)}
                         />
                         <InputError message={errors.email} />                        
@@ -76,7 +76,7 @@ const AdminRegister = () => {
                             name="username"
                             autoComplete="username"
                             value={data.username}
-                            className="rounded-md border-purple-300 shadow-sm focus:border-purple-500 focus:ring-purple-500 input-field"
+                            className="rounded-md border-orange-500 shadow-sm focus:border-orange-600 focus:ring-orange-600 input-field"
                             onChange={(e) => setData('username', e.target.value)}
                         />
                         <InputError message={errors.username} />                        
@@ -89,7 +89,7 @@ const AdminRegister = () => {
                             name="role"
                             autoComplete="role"
                             value={data.role}
-                            className="rounded-md border-purple-300 shadow-sm focus:border-purple-500 focus:ring-purple-500 input-field"
+                            className="rounded-md border-orange-500 shadow-sm focus:border-orange-600 focus:ring-orange-600 input-field"
                             onChange={(e) => setData('role', e.target.value)}
                         />
                         <InputError message={errors.role} />                        
@@ -102,7 +102,7 @@ const AdminRegister = () => {
                             name="password"
                             autoComplete="password"
                             value={data.password}
-                            className="rounded-md border-purple-300 shadow-sm focus:border-purple-500 focus:ring-purple-500 input-field"
+                            className="rounded-md border-orange-500 shadow-sm focus:border-orange-600 focus:ring-orange-600 input-field"
                             onChange={(e) => setData('password', e.target.value)}
                         />
                         <InputError message={errors.password} />                        
@@ -115,7 +115,7 @@ const AdminRegister = () => {
                             name="password_confirmation"
                             autoComplete="password_confirmation"
                             value={data.password_confirmation}
-                            className="rounded-md border-purple-300 shadow-sm focus:border-purple-500 focus:ring-purple-500 input-field"
+                            className="rounded-md border-orange-500 shadow-sm focus:border-orange-600 focus:ring-orange-600 input-field"
                             onChange={(e) => setData('password_confirmation', e.target.value)}
                         />
                         <InputError message={errors.password_confirmation} />                        

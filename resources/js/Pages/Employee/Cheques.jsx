@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Head, useForm, Link } from '@inertiajs/react';
 import PrimaryButton from '@/Components/PrimaryButton';
-import { FaSignOutAlt, FaTrash, FaUserEdit, FaUsers } from 'react-icons/fa';
+import { FaDraftingCompass, FaSignOutAlt, FaTrash, FaUserEdit, FaUsers } from 'react-icons/fa';
 import '../../../css/productSideBar.css';
 import '../../../css/Employee/chequeHistory.css';
 
@@ -66,6 +66,11 @@ export default function Cheques({ cheques = [], name }) {
                             <FaUserEdit className='icon' /> Edit Profile
                         </Link>
                     </li>
+                            <li>
+                                <Link href="/employee/tracker" className='sidebar-link'>
+                                    <FaDraftingCompass className='icon'/> Tracker 
+                                </Link>
+                            </li>                    
                 </ul>
                 <div className="logout-container">
                     <PrimaryButton onClick={handleLogout} className='logout-button'>

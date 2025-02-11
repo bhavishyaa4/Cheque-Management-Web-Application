@@ -2,8 +2,8 @@ import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import { Head, useForm } from "@inertiajs/react";
-import '../../../css/Applicant/applicantLogReg.css'
 import React, { useEffect, useRef, useState } from "react";
+import '../../../css/SuperAdmin/adminLogReg.css';
 
 const AdminLogin = () => {
     const {data, setData, post, processing, errors, reset} = useForm({
@@ -39,7 +39,7 @@ const AdminLogin = () => {
         <>
             <Head title="Login Admin" />
             <div className="container mx-auto animate-fadeIn">
-                <h2 className="text-3xl text-purple-500 font-bold mb-6 text-center mt-6">Admin Login</h2>
+                <h2 className="text-3xl text-orange-500 font-bold mb-6 text-center mt-6">Admin Login</h2>
                 <form onSubmit={submitHandler} className="space-y-6 form-container">
                     <div>
                         <InputLabel htmlFor="email" value="Email" />
@@ -50,7 +50,7 @@ const AdminLogin = () => {
                             name="email"
                             autoComplete="email"
                             value={data.email}
-                            className="rounded-md border-purple-300 shadow-sm focus:border-purple-500 focus:ring-purple-500 input-field"
+                            className="rounded-md border-orange-500 shadow-sm focus:border-orange-600 focus:ring-orange-600 input-field"
                             onChange={(e) => setData('email', e.target.value)}
                         />
                         <InputError message={errors.email} />
@@ -63,7 +63,7 @@ const AdminLogin = () => {
                             name="password"
                             autoComplete="password"
                             value={data.password}
-                            className="rounded-md border-purple-300 shadow-sm focus:border-purple-500 focus:ring-purple-500 input-field"
+                            className="rounded-md border-orange-500 shadow-sm focus:border-orange-600 focus:ring-orange-600 input-field"
                             onChange={(e) => setData('password', e.target.value)}
                         />
                         <InputError message={errors.password} />

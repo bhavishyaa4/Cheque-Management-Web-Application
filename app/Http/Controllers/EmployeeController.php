@@ -471,7 +471,7 @@ class EmployeeController extends Controller
             ]);
         }
 
-        return redirect()->route('employee.loginForm');
+        return redirect()->route('employee.login');
     }
 
     public function tracker(Request $request)

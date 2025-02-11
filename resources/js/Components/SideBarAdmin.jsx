@@ -13,7 +13,7 @@ const SideBarAdmin = ({company_name,company_id}) => {
         e.preventDefault();
         const isConfirmed = window.confirm('Are you sure you want to logout?');
         if(isConfirmed){
-            post(route('logout'));
+            post(route('company.logout'));
         }
     };
 

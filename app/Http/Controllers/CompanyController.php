@@ -69,7 +69,7 @@ class CompanyController extends Controller
             ]);
         }
 
-        return redirect()->route('login')->with('message', 'Company created successfully.');
+        return redirect()->route('company.loginForm')->with('message', 'Company created successfully.');
     }
 
         public function login(Request $req)
@@ -182,7 +182,7 @@ class CompanyController extends Controller
                 ]);
             }
 
-            return redirect()->route('home');
+            return redirect()->route('company.home');
         }
 
 
@@ -207,7 +207,7 @@ class CompanyController extends Controller
         $user = auth('company')->user();
 
         if (!$user) {
-            return redirect()->route('login');
+            return redirect()->route('company.loginForm');
         }
 
         if ($req->wantsJson()) {
@@ -233,7 +233,7 @@ class CompanyController extends Controller
         $user = auth('company')->user();
 
         if (!$user) {
-            return redirect()->route('login');
+            return redirect()->route('company.loginForm');
         }
 
         if ($req->wantsJson()) {
@@ -258,7 +258,7 @@ class CompanyController extends Controller
 
         $user = auth('company')->user();
         if(!$user){
-            return redirect()->route('login');
+            return redirect()->route('company.loginForm');
         }
         if($req -> wantsJson()){
             return response()->json([
@@ -310,7 +310,7 @@ class CompanyController extends Controller
 
     public function logout(Request $req)
     {
-        auth('company')->logout();
+        Auth::guard('company')->logout();
         $req->session()->invalidate();
         $req->session()->regenerateToken();
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Company;
 use App\Models\SuperAdmin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
@@ -328,7 +329,7 @@ class SuperAdminController extends Controller
     }
 
     public function logout(Request $req){
-        auth('superadmin')->logout();
+        Auth::guard('superadmin')->logout();
         $req->session()->invalidate();
         $req->session()->regenerateToken();
 
@@ -339,6 +340,6 @@ class SuperAdminController extends Controller
                 'code' => 200,
             ]);
         }
-        return redirect()->route('superadmin.loginForm')->with('message', 'You Have Logged-Out Successfully !! To Enter the AdminDash Page !! Login Again.');
+        return redirect()->route('superadmin.login');
     }
 }

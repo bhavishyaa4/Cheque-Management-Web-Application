@@ -28,11 +28,11 @@ use Illuminate\Support\Facades\Route;
 // Routes for Company:
 Route::get('/company/register', [CompanyController::class, 'create'])->name('company.create');
 Route::post('/company/register', [CompanyController::class, 'store'])->name('company.store');
-Route::get('/company/login', [CompanyController::class, 'loginForm'])->name('login');
-Route::post('/company/login', [CompanyController::class, 'login']);
-Route::post('/logout', [CompanyController::class, 'logout'])->name('logout');
+Route::get('/company/login', [CompanyController::class, 'loginForm'])->name('company.loginForm');
+Route::post('/company/login', [CompanyController::class, 'login'])->name('login');
+Route::post('/logout', [CompanyController::class, 'logout'])->name('company.logout');
 Route::middleware(['auth:company'])->group(function () {
-    Route::get('/company/home', [CompanyController::class, 'home'])->name('home');
+    Route::get('/company/home', [CompanyController::class, 'home'])->name('company.home');
     Route::get('/company/trackers', [CompanyController::class, 'trackers'])->name('company.trackers');
     Route::get('/company/about',[CompanyController::class,'aboutCompany'])->name('about');
     Route::get('/company/contactus',[CompanyController::class,'contactUsAdmin'])->name('company.contact');

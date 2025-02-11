@@ -16,7 +16,7 @@ import '../../../css/Employee/employeeHome.css';
         const isConfirmed = window.confirm("Are you sure you want to log out?");
 
         if (isConfirmed) {
-            post(route('logout'), {
+            post(route('company.logout'), {
                 onSuccess: (response) => {
                     console.log('Logout Response:', response);
                     setLogoutMessage(response.message || "You have logged out successfully!");

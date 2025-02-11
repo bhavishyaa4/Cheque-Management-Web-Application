@@ -19,7 +19,7 @@ export default function Login() {
     const submit = (e) => {
         e.preventDefault();
         
-        post(route('login'), {
+        post(route('company.loginForm'), {
             onError: (err) => {
                 if (err.message) {
                     setErrorMessage(err.message);

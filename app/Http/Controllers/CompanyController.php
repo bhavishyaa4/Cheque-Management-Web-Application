@@ -309,11 +309,123 @@ class CompanyController extends Controller
      }
 
      public function productPen(Request $req){
-
+        if($req->wantsJson()){
+            return response()->json([
+                'message' => 'Pending Product Page.',
+                'status' => 'success',
+                'code' => 201,
+            ]);
+        }
+        return Inertia::render('CompanyPen/ProductPen',[
+            'message' => 'Pending Product Page.',
+            'status' => 'success',
+            'code' => 201,
+        ]);
      }
 
      public function employeePen(Request $req){
-        
+        if($req->wantsJson()){
+            return response()->json([
+                'message' => 'Pending Employee Page.',
+                'status' => 'success',
+                'code' => 201,
+            ]);
+        }
+        return Inertia::render('CompanyPen/EmployeePen',[
+            'message' => 'Pending Employee Page.',
+            'status' => 'success',
+            'code' => 201,
+        ]);
+     }
+
+     public function aboutPen(Request $req){
+        if($req->wantsJson()){
+            return response()->json([
+                'message' => 'Pending About Page.',
+                'status' => 'success',
+                'code' => 201,
+            ]);
+        }
+        return Inertia::render('CompanyPen/AboutPen',[
+            'message' => 'Pending About Page.',
+            'status' => 'success',
+            'code' => 201,
+        ]);
+     }
+
+     public function contactPen(Request $req){
+        if($req->wantsJson()){
+            return response()->json([
+                'message' => 'Pending Contact Page.',
+                'status' => 'success',
+                'code' => 201,
+            ]);
+        }
+        return Inertia::render('CompanyPen/ContactPen',[
+            'message' => 'Pending Contact Page.',
+            'status' => 'success',
+            'code' => 201,
+        ]);
+     }
+
+     public function productDis(Request $req){
+        if($req->wantsJson()){
+            return response()->json([
+                'message' => 'Disable Product Page.',
+                'status' => 'success',
+                'code' => 201,
+            ]);
+        }
+        return Inertia::render('CompanyDis/ProductDis',[
+            'message' => 'Disable Product Page.',
+            'status' => 'success',
+            'code' => 201,
+        ]);
+     }
+
+     public function employeeDis(Request $req){
+        if($req->wantsJson()){
+            return response()->json([
+                'message' => 'Disable Employee Page.',
+                'status' => 'success',
+                'code' => 201,
+            ]);
+        }
+        return Inertia::render('CompanyDis/EmployeeDis',[
+            'message' => 'Disable Employee Page.',
+            'status' => 'success',
+            'code' => 201,
+        ]);
+     }
+
+     public function aboutDis(Request $req){
+        if($req->wantsJson()){
+            return response()->json([
+                'message' => 'Disable About Page.',
+                'status' => 'success',
+                'code' => 201,
+            ]);
+        }
+        return Inertia::render('CompanyDis/AboutDis',[
+            'message' => 'Disable About Page.',
+            'status' => 'success',
+            'code' => 201,
+        ]);
+     }
+
+     public function contactDis(Request $req){
+        if($req->wantsJson()){
+            return response()->json([
+                'message' => 'Disable Contact Page.',
+                'status' => 'success',
+                'code' => 201,
+            ]);
+        }
+        return Inertia::render('CompanyDis/ContactDis',[
+            'message' => 'Disable Contact Page.',
+            'status' => 'success',
+            'code' => 201,
+        ]);
      }
 
     public function logout(Request $req)

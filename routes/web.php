@@ -31,17 +31,16 @@ Route::post('/company/register', [CompanyController::class, 'store'])->name('com
 Route::get('/company/login', [CompanyController::class, 'loginForm'])->name('company.loginForm');
 Route::post('/company/login', [CompanyController::class, 'login'])->name('login');
 Route::post('/logout', [CompanyController::class, 'logout'])->name('company.logout');
+    //Routes for Company Pending and Company Disable:
+    Route::get('/company/pending', [CompanyController::class, 'pending'])->name('company.pending');
+    Route::get('/company/disabled', [CompanyController::class, 'disabled'])->name('company.disabled');
+    
 Route::middleware(['auth:company'])->group(function () {
     Route::get('/company/home', [CompanyController::class, 'home'])->name('company.home');
     Route::get('/company/trackers', [CompanyController::class, 'trackers'])->name('company.trackers');
     Route::get('/company/about',[CompanyController::class,'aboutCompany'])->name('about');
     Route::get('/company/contactus',[CompanyController::class,'contactUsAdmin'])->name('company.contact');
     Route::post('/company/contacted',[CompanyController::class, 'sendContactUsAdmin'])->name('company.contact.send');
-
-    //Routes for Company Pending and Company Disable:
-    Route::get('/company/pending', [CompanyController::class, 'pending'])->name('company.pending');
-    Route::get('/company/disabled', [CompanyController::class, 'disabled'])->name('company.disabled');
-    
     //Routes for Product:
         Route::get('/company/products', [ProductController::class, 'index'])->name('company.products');
         Route::get('/company/products/create', [ProductController::class, 'create'])->name('company.products.create');

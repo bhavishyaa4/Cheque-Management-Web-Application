@@ -18,27 +18,27 @@ const SideBarPen = () => {
             <>
                 <div className="dashboard-container">
                     <div className="sidebar">
-                        <Link href='' className='sidebar-header'>
+                        <Link href='/company/pending' className='sidebar-header'>
                              Dashboard
                         </Link>
                         <ul className='sidebar-menu'>
                             <li>
-                                <Link href=""className='sidebar-link'>
+                                <Link href="/company/productpen"className='sidebar-link'>
                                     <FaBox className='icon'/> Products
                                 </Link>
                             </li>
                             <li>
-                                <Link href="" className="sidebar-link">
+                                <Link href="/company/employeepen" className="sidebar-link">
                                     <FaUserTie className='icon'/> Employee 
                                 </Link>
                             </li>
                             <li>
-                                <Link href="" className='sidebar-link'>
+                                <Link href="/company/aboutpen" className='sidebar-link'>
                                     <FaInfoCircle className='icon'/> About 
                                 </Link>
                             </li>
                             <li>
-                                <Link href="" className='sidebar-link'>
+                                <Link href="/company/contactpen" className='sidebar-link'>
                                     <FaPhoneAlt className='icon'/> Contact 
                                 </Link>
                             </li>

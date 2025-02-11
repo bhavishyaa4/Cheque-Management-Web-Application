@@ -16,27 +16,27 @@ const SideBarDis = () => {
         <>
             <div className="dashboard-container">
                 <div className="sidebar">
-                    <Link href='' className='sidebar-header'>
+                    <Link href='/company/disabled' className='sidebar-header'>
                          Dashboard
                     </Link>
                     <ul className='sidebar-menu'>
                         <li>
-                            <Link href=""className='sidebar-link'>
+                            <Link href="/company/productdis"className='sidebar-link'>
                                 <FaBox className='icon'/> Products
                             </Link>
                         </li>
                         <li>
-                            <Link href="" className="sidebar-link">
+                            <Link href="/company/employeedis" className="sidebar-link">
                                 <FaUserTie className='icon'/> Employee 
                             </Link>
                         </li>
                         <li>
-                            <Link href="" className='sidebar-link'>
+                            <Link href="/company/aboutdis" className='sidebar-link'>
                                 <FaInfoCircle className='icon'/> About 
                             </Link>
                         </li>
                         <li>
-                            <Link href="" className='sidebar-link'>
+                            <Link href="/company/contactdis" className='sidebar-link'>
                                 <FaPhoneAlt className='icon'/> Contact 
                             </Link>
                         </li>

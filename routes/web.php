@@ -41,7 +41,7 @@ Route::post('/logout', [CompanyController::class, 'logout'])->name('company.logo
     Route::get('/company/productdis',[CompanyController::class, 'productDis'])->name('company.productdis');
     Route::get('/company/employeedis',[CompanyController::class, 'employeeDis'])->name('company.productdis');
     Route::get('/company/aboutdis',[CompanyController::class, 'aboutDis'])->name('company.aboutdis');
-    Route::get('/company/contactdis',[CompanyController::class, 'contactDis'])->name('company.contactdis');
+    Route::get('/company/contactdis',[CompanyController::class, 'contactDis'])->name('company.dis');
 Route::middleware(['auth:company'])->group(function () {
     Route::get('/company/home', [CompanyController::class, 'home'])->name('company.home');
     Route::get('/company/trackers', [CompanyController::class, 'trackers'])->name('company.trackers');

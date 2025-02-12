@@ -491,8 +491,9 @@ class CompanyController extends Controller
         ]);
     }
 
-    public function pending()
+    public function pending(Request $req)
     {
+
         return Inertia::render('Company/Pending', [
             'message' => 'Your Registration is Under Review.',
             'status' => 'error',

@@ -6,6 +6,16 @@ import '../../css/companyDashboard.css';
 
 const SideBarPen = () => {
 
+    const handleLoginRedirect = (companyId, companyEmail) => {
+        const pendingCompanies = JSON.parse(localStorage.getItem('pendingCompanies')) || [];
+        
+        if (!pendingCompanies.some(company => company.id === companyId)) {
+            pendingCompanies.push({ id: companyId, email: companyEmail });
+            localStorage.setItem('pendingCompanies', JSON.stringify(pendingCompanies));
+        }
+
+        window.location.href = `/company/pending?company_id=${companyId}&email=${companyEmail}`;
+    }
         const handleLogout = (e) => {
             e.preventDefault();
             const isConfirmed = window.confirm('Are you sure you want to logout?');

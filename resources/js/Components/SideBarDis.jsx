@@ -15,7 +15,6 @@ const SideBarDis = () => {
     return (
         <>
             <div className="dashboard-container">
-                {/* {Hello Nepal} */}
                 <div className="sidebar">
                     <Link href='/company/disabled' className='sidebar-header'>
                          Dashboard

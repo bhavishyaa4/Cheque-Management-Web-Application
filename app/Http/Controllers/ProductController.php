@@ -67,7 +67,7 @@ class ProductController extends Controller
             'name' => 'required|string|max:50',
             'description' => 'required|string|max:500',
             'price' => 'required|numeric',
-            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg',
             'stock' => 'required|numeric',
         ]);
 
@@ -149,39 +149,39 @@ class ProductController extends Controller
     public function update(Request $req, $id)
     {
         $product = Product::findOrFail($id);
-    
+
         $validator = Validator::make($req->all(), [
             'name' => 'nullable|string|max:50',
             'description' => 'nullable|string|max:500',
             'price' => 'nullable|numeric',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048', 
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'stock' => 'nullable|numeric',
         ]);
-    
+
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
-    
-        $product->name = $req->input('name', $product->name); 
+
+        $product->name = $req->input('name', $product->name);
         $product->description = $req->input('description', $product->description);
         $product->price = $req->input('price', $product->price);
         $product->stock = $req->input('stock', $product->stock);
-    
+
         if ($req->hasFile('image')) {
 
             if ($product->image && file_exists(public_path('uploads/products/' . $product->image))) {
                 unlink(public_path('uploads/products/' . $product->image));
             }
             Log::info('Image deleted successfully.');
-    
+
             $imageExtension = $req->file('image')->getClientOriginalExtension();
             $imageName = time() . '.' . $imageExtension;
             $req->file('image')->move(public_path('uploads/products'), $imageName);
             $product->image = $imageName;
         }
-    
+
         $product->save();
-    
+
         return redirect()->route('company.products')->with('message', 'Product Updated Successfully.');
     }
 
